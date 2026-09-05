@@ -37,9 +37,12 @@ document.querySelectorAll('.nav-toggle').forEach((btn) => {
 });
 
 document.querySelectorAll('.newsletter-form').forEach((form) => {
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const email = form.querySelector('input[type="email"]').value;
-    window.location.href = `mailto:info@ziezezingen.be?subject=Nieuwsbrief&body=Schrijf mij in met ${encodeURIComponent(email)}`;
+  form.addEventListener('submit', () => {
+    const success = form.parentElement.querySelector('.newsletter-success');
+    setTimeout(() => {
+      form.reset();
+      form.hidden = true;
+      if (success) success.hidden = false;
+    }, 600);
   });
 });

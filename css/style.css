@@ -352,6 +352,12 @@ h1, h2, h3, .display {
   height: 18px;
 }
 
+.newsletter-success {
+  color: var(--teal);
+  font-weight: 600;
+  font-size: 18px;
+}
+
 /* Contact */
 .contact-block {
   min-height: 70vh;
