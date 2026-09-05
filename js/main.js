@@ -36,6 +36,33 @@ document.querySelectorAll('.nav-toggle').forEach((btn) => {
   });
 });
 
+const videoModal = document.getElementById('videoModal');
+if (videoModal) {
+  const frame = document.getElementById('videoModalFrame');
+
+  function openVideoModal(youtubeId) {
+    frame.src = `https://www.youtube-nocookie.com/embed/${youtubeId}?autoplay=1`;
+    videoModal.hidden = false;
+  }
+
+  function closeVideoModal() {
+    videoModal.hidden = true;
+    frame.src = '';
+  }
+
+  document.querySelectorAll('.video-card[data-youtube-id]').forEach((card) => {
+    card.addEventListener('click', () => openVideoModal(card.dataset.youtubeId));
+  });
+
+  videoModal.querySelectorAll('[data-close-modal]').forEach((el) => {
+    el.addEventListener('click', closeVideoModal);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !videoModal.hidden) closeVideoModal();
+  });
+}
+
 document.querySelectorAll('.newsletter-form').forEach((form) => {
   form.addEventListener('submit', () => {
     const success = form.parentElement.querySelector('.newsletter-success');

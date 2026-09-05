@@ -30,41 +30,63 @@
   <main>
     <section class="video-grid-section">
       <div class="video-grid">
-        <div class="video-card">
-          <img src="assets/images/video-thumb-dolly-parton.jpg" alt="Ode aan Dolly Parton">
-          <div class="video-card-title">Ode aan<br>Dolly Parton</div>
-        </div>
-        <div class="video-card">
-          <img src="assets/images/video-thumb-troostconcert.jpg" alt="Troostconcert">
-          <div class="video-card-title">Troostconcert</div>
-        </div>
-        <div class="video-card">
-          <img src="assets/images/video-thumb-teenage-dirtbag.jpg" alt="Teenage Dirtbag">
-          <div class="video-card-title">Teenage Dirtbag</div>
-        </div>
-        <div class="video-card">
-          <img src="assets/images/video-thumb-abba-1.jpg" alt="ABBA">
-          <div class="video-card-title">ABBA!</div>
-        </div>
-        <div class="video-card">
-          <img src="assets/images/video-thumb-5000-stemmen.jpg" alt="5000 stemmen">
-          <div class="video-card-title">5000 stemmen!</div>
-        </div>
-        <div class="video-card">
-          <img src="assets/images/video-thumb-ode-aan-ivago.jpg" alt="Ode aan Ivago">
-          <div class="video-card-title">ode aan Ivago</div>
-        </div>
-        <div class="video-card">
-          <img src="assets/images/video-thumb-troostkoor.jpg" alt="Troostkoor">
-          <div class="video-card-title">Troost-koor</div>
-        </div>
-        <div class="video-card">
-          <img src="assets/images/video-thumb-abba-2.jpg" alt="ABBA">
-          <div class="video-card-title">ABBA!</div>
-        </div>
+        <button class="video-card" data-youtube-id="x8NwgaOOt4o">
+          <img src="https://i.ytimg.com/vi/x8NwgaOOt4o/hqdefault.jpg" alt="All Night Long - Sing-along Party" loading="lazy">
+          <span class="video-card-title">ALL NIGHT LONG<br><small>Sing-along Party</small></span>
+        </button>
+        <button class="video-card" data-youtube-id="HFy5xXEgNsY">
+          <img src="https://i.ytimg.com/vi/HFy5xXEgNsY/hqdefault.jpg" alt="ZZZ in VRT Journaal" loading="lazy">
+          <span class="video-card-title">ZZZ IN VRT JOURNAAL<br><small>Voor de Warmste Week</small></span>
+        </button>
+        <button class="video-card" data-youtube-id="rdY73Sp3UY8">
+          <img src="https://i.ytimg.com/vi/rdY73Sp3UY8/hqdefault.jpg" alt="Heroes - Concert bij VIERNULVIER" loading="lazy">
+          <span class="video-card-title">HEROES<br><small>Concert bij VIERNULVIER</small></span>
+        </button>
+        <button class="video-card" data-youtube-id="beoLfBZ02FM">
+          <img src="https://i.ytimg.com/vi/beoLfBZ02FM/hqdefault.jpg" alt="Venus - Concertzaal De Centrale" loading="lazy">
+          <span class="video-card-title">VENUS!<br><small>Concertzaal De Centrale</small></span>
+        </button>
+        <button class="video-card" data-youtube-id="LvcoiOBHAis">
+          <img src="https://i.ytimg.com/vi/LvcoiOBHAis/hqdefault.jpg" alt="ABBA! op Gentse Feesten" loading="lazy">
+          <span class="video-card-title">ABBA!<br><small>op Gentse Feesten</small></span>
+        </button>
+        <button class="video-card" data-youtube-id="AnT4McF95sc">
+          <img src="https://i.ytimg.com/vi/AnT4McF95sc/hqdefault.jpg" alt="Teenage Dirtbag" loading="lazy">
+          <span class="video-card-title">TEENAGE DIRTBAG<br><small>Jong &amp; oud zingen voluit!</small></span>
+        </button>
+        <a class="video-card" href="https://www.youtube.com/playlist?list=PLMDr-6yeafuE" target="_blank" rel="noopener">
+          <img src="assets/images/video-thumb-dolly-parton.jpg" alt="Ode aan Dolly Parton - Pop-Up Straatkoor" loading="lazy">
+          <span class="video-card-title">ODE AAN DOLLY PARTON<br><small>Pop-Up Straatkoor</small></span>
+        </a>
+        <button class="video-card" data-youtube-id="HKIWkdldnho">
+          <img src="https://i.ytimg.com/vi/HKIWkdldnho/hqdefault.jpg" alt="Troostconcert voor Stad Gent" loading="lazy">
+          <span class="video-card-title">TROOSTCONCERT<br><small>voor Stad Gent</small></span>
+        </button>
+        <button class="video-card" data-youtube-id="tn5iQJzLtmw">
+          <img src="https://i.ytimg.com/vi/tn5iQJzLtmw/hqdefault.jpg" alt="Ed Sheeran - Singalong Troost-koor" loading="lazy">
+          <span class="video-card-title">ED SHEERAN<br><small>Singalong Troost-koor</small></span>
+        </button>
+        <button class="video-card" data-youtube-id="triGBgKH7C8">
+          <img src="https://i.ytimg.com/vi/triGBgKH7C8/hqdefault.jpg" alt="Teenage Concert - CC-schoolvoorstelling" loading="lazy">
+          <span class="video-card-title">TEENAGE CONCERT<br><small>CC-schoolvoorstelling</small></span>
+        </button>
+        <button class="video-card" data-youtube-id="wgPp8N7BAto">
+          <img src="https://i.ytimg.com/vi/wgPp8N7BAto/hqdefault.jpg" alt="Inclusie in Concert - OKAN Aalst" loading="lazy">
+          <span class="video-card-title">INCLUSIE!<br><small>in Concert</small></span>
+        </button>
       </div>
     </section>
   </main>
+
+  <div class="video-modal" id="videoModal" hidden>
+    <div class="video-modal-backdrop" data-close-modal></div>
+    <div class="video-modal-content">
+      <button class="video-modal-close" aria-label="Sluiten" data-close-modal>&times;</button>
+      <div class="video-modal-frame">
+        <iframe id="videoModalFrame" src="" title="YouTube video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
 
   <footer class="site-footer">
     <div class="footer-inner">

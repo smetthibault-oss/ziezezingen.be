@@ -414,26 +414,122 @@ h1, h2, h3, .display {
   border-radius: 24px;
   overflow: hidden;
   aspect-ratio: 550/309;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: block;
+  font-family: inherit;
+  text-decoration: none;
 }
 
 .video-card img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.video-card:hover img {
+  transform: scale(1.05);
 }
 
 .video-card .video-card-title {
   position: absolute;
   inset: 0;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   color: var(--teal);
-  font-size: clamp(22px, 3vw, 40px);
+  font-family: 'Kumbh Sans', sans-serif;
+  font-weight: 700;
+  font-size: clamp(18px, 2.4vw, 32px);
   text-shadow: 0 0 12px var(--teal), 0 0 4px var(--teal);
   padding: 16px;
-  background: rgba(0,0,0,0.15);
+  background: rgba(0,0,0,0.25);
+  line-height: 1.3;
+}
+
+.video-card .video-card-title small {
+  font-size: 0.5em;
+  font-weight: 400;
+  color: var(--cream);
+  text-shadow: none;
+  opacity: 0.9;
+}
+
+.video-card::after {
+  content: '▶';
+  position: absolute;
+  bottom: 14px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.55);
+  color: var(--cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+/* Video modal */
+.video-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.video-modal[hidden] {
+  display: none;
+}
+
+.video-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+}
+
+.video-modal-content {
+  position: relative;
+  width: min(960px, 100%);
+  z-index: 1;
+}
+
+.video-modal-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: #000;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.video-modal-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.video-modal-close {
+  position: absolute;
+  top: -44px;
+  right: 0;
+  background: none;
+  border: none;
+  color: var(--cream);
+  font-size: 32px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 8px;
 }
 
 /* Full-page hero titles (Events/Video/Contact standalone pages) */
