@@ -3,10 +3,127 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Zie Ze Zingen — nieuwe site</title>
+  <title>Zie Ze Zingen! — Belgische singalong community</title>
+  <meta name="description" content="Zie Ze Zingen is de Belgische singalong community van Geertrui Coppens en Jasper De Mulder. Blijmakende samenzangconcerten op festivals, in concertzalen en culturele centra.">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <h1>Nieuwe website in opbouw</h1>
-  <p>Dit is de testomgeving voor de nieuwe versie van ziezezingen.be.</p>
+
+  <header class="site-header">
+    <div class="navbar">
+      <a href="index.html" class="logo"><img src="assets/images/logo.png" alt="Zie Ze Zingen"></a>
+      <button class="nav-toggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      <nav class="nav-links" id="navLinks">
+        <a href="#community">Wie zijn we?</a>
+        <a href="events.html">Events</a>
+        <a href="video.html">Video</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <a href="#newsletter" class="nav-cta">Schrijf je in voor onze nieuwsbrief!</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="section hero">
+      <img src="assets/images/hero-bg.jpg" alt="Publiek tijdens een Zie Ze Zingen concert — &quot;Samen zingen is thuiskomen bij onbekenden&quot;" class="section-bg">
+      <div class="section-overlay"></div>
+      <div class="hero-dots">
+        <img src="assets/icons/slider-dot.svg" alt="">
+        <img src="assets/icons/slider-dot.svg" alt="">
+        <img src="assets/icons/slider-dot.svg" alt="">
+        <img src="assets/icons/slider-dot-active.svg" alt="">
+        <img src="assets/icons/slider-dot.svg" alt="">
+      </div>
+    </section>
+
+    <section id="community" class="section community">
+      <img src="assets/images/community-bg.jpg" alt="Zie Ze Zingen community publiek" class="section-bg">
+      <div class="section-overlay"></div>
+      <div class="section-content">
+        <p>Zie Ze Zingen is de Belgische singalong community van Geertrui Coppens en Jasper De Mulder. Onze samenzangconcerten zijn blijmakende programmaties op festivals, in concertzalen en culturele centra. Met humor en een reeks uitgekiende zangtechnieken zorgen wij als &lsquo;zangopzwepers&rsquo; voor magie: we transformeren het publiek in een verbluffend, meerstemmig koor. Hierdoor ontstaat een wonderlijke samenhorigheid tussen volstrekt onbekenden. De lage instapdrempel en hoge wow-factor zorgen keer op keer voor kippenvel.</p>
+        <p>Kunstencentrum VIERNULVIER in Gent is een van onze vaste partners. Ook Trefpunt ziet ons graag jaarlijks terugkomen op de Gentse Feesten, waar honderden mensen uitkijken naar de speelse singalong-avonden. In de donkere maanden brengen we dan weer troost met serene samenzangconcerten op begraafplaatsen en in culturele centra. We koesteren zowel onze kleinschalige koorprojecten als de magische samenzangprojecten voor een groot publiek.</p>
+        <p>Daarnaast zetten we ons steeds vaker in met inclusieve projecten. Zo brengen we mensen samen via samenzangconcerten met OKAN-klassen, volwassen anderstaligen, bewoners van woonzorgcentra en mensen met (jong)dementie.</p>
+      </div>
+    </section>
+
+    <a href="events.html" class="section-link">
+      <section class="section preview-block">
+        <img src="assets/images/events-preview-bg.jpg" alt="Publiek met lichtjes tijdens een event" class="section-bg">
+        <div class="section-overlay"></div>
+        <div class="section-content">
+          <h2 class="section-title">EVENTS</h2>
+        </div>
+      </section>
+    </a>
+
+    <a href="video.html" class="section-link">
+      <section class="section preview-block" style="background:#000;">
+        <div class="section-content">
+          <div class="video-frame">
+            <img src="assets/images/video-preview.jpg" alt="Videobeeld van Zie Ze Zingen">
+            <h2 class="section-title">VIDEO</h2>
+          </div>
+        </div>
+      </section>
+    </a>
+
+    <section id="newsletter" class="section newsletter">
+      <img src="assets/images/newsletter-bg.jpg" alt="Publiek geniet van een concert" class="section-bg">
+      <div class="section-overlay"></div>
+      <div class="section-content">
+        <p class="newsletter-text">Laat hieronder je emailadres achter voor zorgvuldig gedoseerde nieuwsbrieven. Zo ben je niet afhankelijk van social media om op de hoogte te blijven van onze initiatieven.</p>
+        <form class="newsletter-form" action="#" method="post">
+          <input type="email" name="email" placeholder="Vul hier je email-adres in" required>
+          <button type="submit" aria-label="Verzenden"><img src="assets/icons/mail-icon.svg" alt=""></button>
+        </form>
+      </div>
+    </section>
+
+    <a href="contact.html" class="section-link">
+      <section class="section contact-block">
+        <img src="assets/images/contact-preview-bg.jpg" alt="Zie Ze Zingen op de zijspanmotor" class="section-bg">
+        <div class="section-overlay"></div>
+        <div class="section-content page-hero" style="min-height:60vh;">
+          <h2 class="section-title">CONTACT</h2>
+        </div>
+      </section>
+    </a>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <p class="brand-name">Zie Ze Zingen!</p>
+          <p class="brand-tagline">Belgische Singalong Community<br>van Geertrui Coppens &amp; Jasper De Mulder</p>
+        </div>
+        <nav class="footer-nav">
+          <a href="#community">Wie zijn we?</a>
+          <a href="events.html">Events</a>
+          <a href="video.html">Video</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+        <a href="#newsletter" class="footer-cta">
+          Schrijf je in voor onze nieuwsbrief!
+          <img src="assets/icons/arrow-right.svg" alt="">
+        </a>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copyright">
+          <p>© 2026 Zie Ze Zingen!</p>
+          <p>© Foto - Sarah Vanheuverzwijn</p>
+          <p>© Video - Sabine Vanderlinden</p>
+        </div>
+        <div class="social-icons">
+          <a href="#" aria-label="Instagram"><img src="assets/icons/instagram.svg" alt=""></a>
+          <a href="#" aria-label="Facebook"><img src="assets/icons/facebook.svg" alt=""></a>
+          <a href="#" aria-label="YouTube"><img src="assets/icons/youtube.svg" alt=""></a>
+          <a href="#" aria-label="TikTok"><img src="assets/icons/tiktok.svg" alt=""></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
 </body>
 </html>
