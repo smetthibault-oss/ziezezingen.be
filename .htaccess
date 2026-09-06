@@ -1,2 +1,9 @@
+RewriteEngine On
+RewriteBase /
+
 DirectoryIndex index.html
-Options +MultiViews
+
+# /events -> events.html, /video -> video.html, /contact -> contact.html
+RewriteRule ^events/?$ events.html [L]
+RewriteRule ^video/?$ video.html [L]
+RewriteRule ^contact/?$ contact.html [L]
