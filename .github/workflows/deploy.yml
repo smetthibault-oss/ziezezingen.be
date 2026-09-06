@@ -12,6 +12,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Cache-bust CSS/JS with the commit SHA
+        run: sed -i "s/__BUILD_VERSION__/${{ github.sha }}/g" *.html
+
       - name: Write Mailchimp config (from secret, never committed)
         run: |
           cat > mailchimp-config.php <<EOF
