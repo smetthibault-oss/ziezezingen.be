@@ -25,6 +25,27 @@ if (heroSlider) {
     });
   });
 
+  // Swipe support for touch devices
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  heroSlider.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+
+  heroSlider.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    const delta = touchEndX - touchStartX;
+    const threshold = 40;
+    if (delta > threshold) {
+      goTo(current - 1);
+      startAutoplay();
+    } else if (delta < -threshold) {
+      goTo(current + 1);
+      startAutoplay();
+    }
+  }, { passive: true });
+
   startAutoplay();
 }
 
