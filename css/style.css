@@ -359,50 +359,109 @@ h1, h2, h3, .display {
 }
 
 /* Contact */
-.contact-block {
-  min-height: 70vh;
+.contact-hero {
+  min-height: 40vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-top: 3px solid var(--maroon);
 }
 
-.contact-block .section-overlay {
-  background: rgba(0,0,0,0.4);
+.contact-hero .section-overlay {
+  background: rgba(0,0,0,0.5);
 }
 
-.contact-info {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-wrap: wrap;
+.contact-details {
+  background: var(--maroon);
+  padding: 80px 40px;
+}
+
+.contact-details-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
   gap: 60px;
-  padding: 100px 60px;
 }
 
-.contact-info-text {
-  flex: 1 1 320px;
+@media (max-width: 800px) {
+  .contact-details-inner {
+    grid-template-columns: 1fr;
+  }
 }
 
-.contact-info p {
-  font-size: clamp(16px, 1.6vw, 24px);
+.contact-column h2 {
+  font-size: 32px;
+  margin-bottom: 16px;
+}
+
+.contact-column h3 {
+  font-family: 'Anton', sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  color: var(--cream);
+  opacity: 0.8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 40px 0 14px;
+}
+
+.contact-column-info p {
+  font-size: 17px;
   line-height: 1.6;
+  opacity: 0.9;
+  margin: 0 0 20px;
 }
 
-.contact-info a {
+.contact-email-link {
+  display: inline-block;
+  font-size: clamp(22px, 3vw, 32px);
+  font-weight: 700;
   color: var(--teal);
-  text-decoration: underline;
+  text-decoration: none;
+  border-bottom: 2px solid var(--teal);
+  padding-bottom: 4px;
 }
 
-.contact-info .downloads a {
+.contact-email-link:hover {
+  opacity: 0.85;
+}
+
+.download-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.download-list a {
+  color: var(--cream);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.download-list a::before {
+  content: '↓';
+  color: var(--teal);
+  font-weight: 700;
+}
+
+.download-list a:hover {
   color: var(--teal);
 }
 
 .contact-form {
-  flex: 1 1 360px;
   max-width: 480px;
-  background: rgba(10, 10, 10, 0.75);
+  background: rgba(0, 0, 0, 0.25);
   border: 1px solid rgba(99, 230, 182, 0.25);
   border-radius: 16px;
   padding: 32px;
-  backdrop-filter: blur(4px);
 }
 
 .contact-form .form-row {

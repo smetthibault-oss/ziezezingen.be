@@ -3,9 +3,13 @@ header('Content-Type: application/json; charset=utf-8');
 
 $recipient = 'thibault@feloranje.be';
 
-// Fill these in to enable adding contact-form senders to Mailchimp when they
-// tick the newsletter checkbox. Leave MAILCHIMP_API_KEY empty to disable.
-define('MAILCHIMP_API_KEY', '');
+// MAILCHIMP_API_KEY is defined in mailchimp-config.php, generated at deploy
+// time from a GitHub secret so the real key never lives in this repo.
+if (file_exists(__DIR__ . '/mailchimp-config.php')) {
+    require_once __DIR__ . '/mailchimp-config.php';
+} else {
+    define('MAILCHIMP_API_KEY', '');
+}
 define('MAILCHIMP_DC', 'us7');
 define('MAILCHIMP_LIST_ID', 'e7c9e1bbeb');
 

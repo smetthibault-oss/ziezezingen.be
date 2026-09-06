@@ -12,6 +12,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Write Mailchimp config (from secret, never committed)
+        run: |
+          cat > mailchimp-config.php <<EOF
+          <?php
+          define('MAILCHIMP_API_KEY', '${{ secrets.MAILCHIMP_API_KEY }}');
+          EOF
+
       - name: Deploy via SFTP
         uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:
