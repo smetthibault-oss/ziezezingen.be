@@ -1,0 +1,9 @@
+# TEMP: staging site — block all crawling while on test.ziezezingen.be.
+# When the site goes live on ziezezingen.be, replace this with:
+#
+# User-agent: *
+# Allow: /
+# Sitemap: https://ziezezingen.be/sitemap.xml
+
+User-agent: *
+Disallow: /
