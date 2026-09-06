@@ -162,7 +162,8 @@ h1, h2, h3, .display {
 
 /* Hero */
 .hero {
-  min-height: 90vh;
+  aspect-ratio: 3 / 2;
+  min-height: 480px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -257,7 +258,8 @@ h1, h2, h3, .display {
 
 /* Events / Video / Contact preview blocks (home) */
 .preview-block {
-  min-height: 60vh;
+  aspect-ratio: 3 / 2;
+  min-height: 360px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -270,6 +272,22 @@ h1, h2, h3, .display {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* Video preview needs a tall portrait frame, not the 3:2 photo band */
+.preview-block-video {
+  aspect-ratio: auto;
+  min-height: 70vh;
+}
+
+/* Contact preview (home) */
+.contact-preview {
+  aspect-ratio: 3 / 2;
+  min-height: 360px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: 3px solid var(--maroon);
 }
 
 /* Video preview phone frame */
@@ -300,7 +318,8 @@ h1, h2, h3, .display {
 
 /* Newsletter */
 .newsletter {
-  min-height: 60vh;
+  aspect-ratio: 3 / 2;
+  min-height: 480px;
   display: flex;
   align-items: center;
   border-top: 3px solid var(--maroon);
@@ -360,7 +379,8 @@ h1, h2, h3, .display {
 
 /* Contact */
 .contact-hero {
-  min-height: 40vh;
+  aspect-ratio: 3 / 2;
+  min-height: 360px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -699,7 +719,8 @@ h1, h2, h3, .display {
 
 /* Full-page hero titles (Events/Video/Contact standalone pages) */
 .page-hero {
-  min-height: 70vh;
+  aspect-ratio: 3 / 2;
+  min-height: 400px;
   display: flex;
   align-items: center;
   justify-content: center;
