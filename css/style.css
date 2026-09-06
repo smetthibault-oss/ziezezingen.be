@@ -274,12 +274,6 @@ h1, h2, h3, .display {
   justify-content: center;
 }
 
-/* Video preview needs a tall portrait frame, not the 3:2 photo band */
-.preview-block-video {
-  aspect-ratio: auto;
-  min-height: 70vh;
-}
-
 /* Contact preview (home) */
 .contact-preview {
   aspect-ratio: 3 / 2;
@@ -288,32 +282,6 @@ h1, h2, h3, .display {
   align-items: center;
   justify-content: center;
   border-top: 3px solid var(--maroon);
-}
-
-/* Video preview phone frame */
-.video-frame {
-  width: min(400px, 60vw);
-  aspect-ratio: 531/944;
-  border-radius: 60px;
-  overflow: hidden;
-  position: relative;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
-}
-
-.video-frame img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.video-frame .section-title {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: clamp(32px, 8vw, 64px);
-  z-index: 2;
 }
 
 /* Newsletter */
