@@ -1,9 +1,9 @@
-DirectoryIndex index.html
-
 RewriteEngine On
 RewriteBase /
 
-# /events -> events.html, /video -> video.html, /contact -> contact.html (files stay .html)
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{DOCUMENT_ROOT}/$1.html -f
-RewriteRule ^([^.]+)$ $1.html [L]
+DirectoryIndex index.html
+
+# /events -> events.html, /video -> video.html, /contact -> contact.html
+RewriteRule ^events/?$ events.html [L]
+RewriteRule ^video/?$ video.html [L]
+RewriteRule ^contact/?$ contact.html [L]
