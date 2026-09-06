@@ -63,6 +63,37 @@ if (videoModal) {
   });
 }
 
+const contactForm = document.getElementById('contactForm');
+if (contactForm) {
+  const status = contactForm.querySelector('.contact-form-status');
+  const submitBtn = contactForm.querySelector('button[type="submit"]');
+
+  contactForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    submitBtn.disabled = true;
+    status.hidden = true;
+
+    try {
+      const res = await fetch(contactForm.action, {
+        method: 'POST',
+        body: new FormData(contactForm),
+        headers: { 'X-Requested-With': 'XMLHttpRequest' },
+      });
+      const data = await res.json();
+      status.textContent = data.message;
+      status.className = 'contact-form-status ' + (data.success ? 'success' : 'error');
+      status.hidden = false;
+      if (data.success) contactForm.reset();
+    } catch (err) {
+      status.textContent = 'Er ging iets mis. Mail ons gerust rechtstreeks op info@ziezezingen.be.';
+      status.className = 'contact-form-status error';
+      status.hidden = false;
+    } finally {
+      submitBtn.disabled = false;
+    }
+  });
+}
+
 document.querySelectorAll('.newsletter-form').forEach((form) => {
   form.addEventListener('submit', () => {
     const success = form.parentElement.querySelector('.newsletter-success');

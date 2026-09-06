@@ -31,11 +31,34 @@
     <section class="section contact-block">
       <img src="assets/images/contact-full-bg.jpg" alt="Zie Ze Zingen op de zijspanmotor" class="section-bg">
       <div class="section-overlay"></div>
-      <div class="contact-info" style="position:relative; z-index:2;">
-        <p>Wil je ons contacteren of boeken?<br>Mail naar <a href="mailto:info@ziezezingen.be">info@ziezezingen.be</a></p>
-        <p class="downloads">
-          <a href="assets/downloads/Zie-Ze-Zingen-Perskit.zip" download>Download Foto, Video en Logo (perskit)</a>
-        </p>
+      <div class="contact-info">
+        <div class="contact-info-text">
+          <p>Wil je ons contacteren of boeken?<br>Mail naar <a href="mailto:info@ziezezingen.be">info@ziezezingen.be</a></p>
+          <p class="downloads">
+            <a href="assets/downloads/Technische-Fiche-Zie-Ze-Zingen.pdf" download>Download Technische fiche</a><br>
+            <a href="assets/downloads/Zie-Ze-Zingen-Perskit.zip" download>Download Foto, Video en Logo (perskit)</a>
+          </p>
+        </div>
+
+        <form class="contact-form" id="contactForm" action="contact-handler.php" method="POST">
+          <div class="form-row">
+            <label for="cf-name">Naam</label>
+            <input type="text" id="cf-name" name="name" required>
+          </div>
+          <div class="form-row">
+            <label for="cf-email">E-mailadres</label>
+            <input type="email" id="cf-email" name="email" required>
+          </div>
+          <div class="form-row">
+            <label for="cf-message">Bericht</label>
+            <textarea id="cf-message" name="message" rows="5" required></textarea>
+          </div>
+          <div aria-hidden="true" class="cf-honeypot">
+            <input type="text" name="website" tabindex="-1" autocomplete="off">
+          </div>
+          <button type="submit">Verstuur bericht</button>
+          <p class="contact-form-status" role="status" hidden></p>
+        </form>
       </div>
     </section>
   </main>
