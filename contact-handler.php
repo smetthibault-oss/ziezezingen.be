@@ -33,8 +33,9 @@ $safeEmail = str_replace(["\r", "\n"], '', $email);
 $subject = 'Nieuw bericht via ziezezingen.be van ' . $safeName;
 $body = "Naam: $safeName\nE-mail: $safeEmail\n\nBericht:\n$message\n";
 
+// one.com requires the From address to be a real mailbox on the hosted domain.
 $headers = [
-    'From: Zie Ze Zingen website <no-reply@ziezezingen.be>',
+    'From: Zie Ze Zingen website <info@ziezezingen.be>',
     'Reply-To: ' . $safeName . ' <' . $safeEmail . '>',
     'Content-Type: text/plain; charset=utf-8',
 ];
