@@ -379,21 +379,19 @@ h1, h2, h3, .display {
 
 /* Contact */
 .contact-hero {
-  aspect-ratio: 3 / 2;
-  min-height: 360px;
+  min-height: 70vh;
   display: flex;
   align-items: center;
-  justify-content: center;
   border-top: 3px solid var(--maroon);
 }
 
 .contact-hero .section-overlay {
-  background: rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.6);
 }
 
-.contact-details {
-  background: var(--maroon);
+.contact-hero .section-content {
   padding: 80px 40px;
+  width: 100%;
 }
 
 .contact-details-inner {
