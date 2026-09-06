@@ -89,10 +89,19 @@ $headers = [
 $sent = mail($recipient, $subject, $body, implode("\r\n", $headers));
 
 if ($sent) {
+    // Send the visitor their own copy so they have confirmation + a record of what they sent.
+    $confirmSubject = 'Je bericht is verstuurd - Zie Ze Zingen';
+    $confirmBody = "Hoi $safeName,\n\nJe bericht is succesvol verstuurd naar Zie Ze Zingen. We nemen zo snel mogelijk contact met je op.\n\nJe bericht:\n$message\n\nMet vriendelijke groet,\nZie Ze Zingen";
+    $confirmHeaders = [
+        'From: Zie Ze Zingen <info@ziezezingen.be>',
+        'Content-Type: text/plain; charset=utf-8',
+    ];
+    mail($safeEmail, $confirmSubject, $confirmBody, implode("\r\n", $confirmHeaders));
+
     if (!empty($_POST['newsletter'])) {
         subscribeToMailchimp($safeEmail, $safeName, $safePhone);
     }
-    respond(true, 'Bedankt! Je bericht is verstuurd.');
+    respond(true, 'Bedankt! Je bericht is verstuurd. Check je mailbox voor een kopie.');
 } else {
     respond(false, 'Er ging iets mis bij het versturen. Probeer het later opnieuw of mail naar info@ziezezingen.be.');
 }
