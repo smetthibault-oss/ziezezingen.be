@@ -437,6 +437,25 @@ h1, h2, h3, .display {
   border-color: var(--teal);
 }
 
+.contact-form .form-row-checkbox {
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.contact-form .form-row-checkbox input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--teal);
+  flex-shrink: 0;
+}
+
+.contact-form .form-row-checkbox label {
+  font-weight: 400;
+  opacity: 1;
+  font-size: 14px;
+}
+
 .contact-form .cf-honeypot {
   position: absolute;
   left: -5000px;
