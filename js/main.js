@@ -1,3 +1,17 @@
+document.querySelectorAll('.reveal-title').forEach((title) => {
+  const body = title.nextElementSibling;
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        title.classList.add('visible');
+        setTimeout(() => body && body.classList.add('visible'), 350);
+        observer.disconnect();
+      }
+    });
+  }, { threshold: 0.3 });
+  observer.observe(title);
+});
+
 const heroSlider = document.querySelector('.hero-slider');
 if (heroSlider) {
   const slides = Array.from(heroSlider.querySelectorAll('.slide'));

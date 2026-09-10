@@ -267,6 +267,25 @@ h1, h2, h3, .display {
   align-items: center;
 }
 
+.reveal-title,
+.reveal-body {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal-title.visible,
+.reveal-body.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.community .reveal-title,
+.newsletter .reveal-title {
+  font-size: clamp(36px, 5vw, 64px);
+  margin-bottom: 24px;
+}
+
 .community .section-content {
   padding: 100px 60px;
 }
