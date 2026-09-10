@@ -2,8 +2,17 @@ const heroSlider = document.querySelector('.hero-slider');
 if (heroSlider) {
   const slides = Array.from(heroSlider.querySelectorAll('.slide'));
   const dots = Array.from(document.querySelectorAll('.hero-dots .dot'));
+  const heroTitle = document.querySelector('.hero-title');
   let current = 0;
   let timer;
+  let titleTimer;
+
+  function flashTitle() {
+    if (!heroTitle) return;
+    clearTimeout(titleTimer);
+    heroTitle.classList.add('visible');
+    titleTimer = setTimeout(() => heroTitle.classList.remove('visible'), 1800);
+  }
 
   function goTo(index) {
     slides[current].classList.remove('active');
@@ -11,11 +20,12 @@ if (heroSlider) {
     current = (index + slides.length) % slides.length;
     slides[current].classList.add('active');
     dots[current].classList.add('active');
+    flashTitle();
   }
 
   function startAutoplay() {
     clearInterval(timer);
-    timer = setInterval(() => goTo(current + 1), 5000);
+    timer = setInterval(() => goTo(current + 1), 2800);
   }
 
   dots.forEach((dot, i) => {
@@ -46,6 +56,7 @@ if (heroSlider) {
     }
   }, { passive: true });
 
+  flashTitle();
   startAutoplay();
 }
 
