@@ -3,8 +3,12 @@ document.querySelectorAll('.reveal-title').forEach((title) => {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
+        // 1) title fades in and holds, 2) title fades out, 3) only then the text fades in
         title.classList.add('visible');
-        setTimeout(() => body && body.classList.add('visible'), 800);
+        setTimeout(() => {
+          title.classList.remove('visible');
+          setTimeout(() => body && body.classList.add('visible'), 800);
+        }, 1800);
         observer.disconnect();
       }
     });
