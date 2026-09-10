@@ -1,19 +1,36 @@
+// 1) title fades in and holds, 2) title fades out, 3) only then the text fades in
+function playReveal(title, body) {
+  title.classList.remove('visible');
+  if (body) body.classList.remove('visible');
+  void title.offsetWidth; // restart the CSS transition even if it just ran
+  requestAnimationFrame(() => {
+    title.classList.add('visible');
+    setTimeout(() => {
+      title.classList.remove('visible');
+      setTimeout(() => body && body.classList.add('visible'), 800);
+    }, 1800);
+  });
+}
+
 document.querySelectorAll('.reveal-title').forEach((title) => {
   const body = title.nextElementSibling;
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        // 1) title fades in and holds, 2) title fades out, 3) only then the text fades in
-        title.classList.add('visible');
-        setTimeout(() => {
-          title.classList.remove('visible');
-          setTimeout(() => body && body.classList.add('visible'), 800);
-        }, 1800);
+        playReveal(title, body);
         observer.disconnect();
       }
     });
   }, { threshold: 0.3 });
   observer.observe(title);
+});
+
+// Replay the reveal whenever a menu link jumps to that section again
+document.querySelectorAll('a[href="#community"], a[href="#newsletter"]').forEach((link) => {
+  link.addEventListener('click', () => {
+    const title = document.querySelector('#' + link.getAttribute('href').slice(1) + ' .reveal-title');
+    if (title) playReveal(title, title.nextElementSibling);
+  });
 });
 
 const heroSlider = document.querySelector('.hero-slider');
