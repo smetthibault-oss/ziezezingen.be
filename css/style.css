@@ -437,14 +437,16 @@ h1, h2, h3, .display {
 
 /* Contact */
 .contact-hero {
+  background: var(--cream);
   min-height: 70vh;
   display: flex;
   align-items: center;
   border-top: 3px solid var(--maroon);
 }
 
+.contact-hero .section-bg,
 .contact-hero .section-overlay {
-  background: rgba(0, 0, 0, 0.6);
+  display: none;
 }
 
 .contact-hero .section-content {
@@ -470,14 +472,15 @@ h1, h2, h3, .display {
 .contact-column h2 {
   font-size: 32px;
   margin-bottom: 16px;
+  color: #000;
 }
 
 .contact-column h3 {
   font-family: 'Anton', sans-serif;
   font-weight: 400;
   font-size: 18px;
-  color: var(--cream);
-  opacity: 0.8;
+  color: #000;
+  opacity: 0.75;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin: 40px 0 14px;
@@ -486,17 +489,18 @@ h1, h2, h3, .display {
 .contact-column-info p {
   font-size: 17px;
   line-height: 1.6;
-  opacity: 0.9;
+  opacity: 0.85;
   margin: 0 0 20px;
+  color: #000;
 }
 
 .contact-email-link {
   display: inline-block;
   font-size: clamp(22px, 3vw, 32px);
   font-weight: 700;
-  color: var(--teal);
+  color: var(--maroon);
   text-decoration: none;
-  border-bottom: 2px solid var(--teal);
+  border-bottom: 2px solid var(--maroon);
   padding-bottom: 4px;
 }
 
@@ -514,7 +518,7 @@ h1, h2, h3, .display {
 }
 
 .download-list a {
-  color: var(--cream);
+  color: #000;
   text-decoration: none;
   font-size: 15px;
   font-weight: 600;
@@ -525,12 +529,12 @@ h1, h2, h3, .display {
 
 .download-list a::before {
   content: '↓';
-  color: var(--teal);
+  color: var(--maroon);
   font-weight: 700;
 }
 
 .download-list a:hover {
-  color: var(--teal);
+  color: var(--maroon);
 }
 
 .contact-form {
@@ -673,6 +677,10 @@ h1, h2, h3, .display {
   .video-card {
     grid-column: 1 / -1 !important;
   }
+  .video-card:nth-child(8n+1),
+  .video-card:nth-child(8n+6) {
+    aspect-ratio: 550/309;
+  }
 }
 
 .video-card {
@@ -686,6 +694,15 @@ h1, h2, h3, .display {
   display: block;
   font-family: inherit;
   text-decoration: none;
+}
+
+/* The wide (span-4) card in a row is naturally taller at the same aspect-ratio
+   than the narrow (span-2) card next to it. Give the narrow card a shorter
+   aspect-ratio so both cards in the row end up the same height and the grid
+   row doesn't leave empty space under the shorter one. */
+.video-card:nth-child(8n+1),
+.video-card:nth-child(8n+6) {
+  aspect-ratio: 427/498;
 }
 
 .video-card img {
@@ -797,7 +814,7 @@ h1, h2, h3, .display {
 
 /* Events list page */
 .events-list-section {
-  background: var(--maroon);
+  background: var(--cream);
   padding: 80px 40px 100px;
 }
 
@@ -805,6 +822,7 @@ h1, h2, h3, .display {
   font-size: clamp(48px, 10vw, 128px);
   text-align: center;
   margin-bottom: 60px;
+  color: #000;
 }
 
 .events-grid {
@@ -828,17 +846,17 @@ h1, h2, h3, .display {
 }
 
 .events-grid .event-card:nth-child(n+3) {
-  border-top: 1px solid rgba(238, 241, 225, 0.3);
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
   padding-top: 40px;
 }
 
 .event-card h2 {
   font-size: clamp(22px, 2.2vw, 32px);
-  color: var(--cream);
+  color: #000;
 }
 
 .event-card:first-child h2 {
-  color: var(--teal);
+  color: var(--maroon);
 }
 
 .event-card img {
@@ -867,24 +885,27 @@ h1, h2, h3, .display {
   font-size: 17px;
   line-height: 1.4;
   margin: 0;
+  color: #000;
 }
 
 .event-desc {
   font-size: 16px;
   line-height: 1.5;
-  opacity: 0.92;
+  opacity: 0.85;
   margin: 0;
+  color: #000;
 }
 
 .event-desc a,
 .event-links a {
-  color: var(--teal);
+  color: var(--maroon);
   text-decoration: underline;
 }
 
 .event-links {
   font-size: 15px;
   margin: 0;
+  color: #000;
 }
 
 /* Footer */
