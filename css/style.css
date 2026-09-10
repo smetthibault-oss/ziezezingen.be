@@ -604,13 +604,26 @@ h1, h2, h3, .display {
   max-width: var(--max-width);
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: 32px;
 }
 
-@media (max-width: 700px) {
+/* Repeating rhythm of small/wide/medium/medium, like the Figma masonry layout */
+.video-card:nth-child(8n+1) { grid-column: span 2; }
+.video-card:nth-child(8n+2) { grid-column: span 4; }
+.video-card:nth-child(8n+3) { grid-column: span 3; }
+.video-card:nth-child(8n+4) { grid-column: span 3; }
+.video-card:nth-child(8n+5) { grid-column: span 4; }
+.video-card:nth-child(8n+6) { grid-column: span 2; }
+.video-card:nth-child(8n+7) { grid-column: span 3; }
+.video-card:nth-child(8n+8) { grid-column: span 3; }
+
+@media (max-width: 900px) {
   .video-grid {
     grid-template-columns: 1fr;
+  }
+  .video-card {
+    grid-column: 1 / -1 !important;
   }
 }
 
