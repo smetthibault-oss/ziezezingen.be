@@ -21,15 +21,19 @@ if (heroSlider) {
   const slides = Array.from(heroSlider.querySelectorAll('.slide'));
   const dots = Array.from(document.querySelectorAll('.hero-dots .dot'));
   const heroTitle = document.querySelector('.hero-title');
+  const heroQuote = document.querySelector('.hero-quote');
   let current = 0;
   let timer;
-  let titleTimer;
 
-  function flashTitle() {
+  // Title shows once on load, fades out, then the quote fades in and stays -
+  // independent of the photos, which keep auto-cycling underneath.
+  function introTitleThenQuote() {
     if (!heroTitle) return;
-    clearTimeout(titleTimer);
     heroTitle.classList.add('visible');
-    titleTimer = setTimeout(() => heroTitle.classList.remove('visible'), 1800);
+    setTimeout(() => {
+      heroTitle.classList.remove('visible');
+      setTimeout(() => heroQuote && heroQuote.classList.add('visible'), 800);
+    }, 1800);
   }
 
   function goTo(index) {
@@ -38,7 +42,6 @@ if (heroSlider) {
     current = (index + slides.length) % slides.length;
     slides[current].classList.add('active');
     dots[current].classList.add('active');
-    flashTitle();
   }
 
   function startAutoplay() {
@@ -74,7 +77,7 @@ if (heroSlider) {
     }
   }, { passive: true });
 
-  flashTitle();
+  introTitleThenQuote();
   startAutoplay();
 }
 
