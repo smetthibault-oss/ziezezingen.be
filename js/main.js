@@ -4,7 +4,7 @@ document.querySelectorAll('.reveal-title').forEach((title) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         title.classList.add('visible');
-        setTimeout(() => body && body.classList.add('visible'), 350);
+        setTimeout(() => body && body.classList.add('visible'), 800);
         observer.disconnect();
       }
     });
@@ -141,7 +141,12 @@ if (contactForm) {
 }
 
 document.querySelectorAll('.newsletter-form').forEach((form) => {
-  form.addEventListener('submit', () => {
+  form.addEventListener('submit', (e) => {
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      e.preventDefault();
+      return;
+    }
     const success = form.parentElement.querySelector('.newsletter-success');
     setTimeout(() => {
       form.reset();

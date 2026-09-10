@@ -270,8 +270,8 @@ h1, h2, h3, .display {
 .reveal-title,
 .reveal-body {
   opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transform: translateY(28px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
 .reveal-title.visible,
@@ -617,6 +617,9 @@ h1, h2, h3, .display {
 .video-card:nth-child(8n+6) { grid-column: span 2; }
 .video-card:nth-child(8n+7) { grid-column: span 3; }
 .video-card:nth-child(8n+8) { grid-column: span 3; }
+
+/* Avoid a lone card leaving empty space in its row */
+.video-card:last-child:nth-child(odd) { grid-column: span 6; }
 
 @media (max-width: 900px) {
   .video-grid {
