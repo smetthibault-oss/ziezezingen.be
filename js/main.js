@@ -37,7 +37,7 @@ const heroSlider = document.querySelector('.hero-slider');
 if (heroSlider) {
   const slides = Array.from(heroSlider.querySelectorAll('.slide'));
   const dots = Array.from(document.querySelectorAll('.hero-dots .dot'));
-  const heroTitle = document.querySelector('.hero-title');
+  const heroTitle = document.querySelector('.hero-title-group');
   const heroQuote = document.querySelector('.hero-quote');
   let current = 0;
   let timer;
@@ -97,6 +97,15 @@ if (heroSlider) {
   introTitleThenQuote();
   startAutoplay();
 }
+
+// Underline the nav link for the page/section currently in view
+const currentPath = window.location.pathname;
+const isHome = currentPath === '/' || currentPath.endsWith('/index.html');
+document.querySelectorAll('.nav-links a').forEach((link) => {
+  const href = link.getAttribute('href');
+  const isCurrent = href === currentPath || (isHome && href.endsWith('#community'));
+  if (isCurrent) link.classList.add('active');
+});
 
 document.querySelectorAll('.nav-toggle').forEach((btn) => {
   btn.addEventListener('click', () => {
