@@ -22,6 +22,14 @@ jobs:
           define('MAILCHIMP_API_KEY', '${{ secrets.MAILCHIMP_API_KEY }}');
           EOF
 
+      - name: Write GitHub OAuth config for the CMS (from secrets, never committed)
+        run: |
+          cat > oauth/oauth-config.php <<EOF
+          <?php
+          define('GITHUB_OAUTH_CLIENT_ID', '${{ secrets.GITHUB_OAUTH_CLIENT_ID }}');
+          define('GITHUB_OAUTH_CLIENT_SECRET', '${{ secrets.GITHUB_OAUTH_CLIENT_SECRET }}');
+          EOF
+
       - name: Deploy via SFTP
         uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:

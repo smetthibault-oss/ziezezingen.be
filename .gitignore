@@ -1,2 +1,3 @@
 # Generated at deploy time from GitHub secrets — never commit real credentials here.
 mailchimp-config.php
+oauth/oauth-config.php

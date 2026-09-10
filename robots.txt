@@ -3,6 +3,8 @@
 #
 # User-agent: *
 # Allow: /
+# Disallow: /admin/
+# Disallow: /oauth/
 # Sitemap: https://ziezezingen.be/sitemap.xml
 
 User-agent: *

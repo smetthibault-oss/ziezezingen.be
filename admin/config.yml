@@ -1,0 +1,35 @@
+backend:
+  name: github
+  repo: smetthibault-oss/ziezezingen.be
+  branch: main
+  base_url: https://test.ziezezingen.be
+  auth_endpoint: oauth/authorize.php
+
+# Every save opens a pull request instead of writing straight to main,
+# so nothing goes live before Thibault reviews and merges it.
+publish_mode: editorial_workflow
+
+media_folder: "assets/images/events-uploads"
+public_folder: "assets/images/events-uploads"
+
+collections:
+  - name: "events"
+    label: "Events"
+    files:
+      - name: "events"
+        label: "Events lijst"
+        file: "events.json"
+        fields:
+          - label: "Events"
+            name: "events"
+            widget: "list"
+            summary: "{{title}} — {{date}}"
+            fields:
+              - { label: "Titel", name: "title", widget: "string" }
+              - { label: "Datum (bv. Za 19 sept - 14:00)", name: "date", widget: "string" }
+              - { label: "Locatie", name: "location", widget: "string" }
+              - { label: "Foto", name: "image", widget: "image" }
+              - { label: "Beschrijving", name: "description", widget: "text" }
+              - { label: "Uitverkocht", name: "soldOut", widget: "boolean", default: false }
+              - { label: "Knoptekst (bv. 'Ticketlink: ...' of 'Gratis toegang')", name: "ctaText", widget: "string", required: false }
+              - { label: "Link URL (leeg laten als er geen link is)", name: "ctaUrl", widget: "string", required: false }

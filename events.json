@@ -1,0 +1,52 @@
+[
+  {
+    "title": "Zie Ze Zingen met Ronny Mosuse",
+    "date": "Za 19 sept - 14:00",
+    "location": "Onder de Stadshal Gent",
+    "image": "assets/images/event-ronny-mosuse.jpg",
+    "description": "Warmhartige singalong voor jong en oud die in het teken staat van samenhorigheid, met een hart voor dementie. Ism Koor & Stem en Radio 2.",
+    "soldOut": false,
+    "ctaText": "Gratis toegang",
+    "ctaUrl": ""
+  },
+  {
+    "title": "Zie Ze Zingen 100-Koppig Koor",
+    "date": "Maandelijks in 2026 - 2027",
+    "location": "Stadsbrouwerij Gruut",
+    "image": "assets/images/event-100koppig-koor.jpg",
+    "description": "Zonder partituren maken we ons een reeks uitbundige en ingetogen kippenvel-songs eigen die iedereen kent. De reeks sluit af met een Singalong Party onder de Gentse Stadshal.",
+    "soldOut": true,
+    "ctaText": "Ik wil op de wachtlijst",
+    "ctaUrl": "https://links.ziezezingen.be/wachtlijst"
+  },
+  {
+    "title": "Zie Ze Zingen! in Lochristi",
+    "date": "Vrij 9 okt - 19:00",
+    "location": "Cultuurzaal Uyttenhove, Zavel 5, Lochristi",
+    "image": "assets/images/event-lochristi.jpg",
+    "description": "Laat je meevoeren door de aanstekelijke energie van Zie Ze Zingen tijdens een onvergetelijk meezingconcert voor jong en oud.",
+    "soldOut": false,
+    "ctaText": "Ticketlink: links.ziezezingen.be/lochristi",
+    "ctaUrl": "https://links.ziezezingen.be/lochristi"
+  },
+  {
+    "title": "Singalong Troostconcert",
+    "date": "Za 14 nov - 18:30",
+    "location": "CC Belgica, Kerkstraat 24, Dendermonde",
+    "image": "assets/images/event-troostconcert.jpg",
+    "description": "Het singalong troostconcert van Zie Ze Zingen creëert samenhorigheid in donkere maanden. Door samen te zingen voelen we ons getroost en krijgen we meer kracht.",
+    "soldOut": false,
+    "ctaText": "Ticketlink: links.ziezezingen.be/troostconcert",
+    "ctaUrl": "https://links.ziezezingen.be/troostconcert"
+  },
+  {
+    "title": "Zie Ze Zingen! The Beatles",
+    "date": "Di 8 dec - 20:00",
+    "location": "Balzaal VIERNULVIER",
+    "image": "assets/images/event-beatles.jpg",
+    "description": "Een bijzonder sfeervolle singalong avond met bloedmooie, haalbare arrangementen van Beatles songs.",
+    "soldOut": false,
+    "ctaText": "Ticketlink: links.ziezezingen.be/beatles",
+    "ctaUrl": "https://links.ziezezingen.be/beatles"
+  }
+]
