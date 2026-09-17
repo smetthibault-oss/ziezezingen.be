@@ -61,6 +61,7 @@ h1, h2, h3, .display {
   z-index: 100;
   background: var(--black);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0 100px;
 }
 
 .navbar {
@@ -70,7 +71,7 @@ h1, h2, h3, .display {
   display: flex;
   align-items: center;
   gap: 40px;
-  padding: 8px 40px;
+  padding: 8px 0;
 }
 
 .navbar .logo img {
@@ -1051,6 +1052,15 @@ h1, h2, h3, .display {
 
 /* Mobile nav */
 @media (max-width: 900px) {
+  .site-header {
+    padding: 0 20px;
+  }
+  .events-list-section {
+    padding: 60px 20px 80px;
+  }
+  .contact-hero .section-content {
+    padding: 60px 20px;
+  }
   .nav-toggle {
     display: flex;
   }
