@@ -714,18 +714,18 @@ h1, h2, h3, .display {
 /* Video grid page */
 .video-grid-section {
   background: var(--cream);
-  padding: 60px 40px 100px;
+  padding: 60px 100px 100px;
 }
 
 .video-grid-title {
-  max-width: var(--max-width);
+  max-width: 1200px;
   margin: 0 auto 32px;
   color: #000;
   font-size: clamp(40px, 6vw, 96px);
 }
 
 .video-grid {
-  max-width: var(--max-width);
+  max-width: 1200px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
@@ -746,6 +746,9 @@ h1, h2, h3, .display {
 .video-card:last-child:nth-child(odd) { grid-column: span 6; }
 
 @media (max-width: 900px) {
+  .video-grid-section {
+    padding: 60px 20px 80px;
+  }
   .video-grid {
     grid-template-columns: 1fr;
   }
