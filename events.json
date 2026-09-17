@@ -7,7 +7,8 @@
     "description": "Warmhartige singalong voor jong en oud die in het teken staat van samenhorigheid, met een hart voor dementie. Ism Koor & Stem en Radio 2.",
     "soldOut": false,
     "ctaText": "Gratis toegang",
-    "ctaUrl": ""
+    "ctaUrl": "",
+    "moreInfoUrl": "https://fb.me/e/jmqdXajQa"
   },
   {
     "title": "Zie Ze Zingen 100-Koppig Koor",
@@ -17,7 +18,8 @@
     "description": "Zonder partituren maken we ons een reeks uitbundige en ingetogen kippenvel-songs eigen die iedereen kent. De reeks sluit af met een Singalong Party onder de Gentse Stadshal.",
     "soldOut": true,
     "ctaText": "Ik wil op de wachtlijst",
-    "ctaUrl": "https://links.ziezezingen.be/wachtlijst"
+    "ctaUrl": "https://links.ziezezingen.be/wachtlijst",
+    "moreInfoUrl": ""
   },
   {
     "title": "Zie Ze Zingen! in Lochristi",
@@ -27,7 +29,8 @@
     "description": "Laat je meevoeren door de aanstekelijke energie van Zie Ze Zingen tijdens een onvergetelijk meezingconcert voor jong en oud.",
     "soldOut": false,
     "ctaText": "Ticketlink: links.ziezezingen.be/lochristi",
-    "ctaUrl": "https://links.ziezezingen.be/lochristi"
+    "ctaUrl": "https://links.ziezezingen.be/lochristi",
+    "moreInfoUrl": "https://fb.me/e/9J0LXWBZ9"
   },
   {
     "title": "Singalong Troostconcert",
@@ -37,7 +40,8 @@
     "description": "Het singalong troostconcert van Zie Ze Zingen creëert samenhorigheid in donkere maanden. Door samen te zingen voelen we ons getroost en krijgen we meer kracht.",
     "soldOut": false,
     "ctaText": "Ticketlink: links.ziezezingen.be/troostconcert",
-    "ctaUrl": "https://links.ziezezingen.be/troostconcert"
+    "ctaUrl": "https://links.ziezezingen.be/troostconcert",
+    "moreInfoUrl": "https://fb.me/e/9J0LXWBZ9"
   },
   {
     "title": "Zie Ze Zingen! The Beatles",
@@ -47,6 +51,7 @@
     "description": "Een bijzonder sfeervolle singalong avond met bloedmooie, haalbare arrangementen van Beatles songs.",
     "soldOut": false,
     "ctaText": "Ticketlink: links.ziezezingen.be/beatles",
-    "ctaUrl": "https://links.ziezezingen.be/beatles"
+    "ctaUrl": "https://links.ziezezingen.be/beatles",
+    "moreInfoUrl": "https://fb.me/e/8OnCIZt6t"
   }
 ]

@@ -41,7 +41,16 @@ async function renderEvents() {
 
       const desc = document.createElement('p');
       desc.className = 'event-desc';
-      desc.textContent = ev.description;
+      desc.appendChild(document.createTextNode(ev.description));
+      if (ev.moreInfoUrl) {
+        desc.appendChild(document.createTextNode(' '));
+        const moreInfo = document.createElement('a');
+        moreInfo.href = ev.moreInfoUrl;
+        moreInfo.target = '_blank';
+        moreInfo.rel = 'noopener';
+        moreInfo.textContent = 'Meer info';
+        desc.appendChild(moreInfo);
+      }
       article.appendChild(desc);
 
       const links = document.createElement('p');

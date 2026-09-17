@@ -41,15 +41,33 @@ if (heroSlider) {
   const heroQuote = document.querySelector('.hero-quote');
   let current = 0;
   let timer;
+  let introDone = false;
 
-  // Title shows once on load, fades out, then the quote fades in and stays -
-  // independent of the photos, which keep auto-cycling underneath.
+  // Only some photos carry a quote (from the SRT) - show it when the
+  // current slide has one, hide it otherwise.
+  function updateQuoteForSlide(index) {
+    if (!heroQuote) return;
+    const quote = slides[index].dataset.quote;
+    if (quote) {
+      heroQuote.innerHTML = quote;
+      heroQuote.classList.add('visible');
+    } else {
+      heroQuote.classList.remove('visible');
+    }
+  }
+
+  // Title shows once on load, fades out, then the current photo's quote
+  // fades in - independent of the photos, which keep auto-cycling underneath.
   function introTitleThenQuote() {
     if (!heroTitle) return;
     heroTitle.classList.add('visible');
     setTimeout(() => {
       heroTitle.classList.remove('visible');
-      setTimeout(() => heroQuote && heroQuote.classList.add('visible'), 800);
+      setTimeout(() => {
+        introDone = true;
+        updateQuoteForSlide(current);
+        startAutoplay();
+      }, 800);
     }, 1800);
   }
 
@@ -59,6 +77,7 @@ if (heroSlider) {
     current = (index + slides.length) % slides.length;
     slides[current].classList.add('active');
     dots[current].classList.add('active');
+    if (introDone) updateQuoteForSlide(current);
   }
 
   function startAutoplay() {
@@ -95,17 +114,30 @@ if (heroSlider) {
   }, { passive: true });
 
   introTitleThenQuote();
-  startAutoplay();
 }
 
-// Underline the nav link for the page/section currently in view
-const currentPath = window.location.pathname;
-const isHome = currentPath === '/' || currentPath.endsWith('/index.html');
-document.querySelectorAll('.nav-links a').forEach((link) => {
-  const href = link.getAttribute('href');
-  const isCurrent = href === currentPath || (isHome && href.endsWith('#community'));
-  if (isCurrent) link.classList.add('active');
-});
+// Size the background video iframe to always cover its box, no matter how
+// the box's own aspect ratio changes across breakpoints (mobile especially,
+// where the box gets much closer to square than the video's 16:9 source).
+const bgVideoWrap = document.querySelector('.section-bg-video');
+if (bgVideoWrap) {
+  const bgVideoFrame = bgVideoWrap.querySelector('iframe');
+  const videoRatio = 16 / 9;
+  const fitBgVideo = () => {
+    const w = bgVideoWrap.clientWidth;
+    const h = bgVideoWrap.clientHeight;
+    if (!w || !h) return;
+    if (w / h > videoRatio) {
+      bgVideoFrame.style.width = w + 'px';
+      bgVideoFrame.style.height = Math.ceil(w / videoRatio) + 'px';
+    } else {
+      bgVideoFrame.style.height = h + 'px';
+      bgVideoFrame.style.width = Math.ceil(h * videoRatio) + 'px';
+    }
+  };
+  fitBgVideo();
+  window.addEventListener('resize', fitBgVideo);
+}
 
 document.querySelectorAll('.nav-toggle').forEach((btn) => {
   btn.addEventListener('click', () => {

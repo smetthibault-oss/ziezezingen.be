@@ -1,7 +1,7 @@
 <?php
 header('Content-Type: application/json; charset=utf-8');
 
-$recipient = 'thibault@feloranje.be';
+$recipient = 'info@ziezezingen.be';
 
 // MAILCHIMP_API_KEY is defined in mailchimp-config.php, generated at deploy
 // time from a GitHub secret so the real key never lives in this repo.
