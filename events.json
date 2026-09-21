@@ -9,7 +9,8 @@
       "image": "/assets/images/events/event-ronny-mosuse.jpg",
       "description": "Warmhartige singalong voor jong en oud die in het teken staat van samenhorigheid, met een hart voor dementie. Ism Koor & Stem en Radio 2.",
       "ctaText": "Gratis toegang",
-      "ctaUrl": ""
+      "ctaUrl": "",
+      "eventDate": "2026-09-19"
     },
     {
       "moreInfoUrl": "",
@@ -20,7 +21,8 @@
       "image": "/assets/images/events/event-100koppig-koor.jpg",
       "description": "Zonder partituren maken we ons een reeks uitbundige en ingetogen kippenvel-songs eigen die iedereen kent. De reeks sluit af met een Singalong Party onder de Gentse Stadshal.",
       "ctaText": "Ik wil op de wachtlijst",
-      "ctaUrl": "https://links.ziezezingen.be/wachtlijst"
+      "ctaUrl": "https://links.ziezezingen.be/wachtlijst",
+      "eventDate": ""
     },
     {
       "moreInfoUrl": "https://fb.me/e/9J0LXWBZ9",
@@ -31,10 +33,11 @@
       "image": "/assets/images/events/event-lochristi.jpg",
       "description": "Laat je meevoeren door de aanstekelijke energie van Zie Ze Zingen tijdens een onvergetelijk meezingconcert voor jong en oud.",
       "ctaText": "Ticketlink: links.ziezezingen.be/lochristi",
-      "ctaUrl": "https://links.ziezezingen.be/lochristi"
+      "ctaUrl": "https://links.ziezezingen.be/lochristi",
+      "eventDate": "2026-10-09"
     },
     {
-      "moreInfoUrl": "https://fb.me/e/9J0LXWBZ9",
+      "moreInfoUrl": "https://fb.me/e/4catKsRGr",
       "date": "Za 14 nov - 18:30",
       "location": "CC Belgica, Kerkstraat 24, Dendermonde",
       "title": "Singalong Troostconcert",
@@ -42,7 +45,8 @@
       "image": "/assets/images/events/event-troostconcert.jpg",
       "description": "Het singalong troostconcert van Zie Ze Zingen creëert samenhorigheid in donkere maanden. Door samen te zingen voelen we ons getroost en krijgen we meer kracht.",
       "ctaText": "Ticketlink: links.ziezezingen.be/troostconcert",
-      "ctaUrl": "https://links.ziezezingen.be/troostconcert"
+      "ctaUrl": "https://links.ziezezingen.be/troostconcert",
+      "eventDate": "2026-11-14"
     },
     {
       "moreInfoUrl": "https://fb.me/e/8OnCIZt6t",
@@ -53,7 +57,8 @@
       "image": "/assets/images/events/event-beatles.jpg",
       "description": "Een bijzonder sfeervolle singalong avond met bloedmooie, haalbare arrangementen van Beatles songs.",
       "ctaText": "Ticketlink: links.ziezezingen.be/beatles",
-      "ctaUrl": "https://links.ziezezingen.be/beatles"
+      "ctaUrl": "https://links.ziezezingen.be/beatles",
+      "eventDate": "2026-12-08"
     }
   ]
 }

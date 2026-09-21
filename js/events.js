@@ -7,7 +7,21 @@ async function renderEvents() {
     const { events } = await res.json();
     grid.innerHTML = '';
 
-    events.forEach((ev) => {
+    // Archive: an event with an eventDate (YYYY-MM-DD) disappears the day after
+    // it took place. No eventDate (e.g. a recurring series) = always shown.
+    const now = new Date();
+    const today = [now.getFullYear(), String(now.getMonth() + 1).padStart(2, '0'), String(now.getDate()).padStart(2, '0')].join('-');
+    const upcoming = events.filter((ev) => !ev.eventDate || String(ev.eventDate).slice(0, 10) >= today);
+
+    if (!upcoming.length) {
+      const empty = document.createElement('p');
+      empty.className = 'events-empty';
+      empty.textContent = 'Momenteel staan er geen events gepland. Kom snel terug!';
+      grid.appendChild(empty);
+      return;
+    }
+
+    upcoming.forEach((ev) => {
       const article = document.createElement('article');
       article.className = 'event-card';
 

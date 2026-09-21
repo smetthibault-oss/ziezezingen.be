@@ -263,7 +263,7 @@ h1, h2, h3, .display {
   height: 100%;
   object-fit: cover;
   opacity: 0;
-  transition: opacity 0.35s ease;
+  transition: opacity 1.2s ease;
 }
 
 .hero-slider .slide.active {
@@ -930,6 +930,14 @@ h1, h2, h3, .display {
   .events-grid {
     grid-template-columns: 1fr;
   }
+}
+
+.events-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: #000;
+  font-size: 18px;
+  margin: 0;
 }
 
 .event-card {

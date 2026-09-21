@@ -39,15 +39,14 @@ if (heroSlider) {
   const dots = Array.from(document.querySelectorAll('.hero-dots .dot'));
   const heroTitle = document.querySelector('.hero-title-group');
   const heroQuote = document.querySelector('.hero-quote');
-  const SLIDE_MS = 2000;
+  const SLIDE_MS = 2800;
   const QUOTE_GAP_MS = 250;
   let current = 0;
   let timer;
   let quoteGapTimer;
 
   // A quote (data-quote) runs across consecutive photos that carry the same
-  // text, appears instantly and drops out just before the photo changes -
-  // same rhythm as the carousel example video.
+  // text, appears instantly and drops out just before the photo changes.
   function updateQuoteForSlide(index) {
     if (!heroQuote) return;
     clearTimeout(quoteGapTimer);
@@ -199,7 +198,10 @@ if (contactForm) {
       status.hidden = false;
       if (data.success) contactForm.reset();
     } catch (err) {
-      status.textContent = 'Er ging iets mis. Mail ons gerust rechtstreeks op info@ziezezingen.be.';
+      const isLocal = ['localhost', '127.0.0.1', ''].includes(location.hostname);
+      status.textContent = isLocal
+        ? 'Lokaal werkt het formulier niet (er draait geen PHP). Test het op test.ziezezingen.be.'
+        : 'Er ging iets mis. Mail ons gerust rechtstreeks op info@ziezezingen.be.';
       status.className = 'contact-form-status error';
       status.hidden = false;
     } finally {
