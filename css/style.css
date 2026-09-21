@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Anton&family=Kumbh+Sans:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Kumbh+Sans:wght@400;600;700&family=Open+Sans:ital,wght@1,500&display=swap');
 
 :root {
   --teal: #63e6b6;
@@ -263,7 +263,7 @@ h1, h2, h3, .display {
   height: 100%;
   object-fit: cover;
   opacity: 0;
-  transition: opacity 1.2s ease;
+  transition: opacity 0.35s ease;
 }
 
 .hero-slider .slide.active {
@@ -272,7 +272,7 @@ h1, h2, h3, .display {
 }
 
 .hero .section-overlay {
-  background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 100%);
+  background: linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(0,0,0,0.4) 100%);
 }
 
 .hero-text-stack {
@@ -320,15 +320,19 @@ h1, h2, h3, .display {
 }
 
 .hero-quote {
+  align-self: end;
   text-align: center;
-  font-size: clamp(20px, 3vw, 32px);
+  font-family: 'Open Sans', sans-serif;
   font-style: italic;
+  font-weight: 500;
+  font-size: clamp(16px, 2.8vw, 46px);
+  line-height: 1.35;
   color: var(--cream);
-  max-width: 800px;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.55);
+  max-width: 90%;
   padding: 0 20px;
-  margin: 0;
+  margin: 0 0 -20px;
   opacity: 0;
-  transition: opacity 0.8s ease;
 }
 
 .hero-quote.visible {
@@ -357,6 +361,17 @@ h1, h2, h3, .display {
 
 .hero-dots .dot:hover {
   transform: scale(1.15);
+}
+
+@media (max-width: 560px) {
+  .hero-dots {
+    gap: 8px;
+    padding: 20px 12px;
+  }
+  .hero-dots .dot {
+    width: 10px;
+    height: 10px;
+  }
 }
 
 .hero-dots .dot.active {

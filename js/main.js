@@ -39,36 +39,37 @@ if (heroSlider) {
   const dots = Array.from(document.querySelectorAll('.hero-dots .dot'));
   const heroTitle = document.querySelector('.hero-title-group');
   const heroQuote = document.querySelector('.hero-quote');
+  const SLIDE_MS = 2000;
+  const QUOTE_GAP_MS = 250;
   let current = 0;
   let timer;
-  let introDone = false;
+  let quoteGapTimer;
 
-  // Only some photos carry a quote (from the SRT) - show it when the
-  // current slide has one, hide it otherwise.
+  // A quote (data-quote) runs across consecutive photos that carry the same
+  // text, appears instantly and drops out just before the photo changes -
+  // same rhythm as the carousel example video.
   function updateQuoteForSlide(index) {
     if (!heroQuote) return;
+    clearTimeout(quoteGapTimer);
     const quote = slides[index].dataset.quote;
-    if (quote) {
-      heroQuote.innerHTML = quote;
-      heroQuote.classList.add('visible');
-    } else {
+    if (!quote) {
       heroQuote.classList.remove('visible');
+      return;
+    }
+    heroQuote.innerHTML = quote;
+    heroQuote.classList.add('visible');
+    const nextQuote = slides[(index + 1) % slides.length].dataset.quote;
+    if (nextQuote !== quote) {
+      quoteGapTimer = setTimeout(() => heroQuote.classList.remove('visible'), SLIDE_MS - QUOTE_GAP_MS);
     }
   }
 
-  // Title shows once on load, fades out, then the current photo's quote
-  // fades in - independent of the photos, which keep auto-cycling underneath.
-  function introTitleThenQuote() {
+  // The title sits on the first photo and is gone again before the second
+  // photo (and its quote) arrives.
+  function introTitle() {
     if (!heroTitle) return;
     heroTitle.classList.add('visible');
-    setTimeout(() => {
-      heroTitle.classList.remove('visible');
-      setTimeout(() => {
-        introDone = true;
-        updateQuoteForSlide(current);
-        startAutoplay();
-      }, 800);
-    }, 1800);
+    setTimeout(() => heroTitle.classList.remove('visible'), SLIDE_MS - 600);
   }
 
   function goTo(index) {
@@ -77,12 +78,13 @@ if (heroSlider) {
     current = (index + slides.length) % slides.length;
     slides[current].classList.add('active');
     dots[current].classList.add('active');
-    if (introDone) updateQuoteForSlide(current);
+    if (heroTitle) heroTitle.classList.remove('visible');
+    updateQuoteForSlide(current);
   }
 
   function startAutoplay() {
     clearInterval(timer);
-    timer = setInterval(() => goTo(current + 1), 2800);
+    timer = setInterval(() => goTo(current + 1), SLIDE_MS);
   }
 
   dots.forEach((dot, i) => {
@@ -113,7 +115,8 @@ if (heroSlider) {
     }
   }, { passive: true });
 
-  introTitleThenQuote();
+  introTitle();
+  startAutoplay();
 }
 
 // Size the background video iframe to always cover its box, no matter how
