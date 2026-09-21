@@ -9,8 +9,8 @@ backend:
 # so nothing goes live before Thibault reviews and merges it.
 publish_mode: editorial_workflow
 
-media_folder: "assets/images/events-uploads"
-public_folder: "assets/images/events-uploads"
+media_folder: "assets/images/events"
+public_folder: "/assets/images/events"
 
 collections:
   - name: "events"
@@ -23,6 +23,7 @@ collections:
           - label: "Events"
             name: "events"
             widget: "list"
+            add_to_top: true
             summary: "{{title}} — {{date}}"
             fields:
               - { label: "Titel", name: "title", widget: "string" }
