@@ -1,14 +1,6 @@
 {
   "events": [
     {
-      "soldOut": true,
-      "title": "test",
-      "date": "zo 22/09",
-      "location": "gent",
-      "image": "/assets/images/events/event-100koppig-koor.jpg",
-      "description": "test"
-    },
-    {
       "moreInfoUrl": "https://fb.me/e/jmqdXajQa",
       "date": "Za 19 sept - 14:00",
       "location": "Onder de Stadshal Gent",
