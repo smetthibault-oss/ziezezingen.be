@@ -4,7 +4,7 @@ async function renderEvents() {
 
   try {
     const res = await fetch('events.json');
-    const events = await res.json();
+    const { events } = await res.json();
     grid.innerHTML = '';
 
     events.forEach((ev) => {
