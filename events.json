@@ -1,59 +1,67 @@
 {
   "events": [
     {
-      "title": "Zie Ze Zingen met Ronny Mosuse",
+      "soldOut": true,
+      "title": "test",
+      "date": "zo 22/09",
+      "location": "gent",
+      "image": "/assets/images/events/event-100koppig-koor.jpg",
+      "description": "test"
+    },
+    {
+      "moreInfoUrl": "https://fb.me/e/jmqdXajQa",
       "date": "Za 19 sept - 14:00",
       "location": "Onder de Stadshal Gent",
+      "title": "Zie Ze Zingen met Ronny Mosuse",
+      "soldOut": false,
       "image": "/assets/images/events/event-ronny-mosuse.jpg",
       "description": "Warmhartige singalong voor jong en oud die in het teken staat van samenhorigheid, met een hart voor dementie. Ism Koor & Stem en Radio 2.",
-      "soldOut": false,
       "ctaText": "Gratis toegang",
-      "ctaUrl": "",
-      "moreInfoUrl": "https://fb.me/e/jmqdXajQa"
+      "ctaUrl": ""
     },
     {
-      "title": "Zie Ze Zingen 100-Koppig Koor",
+      "moreInfoUrl": "",
       "date": "Maandelijks in 2026 - 2027",
       "location": "Stadsbrouwerij Gruut",
+      "title": "Zie Ze Zingen 100-Koppig Koor",
+      "soldOut": true,
       "image": "/assets/images/events/event-100koppig-koor.jpg",
       "description": "Zonder partituren maken we ons een reeks uitbundige en ingetogen kippenvel-songs eigen die iedereen kent. De reeks sluit af met een Singalong Party onder de Gentse Stadshal.",
-      "soldOut": true,
       "ctaText": "Ik wil op de wachtlijst",
-      "ctaUrl": "https://links.ziezezingen.be/wachtlijst",
-      "moreInfoUrl": ""
+      "ctaUrl": "https://links.ziezezingen.be/wachtlijst"
     },
     {
-      "title": "Zie Ze Zingen! in Lochristi",
+      "moreInfoUrl": "https://fb.me/e/9J0LXWBZ9",
       "date": "Vrij 9 okt - 19:00",
       "location": "Cultuurzaal Uyttenhove, Zavel 5, Lochristi",
+      "title": "Zie Ze Zingen! in Lochristi",
+      "soldOut": false,
       "image": "/assets/images/events/event-lochristi.jpg",
       "description": "Laat je meevoeren door de aanstekelijke energie van Zie Ze Zingen tijdens een onvergetelijk meezingconcert voor jong en oud.",
-      "soldOut": false,
       "ctaText": "Ticketlink: links.ziezezingen.be/lochristi",
-      "ctaUrl": "https://links.ziezezingen.be/lochristi",
-      "moreInfoUrl": "https://fb.me/e/9J0LXWBZ9"
+      "ctaUrl": "https://links.ziezezingen.be/lochristi"
     },
     {
-      "title": "Singalong Troostconcert",
+      "moreInfoUrl": "https://fb.me/e/9J0LXWBZ9",
       "date": "Za 14 nov - 18:30",
       "location": "CC Belgica, Kerkstraat 24, Dendermonde",
+      "title": "Singalong Troostconcert",
+      "soldOut": false,
       "image": "/assets/images/events/event-troostconcert.jpg",
       "description": "Het singalong troostconcert van Zie Ze Zingen creëert samenhorigheid in donkere maanden. Door samen te zingen voelen we ons getroost en krijgen we meer kracht.",
-      "soldOut": false,
       "ctaText": "Ticketlink: links.ziezezingen.be/troostconcert",
-      "ctaUrl": "https://links.ziezezingen.be/troostconcert",
-      "moreInfoUrl": "https://fb.me/e/9J0LXWBZ9"
+      "ctaUrl": "https://links.ziezezingen.be/troostconcert"
     },
     {
-      "title": "Zie Ze Zingen! The Beatles",
+      "moreInfoUrl": "https://fb.me/e/8OnCIZt6t",
       "date": "Di 8 dec - 20:00",
       "location": "Balzaal VIERNULVIER",
+      "title": "Zie Ze Zingen! The Beatles",
+      "soldOut": false,
       "image": "/assets/images/events/event-beatles.jpg",
       "description": "Een bijzonder sfeervolle singalong avond met bloedmooie, haalbare arrangementen van Beatles songs.",
-      "soldOut": false,
       "ctaText": "Ticketlink: links.ziezezingen.be/beatles",
-      "ctaUrl": "https://links.ziezezingen.be/beatles",
-      "moreInfoUrl": "https://fb.me/e/8OnCIZt6t"
+      "ctaUrl": "https://links.ziezezingen.be/beatles"
     }
   ]
 }
