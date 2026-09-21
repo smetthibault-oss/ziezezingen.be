@@ -28,8 +28,9 @@ collections:
               - { label: "Titel", name: "title", widget: "string" }
               - { label: "Datum (bv. Za 19 sept - 14:00)", name: "date", widget: "string" }
               - { label: "Locatie", name: "location", widget: "string" }
-              - { label: "Foto", name: "image", widget: "image" }
+              - { label: "Foto (liefst max 700px breed, jpg)", name: "image", widget: "image" }
               - { label: "Beschrijving", name: "description", widget: "text" }
               - { label: "Uitverkocht", name: "soldOut", widget: "boolean", default: false }
-              - { label: "Knoptekst (bv. 'Ticketlink: ...' of 'Gratis toegang')", name: "ctaText", widget: "string", required: false }
-              - { label: "Link URL (leeg laten als er geen link is)", name: "ctaUrl", widget: "string", required: false }
+              - { label: "Meer info link (bv. Facebook-event, leeg = geen 'Meer info' link)", name: "moreInfoUrl", widget: "string", required: false }
+              - { label: "Ticket tekst (bv. 'Ticketlink: ...' of 'Gratis toegang')", name: "ctaText", widget: "string", required: false }
+              - { label: "Ticket link URL (leeg laten als er geen link is)", name: "ctaUrl", widget: "string", required: false }

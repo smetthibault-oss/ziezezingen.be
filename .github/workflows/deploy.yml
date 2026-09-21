@@ -26,8 +26,8 @@ jobs:
         run: |
           cat > oauth/oauth-config.php <<EOF
           <?php
-          define('GITHUB_OAUTH_CLIENT_ID', '${{ secrets.GITHUB_OAUTH_CLIENT_ID }}');
-          define('GITHUB_OAUTH_CLIENT_SECRET', '${{ secrets.GITHUB_OAUTH_CLIENT_SECRET }}');
+          define('GITHUB_OAUTH_CLIENT_ID', '${{ secrets.CMS_OAUTH_CLIENT_ID }}');
+          define('GITHUB_OAUTH_CLIENT_SECRET', '${{ secrets.CMS_OAUTH_CLIENT_SECRET }}');
           EOF
 
       - name: Deploy via SFTP
