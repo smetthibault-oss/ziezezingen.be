@@ -478,6 +478,12 @@ h1, h2, h3, .display {
   align-items: center;
 }
 
+@media (min-width: 900px) {
+  .community {
+    min-height: 100vh;
+  }
+}
+
 .reveal-stack {
   display: grid;
   width: 100%;
@@ -503,7 +509,6 @@ h1, h2, h3, .display {
   transform: translateY(0);
 }
 
-.community .reveal-title,
 .newsletter .reveal-title {
   font-size: clamp(48px, 8vw, 128px);
   text-align: center;
@@ -512,6 +517,58 @@ h1, h2, h3, .display {
 
 .community .section-content {
   padding: 100px 60px;
+}
+
+/* The intro title floats centered over the whole photo, independent of
+   the text flow below, then shrinks + cross-fades into the small
+   permanent title before the body text fades in underneath it. */
+.community-intro-title {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 0 60px;
+  margin: 0;
+  font-size: clamp(48px, 8vw, 128px);
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(1);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.community-intro-title.visible {
+  opacity: 1;
+}
+
+.community-intro-title.shrink {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.35);
+}
+
+.community-title {
+  font-size: clamp(40px, 6vw, 96px);
+  margin: 0 0 32px;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.community-title.visible {
+  opacity: 1;
+}
+
+.community-body {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.community-body.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .community p {
@@ -1225,6 +1282,16 @@ h1, h2, h3, .display {
   }
   .contact-hero .section-content {
     padding: 60px 20px;
+  }
+  .community .section-content {
+    padding: 60px 20px;
+  }
+  .community-intro-title {
+    padding: 0 20px;
+    font-size: clamp(36px, 10vw, 64px);
+  }
+  .community-title {
+    font-size: clamp(32px, 8vw, 56px);
   }
   .nav-toggle {
     display: flex;

@@ -25,9 +25,58 @@ document.querySelectorAll('.reveal-title').forEach((title) => {
   observer.observe(title);
 });
 
+// Community section: the big intro title shrinks up into the small
+// permanent title, then the body text fades in underneath it. Two things
+// can trigger this (scrolling it into view, or clicking "Over ons" in the
+// nav) — if both fire close together, cancel whichever run is still in
+// flight so their timeouts never interleave and show the intro title
+// popping back up over the already-revealed body text.
+let communityRevealTimeouts = [];
+
+function playCommunityReveal() {
+  const section = document.getElementById('community');
+  if (!section) return;
+  const introTitle = section.querySelector('.community-intro-title');
+  const finalTitle = section.querySelector('.community-title');
+  const body = section.querySelector('.community-body');
+
+  communityRevealTimeouts.forEach(clearTimeout);
+  communityRevealTimeouts = [];
+
+  introTitle.classList.remove('visible', 'shrink');
+  finalTitle.classList.remove('visible');
+  if (body) body.classList.remove('visible');
+  void introTitle.offsetWidth; // restart the CSS transition even if it just ran
+  requestAnimationFrame(() => {
+    introTitle.classList.add('visible');
+    communityRevealTimeouts.push(setTimeout(() => {
+      introTitle.classList.add('shrink');
+      finalTitle.classList.add('visible');
+      communityRevealTimeouts.push(setTimeout(() => body && body.classList.add('visible'), 400));
+    }, 1800));
+  });
+}
+
+const communitySection = document.getElementById('community');
+if (communitySection) {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        playCommunityReveal();
+        observer.disconnect();
+      }
+    });
+  }, { threshold: 0.3 });
+  observer.observe(communitySection);
+}
+
 // Replay the reveal whenever a menu link jumps to that section again
 document.querySelectorAll('a[href="#community"], a[href="#newsletter"]').forEach((link) => {
   link.addEventListener('click', () => {
+    if (link.getAttribute('href') === '#community') {
+      playCommunityReveal();
+      return;
+    }
     const title = document.querySelector('#' + link.getAttribute('href').slice(1) + ' .reveal-title');
     if (title) playReveal(title, title.nextElementSibling);
   });
