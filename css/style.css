@@ -387,12 +387,6 @@ h1, h2, h3, .display {
   align-items: center;
   gap: 8px;
   width: 100%;
-  opacity: 0;
-  transition: opacity 0.6s ease;
-}
-
-.hero-title-group.visible {
-  opacity: 1;
 }
 
 .hero-title {
@@ -400,6 +394,12 @@ h1, h2, h3, .display {
   font-size: clamp(40px, 8vw, 128px);
   padding: 0 20px;
   margin: 0;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.hero-title.visible {
+  opacity: 1;
 }
 
 .hero-subtitle {
@@ -409,6 +409,12 @@ h1, h2, h3, .display {
   text-transform: uppercase;
   color: var(--cream);
   margin: 0;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.hero-subtitle.visible {
+  opacity: 1;
 }
 
 .hero-quote {

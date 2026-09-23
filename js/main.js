@@ -86,13 +86,31 @@ const heroSlider = document.querySelector('.hero-slider');
 if (heroSlider) {
   const slides = Array.from(heroSlider.querySelectorAll('.slide'));
   const dots = Array.from(document.querySelectorAll('.hero-dots .dot'));
-  const heroTitle = document.querySelector('.hero-title-group');
+  const heroTitleEl = document.querySelector('.hero-title');
+  const heroSubtitle = document.querySelector('.hero-subtitle');
   const heroQuote = document.querySelector('.hero-quote');
   const SLIDE_MS = 2800;
+  const FIRST_SLIDE_MS = 3000; // the opening photo stays a little longer
   const QUOTE_GAP_MS = 250;
+  const SUBTITLE_SLIDE_COUNT = 2; // "Samenzang — community" sits on the first 2 photos
   let current = 0;
   let timer;
   let quoteGapTimer;
+  let titleGapTimer;
+  let subtitleGapTimer;
+
+  function durationFor(index) {
+    return index === 0 ? FIRST_SLIDE_MS : SLIDE_MS;
+  }
+
+  // "ZIE ZE ZINGEN!" only ever sits on the very first photo.
+  function hasMainTitle(index) {
+    return index === 0;
+  }
+
+  function hasSubtitle(index) {
+    return index < SUBTITLE_SLIDE_COUNT;
+  }
 
   // A quote (data-quote) runs across consecutive photos that carry the same
   // text, appears instantly and drops out just before the photo changes.
@@ -108,16 +126,36 @@ if (heroSlider) {
     heroQuote.classList.add('visible');
     const nextQuote = slides[(index + 1) % slides.length].dataset.quote;
     if (nextQuote !== quote) {
-      quoteGapTimer = setTimeout(() => heroQuote.classList.remove('visible'), SLIDE_MS - QUOTE_GAP_MS);
+      quoteGapTimer = setTimeout(() => heroQuote.classList.remove('visible'), durationFor(index) - QUOTE_GAP_MS);
     }
   }
 
-  // The title sits on the first photo and is gone again before the second
-  // photo (and its quote) arrives.
-  function introTitle() {
-    if (!heroTitle) return;
-    heroTitle.classList.add('visible');
-    setTimeout(() => heroTitle.classList.remove('visible'), SLIDE_MS - 600);
+  // The title and subtitle each sit on their own range of opening photos
+  // and are gone again just before the first quote (on the next photo) arrives.
+  function updateTitleForSlide(index) {
+    if (heroTitleEl) {
+      clearTimeout(titleGapTimer);
+      if (!hasMainTitle(index)) {
+        heroTitleEl.classList.remove('visible');
+      } else {
+        heroTitleEl.classList.add('visible');
+        if (!hasMainTitle((index + 1) % slides.length)) {
+          titleGapTimer = setTimeout(() => heroTitleEl.classList.remove('visible'), durationFor(index) - 600);
+        }
+      }
+    }
+
+    if (heroSubtitle) {
+      clearTimeout(subtitleGapTimer);
+      if (!hasSubtitle(index)) {
+        heroSubtitle.classList.remove('visible');
+      } else {
+        heroSubtitle.classList.add('visible');
+        if (!hasSubtitle((index + 1) % slides.length)) {
+          subtitleGapTimer = setTimeout(() => heroSubtitle.classList.remove('visible'), durationFor(index) - 600);
+        }
+      }
+    }
   }
 
   function goTo(index) {
@@ -126,13 +164,16 @@ if (heroSlider) {
     current = (index + slides.length) % slides.length;
     slides[current].classList.add('active');
     dots[current].classList.add('active');
-    if (heroTitle) heroTitle.classList.remove('visible');
+    updateTitleForSlide(current);
     updateQuoteForSlide(current);
   }
 
   function startAutoplay() {
-    clearInterval(timer);
-    timer = setInterval(() => goTo(current + 1), SLIDE_MS);
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      goTo(current + 1);
+      startAutoplay();
+    }, durationFor(current));
   }
 
   dots.forEach((dot, i) => {
@@ -163,7 +204,7 @@ if (heroSlider) {
     }
   }, { passive: true });
 
-  introTitle();
+  updateTitleForSlide(current);
   startAutoplay();
 }
 
