@@ -134,8 +134,14 @@ h1, h2, h3, .display {
   transform: scaleX(1);
 }
 
-.nav-cta {
+.nav-cta-group {
   margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-cta {
   background: var(--teal);
   color: #000;
   font-size: 14px;
@@ -144,6 +150,73 @@ h1, h2, h3, .display {
   padding: 10px 20px;
   border-radius: 8px;
   white-space: nowrap;
+  transition: transform 0.15s ease;
+}
+
+.nav-cta:active {
+  transform: scale(0.92);
+}
+
+.nav-cta.bounce {
+  animation: cta-bounce 0.6s ease;
+}
+
+@keyframes cta-bounce {
+  0%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-6px); }
+  50% { transform: translateY(0); }
+  70% { transform: translateY(-3px); }
+  85% { transform: translateY(0); }
+}
+
+.newsletter-hint {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Kumbh Sans', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  color: var(--teal);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.newsletter-hint .hint-text,
+.newsletter-hint .hint-arrow {
+  opacity: 0;
+}
+
+.newsletter-hint .hint-arrow {
+  font-size: 16px;
+  font-weight: 700;
+  animation: hint-arrow-glow 7s linear infinite;
+}
+
+/* Same dip timing as logo-flicker, but filter-only so it never fights
+   hint-fade for control of opacity (that caused the arrow to flicker back
+   into view on its own after the text had already faded out). */
+@keyframes hint-arrow-glow {
+  0%, 3%, 5.5%, 7%, 9%, 100% {
+    filter: drop-shadow(0 0 6px rgba(99, 230, 182, 0.85)) drop-shadow(0 0 16px rgba(99, 230, 182, 0.5));
+  }
+  3.5%, 6%, 8% {
+    filter: drop-shadow(0 0 2px rgba(99, 230, 182, 0.3));
+  }
+}
+
+.newsletter-hint.play .hint-text {
+  animation: hint-fade 3.6s ease;
+}
+
+.newsletter-hint.play .hint-arrow {
+  animation: hint-arrow-glow 7s linear infinite, hint-fade 3.6s ease;
+}
+
+@keyframes hint-fade {
+  0% { opacity: 0; }
+  8%, 92% { opacity: 1; }
+  100% { opacity: 0; }
 }
 
 .nav-toggle {
@@ -227,9 +300,28 @@ h1, h2, h3, .display {
 }
 
 .section-title {
+  position: relative;
   font-size: clamp(48px, 8vw, 128px);
   text-align: center;
   text-shadow: 0 0 20px rgba(99, 230, 182, 0.4);
+  padding-bottom: 0;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 4px;
+  background: var(--teal);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s ease;
+}
+
+.section-title:hover::after {
+  transform: scaleX(1);
 }
 
 .section-link {
@@ -624,6 +716,35 @@ h1, h2, h3, .display {
 }
 
 .download-list a:hover {
+  color: var(--maroon);
+}
+
+.press-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.press-list a {
+  color: #000;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.press-list a::before {
+  content: '↗';
+  color: var(--maroon);
+  font-weight: 700;
+}
+
+.press-list a:hover {
   color: var(--maroon);
 }
 
@@ -1123,5 +1244,12 @@ h1, h2, h3, .display {
   }
   .social-icons {
     justify-content: center;
+  }
+}
+
+/* Phone: shorten the hint next to the icon-only nav-cta */
+@media (max-width: 640px) {
+  .hint-extra {
+    display: none;
   }
 }

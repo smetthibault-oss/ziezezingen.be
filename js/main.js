@@ -210,6 +210,50 @@ if (contactForm) {
   });
 }
 
+document.querySelectorAll('.newsletter-hint').forEach((hint) => {
+  const group = hint.closest('.nav-cta-group');
+  const cta = group && group.querySelector('.nav-cta');
+  const arrow = hint.querySelector('.hint-arrow');
+  const logo = document.querySelector('.navbar .logo img');
+  let isPlaying = false;
+
+  function restartAnimation(el) {
+    if (!el) return;
+    el.style.animation = 'none';
+    void el.offsetWidth; // force a reflow so the animation restarts from 0
+    el.style.animation = '';
+  }
+
+  function playHint() {
+    if (isPlaying) return; // let the current run finish before it can restart
+    isPlaying = true;
+
+    hint.classList.add('play');
+
+    if (cta) {
+      cta.classList.remove('bounce');
+      void cta.offsetWidth;
+      cta.classList.add('bounce');
+    }
+
+    // logo flicker, arrow glow, text fade-in and the button bounce all fire as one moment
+    restartAnimation(logo);
+    restartAnimation(arrow);
+  }
+
+  hint.addEventListener('animationend', (e) => {
+    if (e.target === hint.querySelector('.hint-text')) {
+      hint.classList.remove('play');
+      isPlaying = false;
+    }
+  });
+
+  playHint();
+  setInterval(playHint, 10000);
+
+  if (group) group.addEventListener('mouseenter', playHint);
+});
+
 document.querySelectorAll('.newsletter-form').forEach((form) => {
   form.addEventListener('submit', (e) => {
     if (!form.checkValidity()) {
