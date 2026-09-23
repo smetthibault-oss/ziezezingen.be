@@ -744,6 +744,23 @@ h1, h2, h3, .display {
   font-weight: 700;
 }
 
+/* Arrow color follows each outlet's own brand color */
+.press-list li[data-source="hln"] a::before {
+  color: #ff0000;
+}
+
+.press-list li[data-source="vrt"] a::before {
+  color: #6a1b9a;
+}
+
+.press-list li[data-source="nieuwsblad"] a::before {
+  color: #0057b7;
+}
+
+.press-list li[data-source="stadgent"] a::before {
+  color: #3697d3;
+}
+
 .press-list a:hover {
   color: var(--maroon);
 }
@@ -1154,6 +1171,7 @@ h1, h2, h3, .display {
   font-size: 44px;
   margin: 0 0 10px;
   white-space: nowrap;
+  color: var(--teal);
 }
 
 .brand-tagline {
