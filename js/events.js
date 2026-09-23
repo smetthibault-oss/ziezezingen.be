@@ -3,7 +3,7 @@ async function renderEvents() {
   if (!grid) return;
 
   try {
-    const res = await fetch('events.json');
+    const res = await fetch('events.json', { cache: 'no-store' });
     const { events } = await res.json();
     grid.innerHTML = '';
 
