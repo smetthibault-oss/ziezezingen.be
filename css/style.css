@@ -107,6 +107,25 @@ h1, h2, h3, .display {
   }
 }
 
+/* Desktop only: a taller bar, less idle space beside the logo, and the
+   nav-cta pulled in closer to the true edge of wide screens. Tablet and
+   mobile keep the bar as it already is. */
+@media (min-width: 900px) {
+  .site-header {
+    padding: 0 60px;
+  }
+
+  .navbar {
+    max-width: 1400px;
+    padding-top: 52px;
+    padding-bottom: 52px;
+  }
+
+  .navbar .logo {
+    top: 0;
+  }
+}
+
 .nav-links {
   display: flex;
   gap: 32px;
@@ -1323,6 +1342,10 @@ h1, h2, h3, .display {
 @media (max-width: 900px) {
   .site-header {
     padding: 0 20px;
+  }
+  .navbar {
+    gap: 14px;
+    padding-left: 110px;
   }
   .events-list-section {
     padding: 60px 20px 80px;
