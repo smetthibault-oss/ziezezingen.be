@@ -368,17 +368,54 @@ document.querySelectorAll('.newsletter-hint').forEach((hint) => {
 });
 
 document.querySelectorAll('.newsletter-form').forEach((form) => {
-  form.addEventListener('submit', (e) => {
+  const message = form.parentElement.querySelector('.newsletter-success');
+  const emailInput = form.querySelector('input[type="email"]');
+  const button = form.querySelector('button[type="submit"]');
+  const texts = {
+    subscribed: 'Je bent al ingeschreven voor onze nieuwsbrief. Bedankt voor je interesse!',
+    pending: 'We hebben je al een bevestigingsmail gestuurd. Check je mailbox (ook je spam) om je inschrijving te bevestigen.',
+    done: 'Bedankt! Je bent ingeschreven voor onze nieuwsbrief.',
+  };
+
+  function showMessage(text) {
+    form.reset();
+    form.hidden = true;
+    if (message) {
+      message.textContent = text;
+      message.hidden = false;
+    }
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
     if (!form.checkValidity()) {
       form.reportValidity();
-      e.preventDefault();
       return;
     }
-    const success = form.parentElement.querySelector('.newsletter-success');
+    button.disabled = true;
+
+    // Ask our server whether this address is already on the list. If that
+    // check fails for any reason, just sign up as before.
+    let status = 'unknown';
+    try {
+      const data = new FormData();
+      data.append('email', emailInput.value);
+      const res = await fetch('/newsletter-check.php', { method: 'POST', body: data });
+      status = (await res.json()).status;
+    } catch (err) {
+      status = 'unknown';
+    }
+
+    if (status === 'subscribed' || status === 'pending') {
+      showMessage(texts[status]);
+      button.disabled = false;
+      return;
+    }
+
+    form.submit(); // the normal Mailchimp signup, posted into the hidden iframe
     setTimeout(() => {
-      form.reset();
-      form.hidden = true;
-      if (success) success.hidden = false;
+      showMessage(texts.done);
+      button.disabled = false;
     }, 600);
   });
 });
