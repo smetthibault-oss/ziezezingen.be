@@ -7,6 +7,10 @@
   --cream: #eef1e1;
   --black: #0a0a0a;
   --max-width: 1440px;
+  /* Logo width and the gap after it decide where the menu starts; the contact
+     page uses the same two numbers to line its left block up with the menu. */
+  --logo-w: clamp(80px, 9.5vw, 140px);
+  --nav-gap: 40px;
 }
 
 * {
@@ -80,7 +84,7 @@ h1, h2, h3, .display {
   margin: 0 auto;
   display: flex;
   align-items: center;
-  gap: 40px;
+  gap: var(--nav-gap);
   padding: 8px 0;
 }
 
@@ -92,7 +96,7 @@ h1, h2, h3, .display {
 
 .navbar .logo img {
   display: block;
-  width: clamp(72px, 8vw, 116px);
+  width: var(--logo-w);
   height: auto;
   animation: logo-flicker 7s linear infinite;
 }
@@ -171,8 +175,8 @@ h1, h2, h3, .display {
 /* Between the hamburger breakpoint and a comfortable desktop width the
    longer "Onze Community" label would otherwise wrap onto two lines. */
 @media (min-width: 901px) and (max-width: 1100px) {
-  .navbar {
-    gap: 24px;
+  :root {
+    --nav-gap: 24px;
   }
 
   .nav-links {
@@ -711,20 +715,37 @@ h1, h2, h3, .display {
   display: none;
 }
 
+/* Same box as the navbar (1400px of content between 60px side paddings), so
+   the left block and the form line up with the logo/menu and the button. */
 .contact-hero .section-content {
-  padding: 80px 100px;
+  max-width: 1520px;
+  padding: 80px 60px;
   width: 100%;
 }
 
+/* The form sits against the right edge (under the "Schrijf je in!" button);
+   the info block takes the rest, which leaves room between the two. */
 .contact-details-inner {
-  max-width: 1200px;
-  margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  gap: 60px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 480px);
+  gap: 60px 96px;
 }
 
-@media (max-width: 800px) {
+/* From here the menu is comfortably wide: start the left block exactly where
+   "Onze community" starts. */
+@media (min-width: 1280px) {
+  .contact-details-inner {
+    padding-left: calc(var(--logo-w) + var(--nav-gap));
+  }
+}
+
+/* Keep the info text from running right up to the form. */
+.contact-column-info {
+  max-width: 560px;
+}
+
+/* Not enough room for two comfortable columns: stack them. */
+@media (max-width: 1099px) {
   .contact-details-inner {
     grid-template-columns: 1fr;
   }
