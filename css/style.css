@@ -786,6 +786,14 @@ h1, h2, h3, .display {
   max-width: 560px;
 }
 
+/* main.js sets --info-shift so the right column starts under the first letter
+   of the "Welkom in onze..." hint in the nav bar. */
+@media (min-width: 1100px) {
+  .contact-column-info {
+    margin-left: var(--info-shift, 0px);
+  }
+}
+
 /* Not enough room for two comfortable columns: stack them. */
 @media (max-width: 1099px) {
   .contact-details-inner {
@@ -1304,6 +1312,14 @@ h1, h2, h3, .display {
   justify-content: space-between;
   align-items: flex-start;
   gap: 24px;
+}
+
+/* The logo picture has a transparent margin (~18% of its width) around the
+   ring, so on desktop the footer text starts where the ring itself starts. */
+@media (min-width: 901px) {
+  .footer-brand {
+    margin-left: calc(var(--logo-w) * 0.18);
+  }
 }
 
 .footer-right {

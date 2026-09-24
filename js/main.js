@@ -417,3 +417,29 @@ document.querySelectorAll('.newsletter-form').forEach((form) => {
     }, 600);
   });
 });
+
+// Contact page: line the right column (downloads and press) up with the first
+// letter of the hint text in the nav bar. The hint changes width with the
+// screen, so measure it instead of hard-coding a number.
+(function alignContactInfo() {
+  const info = document.querySelector(".contact-column-info");
+  const hintText = document.querySelector(".newsletter-hint .hint-text");
+  if (!info || !hintText) return;
+
+  function align() {
+    info.style.setProperty("--info-shift", "0px");
+    const hint = hintText.getBoundingClientRect();
+    const box = info.getBoundingClientRect();
+    const bar = document.querySelector(".navbar").getBoundingClientRect();
+    // only when the two columns sit side by side and the hint is visible
+    if (window.innerWidth < 1100 || hint.width === 0) return;
+    // keep at least 280px for the column itself
+    const shift = Math.min(hint.left - box.left, bar.right - 280 - box.left);
+    if (shift > 0) info.style.setProperty("--info-shift", Math.round(shift) + "px");
+  }
+
+  align();
+  window.addEventListener("resize", align);
+  window.addEventListener("load", align);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(align);
+})();
