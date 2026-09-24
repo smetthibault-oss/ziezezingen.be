@@ -1253,7 +1253,7 @@ h1, h2, h3, .display {
 /* Footer */
 .site-footer {
   background: var(--maroon);
-  padding: 60px 60px 40px;
+  padding: 50px 60px;
 }
 
 /* Same width and side padding as the navbar, so the brand text lines up with
@@ -1380,7 +1380,7 @@ h1, h2, h3, .display {
     line-height: 1;
   }
   .site-footer {
-    padding: 60px 20px 40px;
+    padding: 50px 20px;
   }
   .footer-columns {
     flex-direction: column;
