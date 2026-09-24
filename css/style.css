@@ -98,6 +98,9 @@ h1, h2, h3, .display {
   display: block;
   width: var(--logo-w);
   height: auto;
+  /* the picture has ~17% empty space above and below the ring: trim most of
+     it so the bar gets lower while the logo keeps its size */
+  margin: calc(var(--logo-w) * -0.13) 0;
   animation: logo-neon 2s linear 1;
 }
 
@@ -1353,6 +1356,15 @@ h1, h2, h3, .display {
 
 .footer-credits p {
   margin: 0;
+}
+
+.footer-credits a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.footer-credits a:hover {
+  color: var(--teal);
 }
 
 .social-icons {
