@@ -98,7 +98,37 @@ h1, h2, h3, .display {
   display: block;
   width: var(--logo-w);
   height: auto;
-  animation: logo-flicker 7s linear infinite;
+  animation: logo-neon 3.6s linear 1;
+}
+
+/* The logo rests plain, without any glow. Each time the button hops (and once
+   on load) the neon switches on: a few flickers, then it glows steadily and
+   fades back to plain. main.js replays it. */
+@keyframes logo-neon {
+  0%, 100% {
+    opacity: 1;
+    filter: none;
+  }
+  6% {
+    opacity: 0.6;
+    filter: drop-shadow(0 0 2px rgba(99, 230, 182, 0.4));
+  }
+  10% {
+    opacity: 1;
+    filter: none;
+  }
+  16%, 26%, 34% {
+    opacity: 1;
+    filter: drop-shadow(0 0 6px rgba(99, 230, 182, 0.85)) drop-shadow(0 0 16px rgba(99, 230, 182, 0.5));
+  }
+  21%, 30% {
+    opacity: 0.4;
+    filter: drop-shadow(0 0 2px rgba(99, 230, 182, 0.3));
+  }
+  40%, 72% {
+    opacity: 1;
+    filter: drop-shadow(0 0 6px rgba(99, 230, 182, 0.85)) drop-shadow(0 0 16px rgba(99, 230, 182, 0.5));
+  }
 }
 
 /* Neon-sign flicker: a couple of quick dips near the start of the cycle,
