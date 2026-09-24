@@ -27,6 +27,12 @@
 
 html {
   scroll-behavior: smooth;
+  /* iOS Safari sizes the page (and lets you pan sideways) based on the
+     widest descendant unless overflow-x is also hidden here, not just on
+     body — this is what stops that on things like the off-screen honeypot
+     field and the cover-fit video background. */
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 body {
