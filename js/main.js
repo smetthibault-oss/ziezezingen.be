@@ -232,10 +232,22 @@ if (bgVideoWrap) {
 }
 
 document.querySelectorAll('.nav-toggle').forEach((btn) => {
+  const navbar = btn.closest('.navbar');
+  const nav = navbar.querySelector('.nav-links');
+
   btn.addEventListener('click', () => {
-    const nav = btn.closest('.navbar').querySelector('.nav-links');
     const isOpen = nav.classList.toggle('open');
     btn.setAttribute('aria-expanded', String(isOpen));
+  });
+
+  // Close the mobile menu as soon as a menu link (or the newsletter button)
+  // is used - needed for same-page anchors like "Over ons", where the page
+  // doesn't reload and the open menu would otherwise stay on top.
+  navbar.querySelectorAll('.nav-links a, .nav-cta').forEach((link) => {
+    link.addEventListener('click', () => {
+      nav.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+    });
   });
 });
 
