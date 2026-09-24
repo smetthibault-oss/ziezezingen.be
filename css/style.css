@@ -9,11 +9,8 @@
   --max-width: 1440px;
   /* Logo width and the gap after it decide where the menu starts; the contact
      page uses the same two numbers to line its left block up with the menu. */
-  --logo-w: clamp(80px, 9.5vw, 140px);
+  --logo-w: clamp(96px, 11.5vw, 168px);
   --nav-gap: 40px;
-  /* desktop: the logo (and the footer brand under it) sit this much further
-     left than the rest of the layout, about half a centimetre */
-  --logo-shift: 19px;
 }
 
 * {
@@ -126,15 +123,6 @@ h1, h2, h3, .display {
 
   .navbar {
     max-width: 1400px;
-  }
-}
-
-@media (min-width: 901px) {
-  /* Only the logo moves: the extra right margin gives back the same room, so
-     the menu items stay exactly where they were. */
-  .navbar .logo {
-    margin-left: calc(-1 * var(--logo-shift));
-    margin-right: var(--logo-shift);
   }
 }
 
@@ -1302,12 +1290,6 @@ h1, h2, h3, .display {
   justify-content: space-between;
   align-items: flex-start;
   gap: 24px;
-}
-
-@media (min-width: 901px) {
-  .footer-brand {
-    margin-left: calc(-1 * var(--logo-shift));
-  }
 }
 
 .footer-right {
