@@ -15,6 +15,11 @@ jobs:
       - name: Cache-bust CSS/JS with the commit SHA
         run: sed -i "s/__BUILD_VERSION__/${{ github.sha }}/g" *.html
 
+      - name: Generate /nieuwsbrief (a copy of the home page that opens at the newsletter section)
+        run: |
+          mkdir -p nieuwsbrief
+          sed 's#<head>#<head><base href="/">#' index.html > nieuwsbrief/index.html
+
       - name: Write Mailchimp config (from secret, never committed)
         run: |
           cat > mailchimp-config.php <<EOF

@@ -81,25 +81,18 @@ h1, h2, h3, .display {
   display: flex;
   align-items: center;
   gap: 40px;
-  padding: 22px 0;
-  /* Reserve room for the logo, which is pulled out of the flow below so it
-     can run bigger than the bar without stretching it. */
-  padding-left: clamp(120px, 12vw, 200px);
+  padding: 8px 0;
 }
 
-/* Taken out of the flex flow: the bar's own height is driven by the nav
-   links / buttons only, and the logo overlaps it (and the section below)
-   like a neon sign bolted on top, instead of stretching the bar to fit it. */
+/* The logo sits inside the bar and never overflows it: the bar's height
+   simply follows the logo size. */
 .navbar .logo {
-  position: absolute;
-  left: 0;
-  top: 6px;
-  z-index: 2;
+  flex-shrink: 0;
 }
 
 .navbar .logo img {
   display: block;
-  width: clamp(100px, 12vw, 200px);
+  width: clamp(72px, 8vw, 116px);
   height: auto;
   animation: logo-flicker 7s linear infinite;
 }
@@ -117,9 +110,8 @@ h1, h2, h3, .display {
   }
 }
 
-/* Desktop only: a taller bar, less idle space beside the logo, and the
-   nav-cta pulled in closer to the true edge of wide screens. Tablet and
-   mobile keep the bar as it already is. */
+/* Desktop: less side padding, and a wider bar (the footer uses the same
+   numbers so their left and right edges line up). */
 @media (min-width: 900px) {
   .site-header {
     padding: 0 60px;
@@ -127,12 +119,6 @@ h1, h2, h3, .display {
 
   .navbar {
     max-width: 1400px;
-    padding-top: 52px;
-    padding-bottom: 52px;
-  }
-
-  .navbar .logo {
-    top: 0;
   }
 }
 
@@ -381,6 +367,7 @@ h1, h2, h3, .display {
 
 .section-title:hover::after {
   transform: scaleX(1);
+  animation: logo-flicker 7s linear infinite;
 }
 
 .section-link {
@@ -550,38 +537,8 @@ h1, h2, h3, .display {
   }
 }
 
-.reveal-stack {
-  display: grid;
-  width: 100%;
-}
-
-.reveal-stack > .reveal-title,
-.reveal-stack > .reveal-body {
-  grid-area: 1 / 1;
-  align-self: center;
-  justify-self: center;
-}
-
-.reveal-title,
-.reveal-body {
-  opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-.reveal-title.visible,
-.reveal-body.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.newsletter .reveal-title {
-  font-size: clamp(48px, 8vw, 128px);
-  text-align: center;
-  margin-bottom: 0;
-}
-
-.community .section-content {
+.community .section-content,
+.newsletter .section-content {
   padding: 100px 60px;
 }
 
@@ -1296,19 +1253,28 @@ h1, h2, h3, .display {
 /* Footer */
 .site-footer {
   background: var(--maroon);
-  padding: 60px 40px 40px;
+  padding: 60px 60px 40px;
 }
 
+/* Same width and side padding as the navbar, so the brand text lines up with
+   the logo and the social icons with the newsletter button. */
 .footer-inner {
-  max-width: var(--max-width);
+  max-width: 1400px;
   margin: 0 auto;
 }
 
 .footer-columns {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
   gap: 24px;
+}
+
+.footer-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 16px;
 }
 
 .brand-name {
@@ -1330,7 +1296,7 @@ h1, h2, h3, .display {
   font-size: 15px;
   opacity: 0.75;
   line-height: 1.6;
-  text-align: center;
+  text-align: right;
 }
 
 .footer-credits p {
@@ -1366,7 +1332,6 @@ h1, h2, h3, .display {
   }
   .navbar {
     gap: 14px;
-    padding-left: 110px;
   }
   .events-list-section {
     padding: 60px 20px 80px;
@@ -1374,7 +1339,8 @@ h1, h2, h3, .display {
   .contact-hero .section-content {
     padding: 60px 20px;
   }
-  .community .section-content {
+  .community .section-content,
+  .newsletter .section-content {
     padding: 60px 20px;
   }
   .community-intro-title {
@@ -1413,12 +1379,12 @@ h1, h2, h3, .display {
     font-size: 18px;
     line-height: 1;
   }
-  .footer-columns {
-    grid-template-columns: 1fr;
-    text-align: center;
-    justify-items: center;
+  .site-footer {
+    padding: 60px 20px 40px;
   }
-  .social-icons {
-    justify-content: center;
+  .footer-columns {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 28px;
   }
 }

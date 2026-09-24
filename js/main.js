@@ -1,47 +1,21 @@
-// 1) title fades in and holds, 2) title fades out, 3) only then the text fades in
-function playReveal(title, body) {
-  title.classList.remove('visible');
-  if (body) body.classList.remove('visible');
-  void title.offsetWidth; // restart the CSS transition even if it just ran
-  requestAnimationFrame(() => {
-    title.classList.add('visible');
-    setTimeout(() => {
-      title.classList.remove('visible');
-      setTimeout(() => body && body.classList.add('visible'), 800);
-    }, 1800);
-  });
-}
+// The community and newsletter sections share one intro: the big title floats
+// over the photo, shrinks up into the small permanent title, then the body
+// fades in underneath it (the title stays). Two things can trigger it -
+// scrolling the section into view, or a menu/button jump - so if both fire
+// close together, cancel whichever run is still in flight; otherwise their
+// timeouts interleave and the intro title pops back over the revealed text.
+const sectionRevealTimeouts = new Map();
 
-document.querySelectorAll('.reveal-title').forEach((title) => {
-  const body = title.nextElementSibling;
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        playReveal(title, body);
-        observer.disconnect();
-      }
-    });
-  }, { threshold: 0.3 });
-  observer.observe(title);
-});
-
-// Community section: the big intro title shrinks up into the small
-// permanent title, then the body text fades in underneath it. Two things
-// can trigger this (scrolling it into view, or clicking "Over ons" in the
-// nav) — if both fire close together, cancel whichever run is still in
-// flight so their timeouts never interleave and show the intro title
-// popping back up over the already-revealed body text.
-let communityRevealTimeouts = [];
-
-function playCommunityReveal() {
-  const section = document.getElementById('community');
+function playSectionReveal(section) {
   if (!section) return;
   const introTitle = section.querySelector('.community-intro-title');
   const finalTitle = section.querySelector('.community-title');
   const body = section.querySelector('.community-body');
+  if (!introTitle || !finalTitle) return;
 
-  communityRevealTimeouts.forEach(clearTimeout);
-  communityRevealTimeouts = [];
+  (sectionRevealTimeouts.get(section) || []).forEach(clearTimeout);
+  const timeouts = [];
+  sectionRevealTimeouts.set(section, timeouts);
 
   introTitle.classList.remove('visible', 'shrink');
   finalTitle.classList.remove('visible');
@@ -49,38 +23,53 @@ function playCommunityReveal() {
   void introTitle.offsetWidth; // restart the CSS transition even if it just ran
   requestAnimationFrame(() => {
     introTitle.classList.add('visible');
-    communityRevealTimeouts.push(setTimeout(() => {
+    timeouts.push(setTimeout(() => {
       introTitle.classList.add('shrink');
       finalTitle.classList.add('visible');
-      communityRevealTimeouts.push(setTimeout(() => body && body.classList.add('visible'), 400));
+      timeouts.push(setTimeout(() => body && body.classList.add('visible'), 400));
     }, 1800));
   });
 }
 
-const communitySection = document.getElementById('community');
-if (communitySection) {
+['community', 'newsletter'].forEach((id) => {
+  const section = document.getElementById(id);
+  if (!section) return;
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        playCommunityReveal();
+        playSectionReveal(section);
         observer.disconnect();
       }
     });
   }, { threshold: 0.3 });
-  observer.observe(communitySection);
-}
+  observer.observe(section);
+});
 
-// Replay the reveal whenever a menu link jumps to that section again
-document.querySelectorAll('a[href="#community"], a[href="#newsletter"]').forEach((link) => {
-  link.addEventListener('click', () => {
-    if (link.getAttribute('href') === '#community') {
-      playCommunityReveal();
-      return;
-    }
-    const title = document.querySelector('#' + link.getAttribute('href').slice(1) + ' .reveal-title');
-    if (title) playReveal(title, title.nextElementSibling);
+// Replay the community intro whenever the menu jumps to that section again
+document.querySelectorAll('a[href="#community"]').forEach((link) => {
+  link.addEventListener('click', () => playSectionReveal(document.getElementById('community')));
+});
+
+// The newsletter lives at the clean address /nieuwsbrief. On the home page a
+// click scrolls to the section and updates the address bar without reloading;
+// from any other page it is a normal link (the server serves /nieuwsbrief/ as
+// a copy of the home page that opens at this section).
+const newsletterSection = document.getElementById('newsletter');
+
+document.querySelectorAll('a[href="/nieuwsbrief"]').forEach((link) => {
+  link.addEventListener('click', (e) => {
+    if (!newsletterSection) return;
+    e.preventDefault();
+    newsletterSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    history.pushState(null, '', '/nieuwsbrief');
+    playSectionReveal(newsletterSection);
   });
 });
+
+if (newsletterSection && (location.pathname === '/nieuwsbrief' || location.pathname === '/nieuwsbrief/')) {
+  history.replaceState(null, '', '/nieuwsbrief');
+  requestAnimationFrame(() => newsletterSection.scrollIntoView({ block: 'center' }));
+}
 
 const heroSlider = document.querySelector('.hero-slider');
 if (heroSlider) {
