@@ -736,6 +736,8 @@ h1, h2, h3, .display {
 @media (min-width: 1280px) {
   .contact-details-inner {
     padding-left: calc(var(--logo-w) + var(--nav-gap));
+    /* nudge the form a little away from the right edge */
+    padding-right: 48px;
   }
 }
 
