@@ -1,9 +1,9 @@
-// The community and newsletter sections share one intro: the big title floats
-// over the photo, shrinks up into the small permanent title, then the body
-// fades in underneath it (the title stays). Two things can trigger it -
-// scrolling the section into view, or a menu/button jump - so if both fire
-// close together, cancel whichever run is still in flight; otherwise their
-// timeouts interleave and the intro title pops back over the revealed text.
+// The community section has an intro: the big title floats over the photo,
+// shrinks up into the small permanent title, then the body fades in underneath
+// it (the title stays). Two things can trigger it - scrolling the section into
+// view, or a menu jump - so if both fire close together, cancel whichever run
+// is still in flight; otherwise their timeouts interleave and the intro title
+// pops back over the revealed text.
 const sectionRevealTimeouts = new Map();
 
 function playSectionReveal(section) {
@@ -31,19 +31,18 @@ function playSectionReveal(section) {
   });
 }
 
-['community', 'newsletter'].forEach((id) => {
-  const section = document.getElementById(id);
-  if (!section) return;
+const communitySection = document.getElementById('community');
+if (communitySection) {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        playSectionReveal(section);
+        playSectionReveal(communitySection);
         observer.disconnect();
       }
     });
   }, { threshold: 0.3 });
-  observer.observe(section);
-});
+  observer.observe(communitySection);
+}
 
 // Replay the community intro whenever the menu jumps to that section again
 document.querySelectorAll('a[href="#community"]').forEach((link) => {
@@ -62,7 +61,6 @@ document.querySelectorAll('a[href="/nieuwsbrief"]').forEach((link) => {
     e.preventDefault();
     newsletterSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
     history.pushState(null, '', '/nieuwsbrief');
-    playSectionReveal(newsletterSection);
   });
 });
 
