@@ -68,7 +68,8 @@ document.querySelectorAll('a[href="/nieuwsbrief"]').forEach((link) => {
 
 if (newsletterSection && (location.pathname === '/nieuwsbrief' || location.pathname === '/nieuwsbrief/')) {
   history.replaceState(null, '', '/nieuwsbrief');
-  requestAnimationFrame(() => newsletterSection.scrollIntoView({ block: 'center' }));
+  // opening the link should land on the section straight away, not glide down the whole page
+  requestAnimationFrame(() => newsletterSection.scrollIntoView({ block: 'center', behavior: 'instant' }));
 }
 
 const heroSlider = document.querySelector('.hero-slider');
