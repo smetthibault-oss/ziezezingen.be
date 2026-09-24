@@ -98,7 +98,7 @@ h1, h2, h3, .display {
   display: block;
   width: var(--logo-w);
   height: auto;
-  animation: logo-neon 3.6s linear 1;
+  animation: logo-neon 2s linear 1;
 }
 
 /* The logo rests plain, without any glow. Each time the button hops (and once
@@ -765,25 +765,23 @@ h1, h2, h3, .display {
   width: 100%;
 }
 
-/* The form sits against the right edge (under the "Schrijf je in!" button);
-   the info block takes the rest, which leaves room between the two. */
+/* Form on the left (starting where the menu starts), downloads and press on
+   the right. */
 .contact-details-inner {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 480px);
+  grid-template-columns: minmax(0, 480px) minmax(0, 1fr);
   gap: 60px 96px;
+  align-items: start;
 }
 
-/* From here the menu is comfortably wide: start the left block exactly where
+/* From here the menu is comfortably wide: start the form exactly where
    "Onze community" starts. */
 @media (min-width: 1280px) {
   .contact-details-inner {
     padding-left: calc(var(--logo-w) + var(--nav-gap));
-    /* nudge the form a little away from the right edge */
-    padding-right: 48px;
   }
 }
 
-/* Keep the info text from running right up to the form. */
 .contact-column-info {
   max-width: 560px;
 }
@@ -803,36 +801,22 @@ h1, h2, h3, .display {
 }
 
 .contact-column h3 {
-  font-family: 'Anton', sans-serif;
-  font-weight: 400;
-  font-size: 18px;
+  font-size: 32px;
   color: #000;
-  opacity: 0.75;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin: 40px 0 14px;
+  margin: 0 0 16px;
 }
 
-.contact-column-info p {
+.contact-column-info h3:not(:first-child) {
+  margin-top: 48px;
+}
+
+.contact-intro {
+  max-width: 480px;
   font-size: 17px;
   line-height: 1.6;
   opacity: 0.85;
-  margin: 0 0 20px;
+  margin: 0 0 24px;
   color: #000;
-}
-
-.contact-email-link {
-  display: inline-block;
-  font-size: clamp(22px, 3vw, 32px);
-  font-weight: 700;
-  color: var(--maroon);
-  text-decoration: none;
-  border-bottom: 2px solid var(--maroon);
-  padding-bottom: 4px;
-}
-
-.contact-email-link:hover {
-  opacity: 0.85;
 }
 
 .download-list {

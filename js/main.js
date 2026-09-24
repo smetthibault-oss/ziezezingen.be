@@ -360,7 +360,7 @@ document.querySelectorAll('.newsletter-hint').forEach((hint) => {
   // The homepage opens (or is reached via the logo) with a triple bounce;
   // every later trigger (the 10s loop, hover) and every other page just bounce once.
   playHint(isHomePage ? 3 : 1);
-  setInterval(() => playHint(1), 10000);
+  setInterval(() => playHint(1), 5000);
 
   if (group) group.addEventListener('mouseenter', () => playHint(1));
 });
