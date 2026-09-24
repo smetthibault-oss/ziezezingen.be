@@ -40,7 +40,11 @@ body {
   background: var(--black);
   color: var(--cream);
   font-family: 'Kumbh Sans', sans-serif;
+  /* "hidden" would turn body into a scroll container and silently break the
+     sticky header; "clip" cuts off the overflow without doing that. The
+     "hidden" line is only a fallback for browsers that lack "clip". */
   overflow-x: hidden;
+  overflow-x: clip;
 }
 
 img {
@@ -171,6 +175,24 @@ h1, h2, h3, .display {
 
 .nav-links a:hover::after {
   transform: scaleX(1);
+  animation: logo-flicker 7s linear infinite;
+}
+
+.nav-links a {
+  white-space: nowrap;
+}
+
+/* Between the hamburger breakpoint and a comfortable desktop width the
+   longer "Onze Community" label would otherwise wrap onto two lines. */
+@media (min-width: 901px) and (max-width: 1100px) {
+  .navbar {
+    gap: 24px;
+  }
+
+  .nav-links {
+    gap: 22px;
+    font-size: 16px;
+  }
 }
 
 .nav-cta-group {
@@ -224,11 +246,6 @@ h1, h2, h3, .display {
   pointer-events: none;
 }
 
-.newsletter-hint .hint-text,
-.newsletter-hint .hint-arrow {
-  opacity: 0;
-}
-
 /* Two different sentences: the long welcome line by default, falling back
    to the short one once JS (fitHintText) finds it no longer fits the bar. */
 .hint-text-mobile {
@@ -247,41 +264,14 @@ h1, h2, h3, .display {
   display: none;
 }
 
+.newsletter-hint.hide {
+  display: none;
+}
+
 .newsletter-hint .hint-arrow {
   font-size: 16px;
   font-weight: 700;
-  animation: hint-arrow-glow 7s linear infinite;
-}
-
-/* Same dip timing as logo-flicker, but filter-only so it never fights
-   hint-fade for control of opacity (that caused the arrow to flicker back
-   into view on its own after the text had already faded out). */
-@keyframes hint-arrow-glow {
-  0%, 3%, 5.5%, 7%, 9%, 100% {
-    filter: drop-shadow(0 0 6px rgba(99, 230, 182, 0.85)) drop-shadow(0 0 16px rgba(99, 230, 182, 0.5));
-  }
-  3.5%, 6%, 8% {
-    filter: drop-shadow(0 0 2px rgba(99, 230, 182, 0.3));
-  }
-}
-
-.newsletter-hint.play .hint-text {
-  animation-name: hint-fade;
-  animation-duration: var(--hint-duration, 3.6s);
-  animation-timing-function: ease;
-}
-
-.newsletter-hint.play .hint-arrow {
-  animation-name: hint-arrow-glow, hint-fade;
-  animation-duration: 7s, var(--hint-duration, 3.6s);
-  animation-timing-function: linear, ease;
-  animation-iteration-count: infinite, 1;
-}
-
-@keyframes hint-fade {
-  0% { opacity: 0; }
-  8%, 92% { opacity: 1; }
-  100% { opacity: 0; }
+  filter: drop-shadow(0 0 6px rgba(99, 230, 182, 0.6));
 }
 
 .nav-toggle {
@@ -370,6 +360,10 @@ h1, h2, h3, .display {
   text-align: center;
   text-shadow: 0 0 20px rgba(99, 230, 182, 0.4);
   padding-bottom: 0;
+  /* Anton's default line box leaves a big gap under the capitals. With
+     line-height 1 the baseline sits at ~0.93em, so the hover line at 1.02em
+     ends up just below the letters. */
+  line-height: 1;
 }
 
 .section-title::after {
@@ -377,7 +371,7 @@ h1, h2, h3, .display {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 0;
+  top: 1.02em;
   height: 4px;
   background: var(--teal);
   transform: scaleX(0);
@@ -999,11 +993,27 @@ h1, h2, h3, .display {
   padding: 60px 100px 100px;
 }
 
-.video-grid-title {
+.video-intro {
   max-width: 1200px;
   margin: 0 auto 32px;
+  display: flex;
+  align-items: center;
+  gap: 48px;
+}
+
+.video-grid-title {
+  flex-shrink: 0;
+  margin: 0;
   color: #000;
   font-size: clamp(40px, 6vw, 96px);
+}
+
+.video-intro-text {
+  flex: 1;
+  margin: 0;
+  color: #000;
+  font-size: 17px;
+  line-height: 1.5;
 }
 
 .video-grid {
@@ -1030,6 +1040,11 @@ h1, h2, h3, .display {
 @media (max-width: 900px) {
   .video-grid-section {
     padding: 60px 20px 80px;
+  }
+  .video-intro {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
   }
   .video-grid {
     grid-template-columns: 1fr;

@@ -315,10 +315,8 @@ if (contactForm) {
 document.querySelectorAll('.newsletter-hint').forEach((hint) => {
   const group = hint.closest('.nav-cta-group');
   const cta = group && group.querySelector('.nav-cta');
-  const arrow = hint.querySelector('.hint-arrow');
   const logo = document.querySelector('.navbar .logo img');
   const isHomePage = !!document.querySelector('.hero-slider');
-  const BOUNCE_MS = 600; // matches the cta-bounce keyframe duration in CSS
   const navbar = hint.closest('.navbar');
   let isPlaying = false;
 
@@ -327,9 +325,14 @@ document.querySelectorAll('.newsletter-hint').forEach((hint) => {
   // whatever the screen size is (not a fixed breakpoint).
   function fitHintText() {
     if (!navbar) return;
-    hint.classList.remove('compact');
+    hint.classList.remove('compact', 'hide');
     if (navbar.scrollWidth > navbar.clientWidth) {
       hint.classList.add('compact');
+    }
+    // last resort on a very tight bar: drop the hint if the button would end
+    // up (almost) off the screen. Merely eating into the bar's padding is fine.
+    if (cta && cta.getBoundingClientRect().right > window.innerWidth - 8) {
+      hint.classList.add('hide');
     }
   }
 
@@ -343,16 +346,11 @@ document.querySelectorAll('.newsletter-hint').forEach((hint) => {
     el.style.animation = '';
   }
 
-  const MIN_TEXT_MS = 3000; // the text always stays at least 3s, however short the bounce is
-
-  // bounceCount: how many times the button hops. The hint text stays on
-  // screen for at least 3s, or exactly as long as the bounces if that's longer.
+  // bounceCount: how many times the button hops. The hint text itself is
+  // permanent (it never fades or blinks); only the button and the logo react.
   function playHint(bounceCount) {
     if (isPlaying) return; // let the current run finish before it can restart
     isPlaying = true;
-
-    hint.style.setProperty('--hint-duration', Math.max(BOUNCE_MS * bounceCount, MIN_TEXT_MS) + 'ms');
-    hint.classList.add('play');
 
     if (cta) {
       cta.style.setProperty('--bounce-count', bounceCount);
@@ -361,17 +359,15 @@ document.querySelectorAll('.newsletter-hint').forEach((hint) => {
       cta.classList.add('bounce');
     }
 
-    // logo flicker, arrow glow, text fade-in and the button bounce all fire as one moment
+    // the logo flicker and the button bounce fire as one moment
     restartAnimation(logo);
-    restartAnimation(arrow);
   }
 
-  hint.addEventListener('animationend', (e) => {
-    if (e.target === hint.querySelector('.hint-text')) {
-      hint.classList.remove('play');
-      isPlaying = false;
-    }
-  });
+  if (cta) {
+    cta.addEventListener('animationend', (e) => {
+      if (e.animationName === 'cta-bounce') isPlaying = false;
+    });
+  }
 
   // The homepage opens (or is reached via the logo) with a triple bounce;
   // every later trigger (the 10s loop, hover) and every other page just bounce once.
