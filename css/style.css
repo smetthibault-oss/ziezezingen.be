@@ -71,11 +71,25 @@ h1, h2, h3, .display {
   display: flex;
   align-items: center;
   gap: 40px;
-  padding: 8px 0;
+  padding: 22px 0;
+  /* Reserve room for the logo, which is pulled out of the flow below so it
+     can run bigger than the bar without stretching it. */
+  padding-left: clamp(120px, 12vw, 200px);
+}
+
+/* Taken out of the flex flow: the bar's own height is driven by the nav
+   links / buttons only, and the logo overlaps it (and the section below)
+   like a neon sign bolted on top, instead of stretching the bar to fit it. */
+.navbar .logo {
+  position: absolute;
+  left: 0;
+  top: 6px;
+  z-index: 2;
 }
 
 .navbar .logo img {
-  width: clamp(100px, 9vw, 160px);
+  display: block;
+  width: clamp(100px, 12vw, 200px);
   height: auto;
   animation: logo-flicker 7s linear infinite;
 }
@@ -158,7 +172,10 @@ h1, h2, h3, .display {
 }
 
 .nav-cta.bounce {
-  animation: cta-bounce 0.6s ease;
+  animation-name: cta-bounce;
+  animation-duration: 0.6s;
+  animation-timing-function: ease;
+  animation-iteration-count: var(--bounce-count, 1);
 }
 
 @keyframes cta-bounce {
@@ -187,6 +204,24 @@ h1, h2, h3, .display {
   opacity: 0;
 }
 
+/* Two different sentences: the long welcome line by default, falling back
+   to the short one once JS (fitHintText) finds it no longer fits the bar. */
+.hint-text-mobile {
+  display: none;
+}
+
+.hint-text-desktop {
+  display: inline;
+}
+
+.newsletter-hint.compact .hint-text-mobile {
+  display: inline;
+}
+
+.newsletter-hint.compact .hint-text-desktop {
+  display: none;
+}
+
 .newsletter-hint .hint-arrow {
   font-size: 16px;
   font-weight: 700;
@@ -206,11 +241,16 @@ h1, h2, h3, .display {
 }
 
 .newsletter-hint.play .hint-text {
-  animation: hint-fade 3.6s ease;
+  animation-name: hint-fade;
+  animation-duration: var(--hint-duration, 3.6s);
+  animation-timing-function: ease;
 }
 
 .newsletter-hint.play .hint-arrow {
-  animation: hint-arrow-glow 7s linear infinite, hint-fade 3.6s ease;
+  animation-name: hint-arrow-glow, hint-fade;
+  animation-duration: 7s, var(--hint-duration, 3.6s);
+  animation-timing-function: linear, ease;
+  animation-iteration-count: infinite, 1;
 }
 
 @keyframes hint-fade {
@@ -1335,12 +1375,5 @@ h1, h2, h3, .display {
   }
   .social-icons {
     justify-content: center;
-  }
-}
-
-/* Phone: shorten the hint next to the icon-only nav-cta */
-@media (max-width: 640px) {
-  .hint-extra {
-    display: none;
   }
 }

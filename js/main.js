@@ -305,7 +305,24 @@ document.querySelectorAll('.newsletter-hint').forEach((hint) => {
   const cta = group && group.querySelector('.nav-cta');
   const arrow = hint.querySelector('.hint-arrow');
   const logo = document.querySelector('.navbar .logo img');
+  const isHomePage = !!document.querySelector('.hero-slider');
+  const BOUNCE_MS = 600; // matches the cta-bounce keyframe duration in CSS
+  const navbar = hint.closest('.navbar');
   let isPlaying = false;
+
+  // Show the full "Welkom..." line by default; only fall back to the short
+  // "Mis geen nieuwtje" once the long one no longer fits the nav bar,
+  // whatever the screen size is (not a fixed breakpoint).
+  function fitHintText() {
+    if (!navbar) return;
+    hint.classList.remove('compact');
+    if (navbar.scrollWidth > navbar.clientWidth) {
+      hint.classList.add('compact');
+    }
+  }
+
+  fitHintText();
+  window.addEventListener('resize', fitHintText);
 
   function restartAnimation(el) {
     if (!el) return;
@@ -314,13 +331,19 @@ document.querySelectorAll('.newsletter-hint').forEach((hint) => {
     el.style.animation = '';
   }
 
-  function playHint() {
+  const MIN_TEXT_MS = 3000; // the text always stays at least 3s, however short the bounce is
+
+  // bounceCount: how many times the button hops. The hint text stays on
+  // screen for at least 3s, or exactly as long as the bounces if that's longer.
+  function playHint(bounceCount) {
     if (isPlaying) return; // let the current run finish before it can restart
     isPlaying = true;
 
+    hint.style.setProperty('--hint-duration', Math.max(BOUNCE_MS * bounceCount, MIN_TEXT_MS) + 'ms');
     hint.classList.add('play');
 
     if (cta) {
+      cta.style.setProperty('--bounce-count', bounceCount);
       cta.classList.remove('bounce');
       void cta.offsetWidth;
       cta.classList.add('bounce');
@@ -338,10 +361,12 @@ document.querySelectorAll('.newsletter-hint').forEach((hint) => {
     }
   });
 
-  playHint();
-  setInterval(playHint, 10000);
+  // The homepage opens (or is reached via the logo) with a triple bounce;
+  // every later trigger (the 10s loop, hover) and every other page just bounce once.
+  playHint(isHomePage ? 3 : 1);
+  setInterval(() => playHint(1), 10000);
 
-  if (group) group.addEventListener('mouseenter', playHint);
+  if (group) group.addEventListener('mouseenter', () => playHint(1));
 });
 
 document.querySelectorAll('.newsletter-form').forEach((form) => {
