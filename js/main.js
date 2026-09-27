@@ -359,6 +359,10 @@ document.querySelectorAll('.newsletter-hint').forEach((hint) => {
   }
 
   if (group) group.addEventListener('mouseenter', () => playHint(1));
+
+  // Hovering the logo itself also flickers it (on its own, no button bounce).
+  const logoLink = document.querySelector('.navbar .logo');
+  if (logoLink) logoLink.addEventListener('mouseenter', () => playLogoFlicker(logo));
 });
 
 document.querySelectorAll('.newsletter-form').forEach((form) => {
