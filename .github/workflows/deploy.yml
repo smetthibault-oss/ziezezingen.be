@@ -15,6 +15,9 @@ jobs:
       - name: Cache-bust CSS/JS with the commit SHA
         run: sed -i "s/__BUILD_VERSION__/${{ github.sha }}/g" *.html
 
+      - name: Stamp today's date into sitemap.xml
+        run: sed -i "s/__BUILD_DATE__/$(date -u +%F)/g" sitemap.xml
+
       - name: Generate /nieuwsbrief (a copy of the home page that opens at the newsletter section)
         run: |
           mkdir -p nieuwsbrief

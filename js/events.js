@@ -1,3 +1,43 @@
+// SEO: tell Google about each dated event (schema.org Event), so they can show
+// up as rich results. Events without a fixed date (e.g. a recurring series)
+// are left out — there's no single startDate to report for those.
+function addEventStructuredData(upcoming) {
+  const graph = upcoming
+    .filter((ev) => ev.eventDate)
+    .map((ev) => {
+      const time = String(ev.date).match(/(\d{1,2}):(\d{2})/);
+      const startDate = time ? `${ev.eventDate}T${time[1].padStart(2, '0')}:${time[2]}` : ev.eventDate;
+      const event = {
+        '@type': 'Event',
+        name: ev.title,
+        startDate,
+        eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+        eventStatus: 'https://schema.org/EventScheduled',
+        location: { '@type': 'Place', name: ev.location, address: ev.location },
+        image: [new URL(ev.image, location.origin).href],
+        description: ev.description,
+        organizer: { '@type': 'Organization', name: 'Zie Ze Zingen', url: 'https://ziezezingen.be/' },
+      };
+      // Only claim a price when we're sure it's free — we don't have real
+      // ticket prices for the paid events, and a wrong price is worse than none.
+      if (/gratis/i.test(ev.ctaText || '')) {
+        event.offers = {
+          '@type': 'Offer',
+          url: ev.ctaUrl || ev.moreInfoUrl || 'https://ziezezingen.be/events.html',
+          price: '0',
+          priceCurrency: 'EUR',
+          availability: ev.soldOut ? 'https://schema.org/SoldOut' : 'https://schema.org/InStock',
+        };
+      }
+      return event;
+    });
+  if (!graph.length) return;
+  const script = document.createElement('script');
+  script.type = 'application/ld+json';
+  script.textContent = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph });
+  document.head.appendChild(script);
+}
+
 async function renderEvents() {
   const grid = document.querySelector('.events-grid');
   if (!grid) return;
@@ -12,6 +52,7 @@ async function renderEvents() {
     const now = new Date();
     const today = [now.getFullYear(), String(now.getMonth() + 1).padStart(2, '0'), String(now.getDate()).padStart(2, '0')].join('-');
     const upcoming = events.filter((ev) => !ev.eventDate || String(ev.eventDate).slice(0, 10) >= today);
+    addEventStructuredData(upcoming);
 
     if (!upcoming.length) {
       const empty = document.createElement('p');
