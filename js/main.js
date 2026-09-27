@@ -304,7 +304,6 @@ document.querySelectorAll('.newsletter-hint').forEach((hint) => {
   const group = hint.closest('.nav-cta-group');
   const cta = group && group.querySelector('.nav-cta');
   const logo = document.querySelector('.navbar .logo img');
-  const isHomePage = !!document.querySelector('.hero-slider');
   const navbar = hint.closest('.navbar');
   let isPlaying = false;
 
@@ -327,15 +326,17 @@ document.querySelectorAll('.newsletter-hint').forEach((hint) => {
   fitHintText();
   window.addEventListener('resize', fitHintText);
 
-  function restartAnimation(el) {
+  // The logo has no animation in the stylesheet (so it never plays on its
+  // own); this is what actually starts it, each time it's called.
+  function playLogoFlicker(el) {
     if (!el) return;
     el.style.animation = 'none';
     void el.offsetWidth; // force a reflow so the animation restarts from 0
-    el.style.animation = '';
+    el.style.animation = 'logo-neon 2s linear 1';
   }
 
-  // bounceCount: how many times the button hops. The hint text itself is
-  // permanent (it never fades or blinks); only the button and the logo react.
+  // The hint text and the logo neon are permanent/on-load; only the button
+  // hop and the logo flicker fire, and only on hover (never on their own).
   function playHint(bounceCount) {
     if (isPlaying) return; // let the current run finish before it can restart
     isPlaying = true;
@@ -348,7 +349,7 @@ document.querySelectorAll('.newsletter-hint').forEach((hint) => {
     }
 
     // the logo flicker and the button bounce fire as one moment
-    restartAnimation(logo);
+    playLogoFlicker(logo);
   }
 
   if (cta) {
@@ -356,11 +357,6 @@ document.querySelectorAll('.newsletter-hint').forEach((hint) => {
       if (e.animationName === 'cta-bounce') isPlaying = false;
     });
   }
-
-  // The homepage opens (or is reached via the logo) with a triple bounce;
-  // every later trigger (the 10s loop, hover) and every other page just bounce once.
-  playHint(isHomePage ? 3 : 1);
-  setInterval(() => playHint(1), 5000);
 
   if (group) group.addEventListener('mouseenter', () => playHint(1));
 });
