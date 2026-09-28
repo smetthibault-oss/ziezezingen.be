@@ -68,8 +68,8 @@ function playSectionReveal(section) {
 // language. Falls back to that language's home page for anything it
 // doesn't recognise.
 (function addLanguageSwitcher() {
-  const group = document.querySelector('.nav-cta-group');
-  if (!group) return;
+  const navLinks = document.querySelector('.nav-links');
+  if (!navLinks) return;
 
   const normalize = (p) => (p === '/' ? '/' : p.replace(/\/+$/, '') || '/');
 
@@ -98,7 +98,7 @@ function playSectionReveal(section) {
   flag.alt = '';
   flag.className = 'lang-switch-flag';
   a.appendChild(flag);
-  group.insertBefore(a, group.firstChild);
+  navLinks.appendChild(a);
 })();
 
 const communitySection = document.getElementById('community');

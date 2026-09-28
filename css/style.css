@@ -214,6 +214,8 @@ h1, h2, h3, .display {
   gap: 10px;
 }
 
+/* Sits in .nav-links, right after "Boek ons" — override the plain nav-link
+   look (underline, bottom padding) with its own small bordered flag button. */
 .lang-switch {
   display: flex;
   align-items: center;
@@ -223,6 +225,10 @@ h1, h2, h3, .display {
   padding: 4px;
   line-height: 0;
   transition: opacity 0.2s, border-color 0.2s;
+}
+
+.lang-switch::after {
+  display: none;
 }
 
 .lang-switch:hover {
