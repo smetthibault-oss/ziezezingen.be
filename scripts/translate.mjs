@@ -139,11 +139,28 @@ async function translatePage(srcPath, dutchPath) {
     ldEl.set_content(JSON.stringify(ld, null, 2));
   }
 
+  // The mobile/desktop nav hint sits as two adjacent spans with nothing
+  // between them (CSS shows one or the other). DeepL's HTML translation
+  // sometimes reads them as one run-on sentence and splits the result back
+  // across the tags in the wrong place. Grab the real Dutch text now and
+  // translate each independently, then overwrite whatever the body pass
+  // below does to them.
+  const hintMobileText = root.querySelector('.hint-text-mobile')?.text;
+  const hintDesktopText = root.querySelector('.hint-text-desktop')?.text;
+
   // 5. the body: DeepL's HTML mode preserves every tag/attribute and only
   // translates the running text, so nav links, hrefs, classes etc. survive.
   const bodyEl = root.querySelector('body');
   const translatedBodyHtml = await deeplBatch([bodyEl.innerHTML], { html: true }).then((r) => r[0]);
   bodyEl.set_content(translatedBodyHtml);
+
+  if (hintMobileText || hintDesktopText) {
+    const [hintMobile, hintDesktop] = await deeplBatch([hintMobileText, hintDesktopText]);
+    const mobileEl = root.querySelector('.hint-text-mobile');
+    const desktopEl = root.querySelector('.hint-text-desktop');
+    if (mobileEl && hintMobile) mobileEl.set_content(hintMobile);
+    if (desktopEl && hintDesktop) desktopEl.set_content(hintDesktop);
+  }
 
   // 6. hrefs still point at the Dutch pages (DeepL doesn't touch attributes
   // in HTML mode) — rewrite them to their English equivalents.
