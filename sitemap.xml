@@ -9,21 +9,27 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://ziezezingen.be/events.html</loc>
+    <loc>https://ziezezingen.be/events</loc>
     <lastmod>__BUILD_DATE__</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ziezezingen.be/video.html</loc>
+    <loc>https://ziezezingen.be/video</loc>
     <lastmod>__BUILD_DATE__</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ziezezingen.be/contact.html</loc>
+    <loc>https://ziezezingen.be/boekons</loc>
     <lastmod>__BUILD_DATE__</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://ziezezingen.be/community</loc>
+    <lastmod>__BUILD_DATE__</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
 </urlset>

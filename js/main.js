@@ -44,10 +44,29 @@ if (communitySection) {
   observer.observe(communitySection);
 }
 
-// Replay the community intro whenever the menu jumps to that section again
-document.querySelectorAll('a[href="#community"]').forEach((link) => {
-  link.addEventListener('click', () => playSectionReveal(document.getElementById('community')));
+// The community section lives at the clean address /community — same
+// pattern as /nieuwsbrief. On the home page a click scrolls there, replays
+// the intro and updates the address bar without reloading; from any other
+// page it's a normal link (the server serves /community/ as a copy of the
+// home page that opens at this section).
+document.querySelectorAll('a[href="/community"]').forEach((link) => {
+  link.addEventListener('click', (e) => {
+    if (!communitySection) return;
+    e.preventDefault();
+    communitySection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    playSectionReveal(communitySection);
+    history.pushState(null, '', '/community');
+  });
 });
+
+if (communitySection && (location.pathname === '/community' || location.pathname === '/community/')) {
+  history.replaceState(null, '', '/community');
+  // land on the section straight away, not glide down the whole page (the
+  // IntersectionObserver above still plays the intro once it's in view).
+  // Not wrapped in requestAnimationFrame: that never fires for a tab that
+  // opens in the background, which would silently skip the scroll.
+  communitySection.scrollIntoView({ block: 'start', behavior: 'instant' });
+}
 
 // The newsletter lives at the clean address /nieuwsbrief. On the home page a
 // click scrolls to the section and updates the address bar without reloading;
@@ -66,8 +85,10 @@ document.querySelectorAll('a[href="/nieuwsbrief"]').forEach((link) => {
 
 if (newsletterSection && (location.pathname === '/nieuwsbrief' || location.pathname === '/nieuwsbrief/')) {
   history.replaceState(null, '', '/nieuwsbrief');
-  // opening the link should land on the section straight away, not glide down the whole page
-  requestAnimationFrame(() => newsletterSection.scrollIntoView({ block: 'center', behavior: 'instant' }));
+  // Land on the section straight away, not glide down the whole page. Not
+  // wrapped in requestAnimationFrame: that never fires for a tab that opens
+  // in the background, which would silently skip the scroll.
+  newsletterSection.scrollIntoView({ block: 'center', behavior: 'instant' });
 }
 
 const heroSlider = document.querySelector('.hero-slider');

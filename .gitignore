@@ -1,5 +1,11 @@
 # Generated at deploy time from GitHub secrets — never commit real credentials here.
 mailchimp-config.php
 
-# Generated at deploy time (a copy of index.html served at /nieuwsbrief).
+# Generated at deploy time (clean-URL copies of the real pages, so links
+# don't need .html: /nieuwsbrief and /community are index.html, the rest
+# are their matching page).
 nieuwsbrief/
+community/
+video/
+events/
+boekons/

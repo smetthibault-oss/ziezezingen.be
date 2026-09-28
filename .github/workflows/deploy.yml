@@ -18,10 +18,14 @@ jobs:
       - name: Stamp today's date into sitemap.xml
         run: sed -i "s/__BUILD_DATE__/$(date -u +%F)/g" sitemap.xml
 
-      - name: Generate /nieuwsbrief (a copy of the home page that opens at the newsletter section)
+      - name: Generate clean-URL pages (no .html in the address)
         run: |
-          mkdir -p nieuwsbrief
-          sed 's#<head>#<head><base href="/">#' index.html > nieuwsbrief/index.html
+          gen() { mkdir -p "$1"; sed 's#<head>#<head><base href="/">#' "$2" > "$1/index.html"; }
+          gen nieuwsbrief index.html
+          gen community index.html
+          gen video video.html
+          gen events events.html
+          gen boekons contact.html
 
       - name: Write Mailchimp config (from secret, never committed)
         run: |
