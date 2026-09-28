@@ -253,8 +253,11 @@ if (videoModal) {
     frame.src = '';
   }
 
-  document.querySelectorAll('.video-card[data-youtube-id]').forEach((card) => {
-    card.addEventListener('click', () => openVideoModal(card.dataset.youtubeId));
+  // Delegated on the document (not the cards themselves): the cards are
+  // added later by js/videos.js, after this script has already run.
+  document.addEventListener('click', (e) => {
+    const card = e.target.closest('.video-card[data-youtube-id]');
+    if (card) openVideoModal(card.dataset.youtubeId);
   });
 
   videoModal.querySelectorAll('[data-close-modal]').forEach((el) => {

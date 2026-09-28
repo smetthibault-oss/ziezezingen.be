@@ -1,0 +1,71 @@
+{
+  "videos": [
+    {
+      "title": "ALL NIGHT LONG",
+      "subtitle": "Sing-along Party",
+      "youtubeId": "x8NwgaOOt4o",
+      "alt": "All Night Long - Sing-along Party"
+    },
+    {
+      "title": "ZZZ IN VRT JOURNAAL",
+      "subtitle": "Voor de Warmste Week",
+      "youtubeId": "HFy5xXEgNsY",
+      "alt": "ZZZ in VRT Journaal"
+    },
+    {
+      "title": "HEROES",
+      "subtitle": "Concert bij VIERNULVIER",
+      "youtubeId": "rdY73Sp3UY8",
+      "alt": "Heroes - Concert bij VIERNULVIER"
+    },
+    {
+      "title": "VENUS!",
+      "subtitle": "Concertzaal De Centrale",
+      "youtubeId": "beoLfBZ02FM",
+      "alt": "Venus - Concertzaal De Centrale"
+    },
+    {
+      "title": "ABBA!",
+      "subtitle": "op Gentse Feesten",
+      "youtubeId": "LvcoiOBHAis",
+      "alt": "ABBA! op Gentse Feesten"
+    },
+    {
+      "title": "TEENAGE DIRTBAG",
+      "subtitle": "Jong & oud zingen voluit!",
+      "youtubeId": "AnT4McF95sc",
+      "alt": "Teenage Dirtbag"
+    },
+    {
+      "title": "ODE AAN DOLLY PARTON",
+      "subtitle": "Pop-Up Straatkoor",
+      "image": "assets/images/video-thumb-dolly-parton.jpg",
+      "alt": "Ode aan Dolly Parton - Pop-Up Straatkoor",
+      "url": "https://www.youtube.com/playlist?list=PLMDr-6yeafuE"
+    },
+    {
+      "title": "TROOSTCONCERT",
+      "subtitle": "voor Stad Gent",
+      "youtubeId": "HKIWkdldnho",
+      "alt": "Troostconcert voor Stad Gent"
+    },
+    {
+      "title": "ED SHEERAN",
+      "subtitle": "Singalong Troost-koor",
+      "youtubeId": "tn5iQJzLtmw",
+      "alt": "Ed Sheeran - Singalong Troost-koor"
+    },
+    {
+      "title": "TEENAGE CONCERT",
+      "subtitle": "CC-schoolvoorstelling",
+      "youtubeId": "triGBgKH7C8",
+      "alt": "Teenage Concert - CC-schoolvoorstelling"
+    },
+    {
+      "title": "INCLUSIE!",
+      "subtitle": "in Concert",
+      "youtubeId": "wgPp8N7BAto",
+      "alt": "Inclusie in Concert - OKAN Aalst"
+    }
+  ]
+}
