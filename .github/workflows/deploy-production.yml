@@ -1,10 +1,14 @@
 name: Go live on ziezezingen.be
 
 # Runs right after "Deploy to one.com" (the test deploy) finishes on main.
-# If EVERYTHING since the last live deploy only touched events.json,
-# videos.json or their photo folders, it goes straight to ziezezingen.be.
-# Anything else (any code/design change) needs your approval first, via the
-# "production" environment (Settings > Environments > required reviewers).
+# Goes straight to ziezezingen.be, no approval needed, when EITHER is true:
+#   - everything since the last live deploy only touched events.json,
+#     videos.json or their photo folders, OR
+#   - every commit since the last live deploy was authored by Thibault
+#     (smetthibault@gmail.com) — his own pushes never need his own approval.
+# Anything else (someone else's code/design change) needs approval first,
+# via the "production" environment (Settings > Environments > required
+# reviewers).
 on:
   workflow_run:
     workflows: ["Deploy to one.com"]
@@ -27,7 +31,7 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     outputs:
-      content_only: ${{ steps.diff.outputs.content_only }}
+      fast_lane: ${{ steps.diff.outputs.fast_lane }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -36,28 +40,40 @@ jobs:
 
       - id: diff
         run: |
+          OWNER_EMAIL="smetthibault@gmail.com"
           BASE=$(git rev-parse refs/tags/production 2>/dev/null || echo "")
           if [ -z "$BASE" ]; then
             echo "No production tag yet -- treating as a code change (needs approval)."
-            echo "content_only=false" >> "$GITHUB_OUTPUT"
+            echo "fast_lane=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
+
           CHANGED=$(git diff --name-only "$BASE" "${{ github.event.workflow_run.head_sha }}")
           echo "Changed since the last live deploy:"
           echo "$CHANGED"
-          SAFE=true
+          CONTENT_ONLY=true
           while IFS= read -r f; do
             [ -z "$f" ] && continue
             case "$f" in
               events.json|videos.json|assets/images/events/*|assets/images/videos/*) ;;
-              *) SAFE=false ;;
+              *) CONTENT_ONLY=false ;;
             esac
           done <<< "$CHANGED"
-          echo "content_only=$SAFE" >> "$GITHUB_OUTPUT"
 
-  deploy-content:
+          OTHER_AUTHORS=$(git log --format='%ae' "$BASE".."${{ github.event.workflow_run.head_sha }}" | grep -vic "^$OWNER_EMAIL\$" || true)
+          echo "Commits by someone other than $OWNER_EMAIL since the last live deploy: $OTHER_AUTHORS"
+          OWNER_ONLY=true
+          if [ "${OTHER_AUTHORS:-0}" -gt 0 ]; then OWNER_ONLY=false; fi
+
+          if [ "$CONTENT_ONLY" = "true" ] || [ "$OWNER_ONLY" = "true" ]; then
+            echo "fast_lane=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "fast_lane=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  deploy-fast:
     needs: check
-    if: ${{ needs.check.outputs.content_only == 'true' }}
+    if: ${{ needs.check.outputs.fast_lane == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the exact commit that was just tested
@@ -150,7 +166,7 @@ jobs:
 
   deploy-approved:
     needs: check
-    if: ${{ needs.check.outputs.content_only != 'true' }}
+    if: ${{ needs.check.outputs.fast_lane != 'true' }}
     runs-on: ubuntu-latest
     environment: production
     steps:
