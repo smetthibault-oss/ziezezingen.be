@@ -1,21 +1,67 @@
-name: Go live on ziezezingen.be (manual)
+name: Go live on ziezezingen.be
 
+# Runs right after "Deploy to one.com" (the test deploy) finishes on main.
+# If EVERYTHING since the last live deploy only touched events.json,
+# videos.json or their photo folders, it goes straight to ziezezingen.be.
+# Anything else (any code/design change) needs your approval first, via the
+# "production" environment (Settings > Environments > required reviewers).
 on:
-  workflow_dispatch:
-    inputs:
-      confirm:
-        description: 'Type LIVE to publish to ziezezingen.be'
-        required: true
+  workflow_run:
+    workflows: ["Deploy to one.com"]
+    types: [completed]
+    branches: [main]
+
+permissions:
+  contents: write
 
 jobs:
-  deploy:
-    if: ${{ github.event.inputs.confirm == 'LIVE' }}
+  check:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
+    outputs:
+      content_only: ${{ steps.diff.outputs.content_only }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          fetch-depth: 0
+
+      - id: diff
+        run: |
+          BASE=$(git rev-parse refs/tags/production 2>/dev/null || echo "")
+          if [ -z "$BASE" ]; then
+            echo "No production tag yet -- treating as a code change (needs approval)."
+            echo "content_only=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          CHANGED=$(git diff --name-only "$BASE" "${{ github.event.workflow_run.head_sha }}")
+          echo "Changed since the last live deploy:"
+          echo "$CHANGED"
+          SAFE=true
+          while IFS= read -r f; do
+            [ -z "$f" ] && continue
+            case "$f" in
+              events.json|videos.json|assets/images/events/*|assets/images/videos/*) ;;
+              *) SAFE=false ;;
+            esac
+          done <<< "$CHANGED"
+          echo "content_only=$SAFE" >> "$GITHUB_OUTPUT"
+
+  deploy-content:
+    needs: check
+    if: ${{ needs.check.outputs.content_only == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the exact commit that was just tested
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
 
       - name: Cache-bust CSS/JS
-        run: sed -i "s/__BUILD_VERSION__/${{ github.sha }}/g" *.html
+        run: sed -i "s/__BUILD_VERSION__/${{ github.event.workflow_run.head_sha }}/g" *.html
+
+      - name: Stamp today's date into sitemap.xml
+        run: sed -i "s/__BUILD_DATE__/$(date -u +%F)/g" sitemap.xml
 
       - name: Live settings (search engines allowed in, redirects for old pages)
         run: |
@@ -49,3 +95,63 @@ jobs:
           local_path: './*'
           remote_path: /webroots/www
           sftpArgs: '-o ConnectTimeout=10'
+
+      - name: Mark this commit as the one that's live
+        run: |
+          git tag -f production ${{ github.event.workflow_run.head_sha }}
+          git push origin production --force
+
+  deploy-approved:
+    needs: check
+    if: ${{ needs.check.outputs.content_only != 'true' }}
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Checkout the exact commit that was just tested
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+      - name: Cache-bust CSS/JS
+        run: sed -i "s/__BUILD_VERSION__/${{ github.event.workflow_run.head_sha }}/g" *.html
+
+      - name: Stamp today's date into sitemap.xml
+        run: sed -i "s/__BUILD_DATE__/$(date -u +%F)/g" sitemap.xml
+
+      - name: Live settings (search engines allowed in, redirects for old pages)
+        run: |
+          sed -i '/TEMP while on the staging domain/d; /<meta name="robots" content="noindex, nofollow">/d' *.html
+          printf 'User-agent: *\nAllow: /\nSitemap: https://ziezezingen.be/sitemap.xml\n' > robots.txt
+          for p in events:/events.html boekons:/contact.html videos:/video.html troost:/events.html bio:/ zie-ze-zingen:/ sociale-innovatie:/; do
+            dir="${p%%:*}"; target="${p##*:}"
+            mkdir -p "$dir"
+            printf '<!DOCTYPE html><html lang="nl"><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta http-equiv="refresh" content="0; url=%s"><link rel="canonical" href="https://ziezezingen.be%s"><title>Zie Ze Zingen</title></head><body><a href="%s">Ga verder naar Zie Ze Zingen</a></body></html>' "$target" "$target" "$target" > "$dir/index.html"
+          done
+
+      - name: Generate /nieuwsbrief
+        run: |
+          mkdir -p nieuwsbrief
+          sed 's#<head>#<head><base href="/">#' index.html > nieuwsbrief/index.html
+
+      - name: Write Mailchimp config
+        run: |
+          cat > mailchimp-config.php <<EOF
+          <?php
+          define('MAILCHIMP_API_KEY', '${{ secrets.MAILCHIMP_API_KEY }}');
+          EOF
+
+      - name: Deploy via SFTP to the real site
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+        with:
+          username: ${{ secrets.SFTP_USERNAME }}
+          server: ${{ secrets.SFTP_SERVER }}
+          password: ${{ secrets.SFTP_PASSWORD }}
+          port: 22
+          local_path: './*'
+          remote_path: /webroots/www
+          sftpArgs: '-o ConnectTimeout=10'
+
+      - name: Mark this commit as the one that's live
+        run: |
+          git tag -f production ${{ github.event.workflow_run.head_sha }}
+          git push origin production --force
