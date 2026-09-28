@@ -43,7 +43,9 @@ async function renderEvents() {
   if (!grid) return;
 
   try {
-    const res = await fetch('events.json', { cache: 'no-store' });
+    // English pages (lang="en") get the English event text from en/events.json,
+    // generated alongside events.json at deploy time.
+    const res = await fetch((LANG === 'en' ? 'en/' : '') + 'events.json', { cache: 'no-store' });
     const { events } = await res.json();
     grid.innerHTML = '';
 
@@ -57,7 +59,7 @@ async function renderEvents() {
     if (!upcoming.length) {
       const empty = document.createElement('p');
       empty.className = 'events-empty';
-      empty.textContent = 'Momenteel staan er geen events gepland. Kom snel terug!';
+      empty.textContent = t('eventsEmpty');
       grid.appendChild(empty);
       return;
     }
@@ -127,7 +129,7 @@ async function renderEvents() {
       grid.appendChild(article);
     });
   } catch (err) {
-    grid.innerHTML = '<p>De events konden niet geladen worden.</p>';
+    grid.innerHTML = `<p>${t('eventsFailed')}</p>`;
   }
 }
 

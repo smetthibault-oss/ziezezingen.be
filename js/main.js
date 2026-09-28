@@ -1,3 +1,33 @@
+// UI text this script generates itself (not part of the translated HTML, so
+// it needs its own English strings). Picked by document.documentElement.lang,
+// which the English pages have set to "en".
+const STRINGS = {
+  nl: {
+    newsletterSubscribed: 'Je bent al ingeschreven voor onze nieuwsbrief. Bedankt voor je interesse!',
+    newsletterPending: 'We hebben je al een bevestigingsmail gestuurd. Check je mailbox (ook je spam) om je inschrijving te bevestigen.',
+    newsletterDone: 'Bedankt! Je bent ingeschreven voor onze nieuwsbrief.',
+    contactLocalError: 'Lokaal werkt het formulier niet (er draait geen PHP). Test het op test.ziezezingen.be.',
+    contactError: 'Er ging iets mis. Mail ons gerust rechtstreeks op info@ziezezingen.be.',
+    eventsEmpty: 'Momenteel staan er geen events gepland. Kom snel terug!',
+    eventsFailed: 'De events konden niet geladen worden.',
+    videosFailed: 'De video’s konden niet geladen worden.',
+  },
+  en: {
+    newsletterSubscribed: 'You’re already signed up for our newsletter. Thanks for your interest!',
+    newsletterPending: 'We already sent you a confirmation email. Check your inbox (and spam folder) to confirm your subscription.',
+    newsletterDone: 'Thanks! You’re signed up for our newsletter.',
+    contactLocalError: 'The form doesn’t work locally (no PHP running). Test it on test.ziezezingen.be.',
+    contactError: 'Something went wrong. Feel free to email us directly at info@ziezezingen.be.',
+    eventsEmpty: 'No events are currently planned. Check back soon!',
+    eventsFailed: 'The events couldn’t be loaded.',
+    videosFailed: 'The videos couldn’t be loaded.',
+  },
+};
+const LANG = document.documentElement.lang === 'en' ? 'en' : 'nl';
+function t(key) {
+  return STRINGS[LANG][key];
+}
+
 // The community section has an intro: the big title floats over the photo,
 // shrinks up into the small permanent title, then the body fades in underneath
 // it (the title stays). Two things can trigger it - scrolling the section into
@@ -30,6 +60,39 @@ function playSectionReveal(section) {
     }, 1800));
   });
 }
+
+// Language switcher: a small NL/EN link in the nav, computed from the
+// current page so it always points at the matching page in the other
+// language. Falls back to that language's home page for anything it
+// doesn't recognise.
+(function addLanguageSwitcher() {
+  const group = document.querySelector('.nav-cta-group');
+  if (!group) return;
+
+  const normalize = (p) => (p === '/' ? '/' : p.replace(/\/+$/, '') || '/');
+
+  const NL_TO_EN = {
+    '/': '/en/',
+    '/community': '/en/community',
+    '/video': '/en/video',
+    '/events': '/en/events',
+    '/boekons': '/en/contact',
+    '/nieuwsbrief': '/en/newsletter',
+  };
+  const EN_TO_NL = { '/en': '/' };
+  Object.entries(NL_TO_EN).forEach(([nl, en]) => { EN_TO_NL[normalize(en)] = nl; });
+
+  const path = normalize(location.pathname);
+  const isEnglish = path === '/en' || path.startsWith('/en/');
+  const targetHref = isEnglish ? (EN_TO_NL[path] || '/') : (NL_TO_EN[path] || '/en/');
+
+  const a = document.createElement('a');
+  a.href = targetHref;
+  a.className = 'lang-switch';
+  a.textContent = isEnglish ? 'NL' : 'EN';
+  a.setAttribute('aria-label', isEnglish ? 'Naar de Nederlandse site' : 'Switch to English');
+  group.insertBefore(a, group.firstChild);
+})();
 
 const communitySection = document.getElementById('community');
 if (communitySection) {
@@ -304,9 +367,11 @@ if (contactForm) {
     status.hidden = true;
 
     try {
+      const body = new FormData(contactForm);
+      body.set('lang', LANG); // contact-handler.php replies in this language
       const res = await fetch(contactForm.action, {
         method: 'POST',
-        body: new FormData(contactForm),
+        body,
         headers: { 'X-Requested-With': 'XMLHttpRequest' },
       });
       const data = await res.json();
@@ -316,9 +381,7 @@ if (contactForm) {
       if (data.success) contactForm.reset();
     } catch (err) {
       const isLocal = ['localhost', '127.0.0.1', ''].includes(location.hostname);
-      status.textContent = isLocal
-        ? 'Lokaal werkt het formulier niet (er draait geen PHP). Test het op test.ziezezingen.be.'
-        : 'Er ging iets mis. Mail ons gerust rechtstreeks op info@ziezezingen.be.';
+      status.textContent = isLocal ? t('contactLocalError') : t('contactError');
       status.className = 'contact-form-status error';
       status.hidden = false;
     } finally {
@@ -397,9 +460,9 @@ document.querySelectorAll('.newsletter-form').forEach((form) => {
   const emailInput = form.querySelector('input[type="email"]');
   const button = form.querySelector('button[type="submit"]');
   const texts = {
-    subscribed: 'Je bent al ingeschreven voor onze nieuwsbrief. Bedankt voor je interesse!',
-    pending: 'We hebben je al een bevestigingsmail gestuurd. Check je mailbox (ook je spam) om je inschrijving te bevestigen.',
-    done: 'Bedankt! Je bent ingeschreven voor onze nieuwsbrief.',
+    subscribed: t('newsletterSubscribed'),
+    pending: t('newsletterPending'),
+    done: t('newsletterDone'),
   };
 
   function showMessage(text) {

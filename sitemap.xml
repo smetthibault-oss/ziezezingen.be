@@ -1,35 +1,98 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- __BUILD_DATE__ is filled in at deploy time (today's date), so search
-     engines see this file change whenever the site is redeployed. -->
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+     engines see this file change whenever the site is redeployed.
+     Each <url> lists its English/Dutch counterpart via xhtml:link so search
+     engines show visitors the version in their own language. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://ziezezingen.be/</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://ziezezingen.be/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ziezezingen.be/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ziezezingen.be/"/>
     <lastmod>__BUILD_DATE__</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://ziezezingen.be/en/</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://ziezezingen.be/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ziezezingen.be/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ziezezingen.be/"/>
+    <lastmod>__BUILD_DATE__</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://ziezezingen.be/events</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://ziezezingen.be/events"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ziezezingen.be/en/events"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ziezezingen.be/events"/>
     <lastmod>__BUILD_DATE__</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://ziezezingen.be/en/events</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://ziezezingen.be/events"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ziezezingen.be/en/events"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ziezezingen.be/events"/>
+    <lastmod>__BUILD_DATE__</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://ziezezingen.be/video</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://ziezezingen.be/video"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ziezezingen.be/en/video"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ziezezingen.be/video"/>
     <lastmod>__BUILD_DATE__</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://ziezezingen.be/boekons</loc>
+    <loc>https://ziezezingen.be/en/video</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://ziezezingen.be/video"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ziezezingen.be/en/video"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ziezezingen.be/video"/>
     <lastmod>__BUILD_DATE__</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://ziezezingen.be/boekons</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://ziezezingen.be/boekons"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ziezezingen.be/en/contact"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ziezezingen.be/boekons"/>
+    <lastmod>__BUILD_DATE__</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://ziezezingen.be/en/contact</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://ziezezingen.be/boekons"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ziezezingen.be/en/contact"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ziezezingen.be/boekons"/>
+    <lastmod>__BUILD_DATE__</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://ziezezingen.be/community</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://ziezezingen.be/community"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ziezezingen.be/en/community"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ziezezingen.be/community"/>
     <lastmod>__BUILD_DATE__</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://ziezezingen.be/en/community</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://ziezezingen.be/community"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ziezezingen.be/en/community"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ziezezingen.be/community"/>
+    <lastmod>__BUILD_DATE__</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
 </urlset>

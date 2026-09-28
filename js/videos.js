@@ -5,7 +5,9 @@ async function renderVideos() {
   if (!grid) return;
 
   try {
-    const res = await fetch('videos.json', { cache: 'no-store' });
+    // English pages (lang="en") get the English titles from en/videos.json,
+    // generated alongside videos.json at deploy time.
+    const res = await fetch((LANG === 'en' ? 'en/' : '') + 'videos.json', { cache: 'no-store' });
     const { videos } = await res.json();
     grid.innerHTML = '';
 
@@ -43,7 +45,7 @@ async function renderVideos() {
       grid.appendChild(el);
     });
   } catch (err) {
-    grid.innerHTML = '<p>De video&rsquo;s konden niet geladen worden.</p>';
+    grid.innerHTML = `<p>${t('videosFailed')}</p>`;
   }
 }
 

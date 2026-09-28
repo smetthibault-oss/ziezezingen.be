@@ -214,6 +214,25 @@ h1, h2, h3, .display {
   gap: 10px;
 }
 
+.lang-switch {
+  color: var(--cream);
+  opacity: 0.7;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  border: 1px solid rgba(238, 241, 225, 0.35);
+  border-radius: 6px;
+  padding: 5px 9px;
+  transition: opacity 0.2s, border-color 0.2s;
+}
+
+.lang-switch:hover {
+  opacity: 1;
+  border-color: var(--teal);
+  color: var(--teal);
+}
+
 .nav-cta {
   background: var(--teal);
   color: #000;

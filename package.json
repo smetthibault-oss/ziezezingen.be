@@ -1,0 +1,12 @@
+{
+  "name": "ziezezingen-be",
+  "private": true,
+  "description": "Build-time helpers for the site (currently: the English translation, run at deploy time).",
+  "type": "module",
+  "scripts": {
+    "translate": "node scripts/translate.mjs"
+  },
+  "dependencies": {
+    "node-html-parser": "^6.1.13"
+  }
+}

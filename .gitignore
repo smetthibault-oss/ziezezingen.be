@@ -9,3 +9,9 @@ community/
 video/
 events/
 boekons/
+
+# Generated at deploy time (the English site, via DeepL — see scripts/translate.mjs).
+en/
+
+# Translation tooling — only needed to run scripts/translate.mjs.
+node_modules/

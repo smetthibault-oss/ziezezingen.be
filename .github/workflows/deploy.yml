@@ -27,6 +27,34 @@ jobs:
           gen events events.html
           gen boekons contact.html
 
+      - name: Set up Node (for the English translation)
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install translation dependencies
+        run: npm ci
+
+      - name: Translate to English via DeepL (skipped if DEEPL_API_KEY isn't set)
+        run: npm run translate
+        env:
+          DEEPL_API_KEY: ${{ secrets.DEEPL_API_KEY }}
+
+      - name: Generate English clean-URL pages
+        if: hashFiles('en/_index.html') != ''
+        run: |
+          gen() { mkdir -p "$1"; sed 's#<head>#<head><base href="/">#' "$2" > "$1/index.html"; }
+          gen en en/_index.html
+          gen en/newsletter en/_index.html
+          gen en/community en/_index.html
+          gen en/video en/_video.html
+          gen en/events en/_events.html
+          gen en/contact en/_contact.html
+          rm -f en/_index.html en/_video.html en/_events.html en/_contact.html
+
+      - name: Remove the translation tooling (not part of the site itself)
+        run: rm -rf node_modules scripts package.json package-lock.json
+
       - name: Write Mailchimp config (from secret, never committed)
         run: |
           cat > mailchimp-config.php <<EOF

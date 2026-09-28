@@ -47,6 +47,31 @@ function subscribeToMailchimp($email, $name, $phone) {
     ]);
 }
 
+// The English page sets a hidden "lang" field so the visitor's own
+// confirmation email and the messages below come back in their language.
+// The notification email to Zie Ze Zingen itself always stays Dutch.
+$lang = ($_POST['lang'] ?? '') === 'en' ? 'en' : 'nl';
+$text = [
+    'nl' => [
+        'invalid_request' => 'Ongeldige aanvraag.',
+        'thanks' => 'Bedankt voor je bericht!',
+        'fill_in' => 'Vul alle velden correct in.',
+        'sent' => 'Bedankt! Je bericht is verstuurd. Check je mailbox voor een kopie.',
+        'send_failed' => 'Er ging iets mis bij het versturen. Probeer het later opnieuw of mail naar info@ziezezingen.be.',
+        'confirm_subject' => 'Je bericht is verstuurd - Zie Ze Zingen',
+        'confirm_body' => "Hoi %s,\n\nJe bericht is succesvol verstuurd naar Zie Ze Zingen. We nemen zo snel mogelijk contact met je op.\n\nJe bericht:\n%s\n\nMet vriendelijke groet,\nZie Ze Zingen",
+    ],
+    'en' => [
+        'invalid_request' => 'Invalid request.',
+        'thanks' => 'Thanks for your message!',
+        'fill_in' => 'Please fill in all fields correctly.',
+        'sent' => 'Thanks! Your message has been sent. Check your inbox for a copy.',
+        'send_failed' => 'Something went wrong while sending. Please try again later or email info@ziezezingen.be.',
+        'confirm_subject' => 'Your message has been sent - Zie Ze Zingen',
+        'confirm_body' => "Hi %s,\n\nYour message was sent successfully to Zie Ze Zingen. We’ll get back to you as soon as possible.\n\nYour message:\n%s\n\nKind regards,\nZie Ze Zingen",
+    ],
+][$lang];
+
 function respond($success, $message) {
     http_response_code($success ? 200 : 400);
     echo json_encode(['success' => $success, 'message' => $message]);
@@ -54,12 +79,12 @@ function respond($success, $message) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    respond(false, 'Ongeldige aanvraag.');
+    respond(false, $text['invalid_request']);
 }
 
 // Honeypot: bots fill every field, real users never see or fill this one.
 if (!empty($_POST['website'])) {
-    respond(true, 'Bedankt voor je bericht!');
+    respond(true, $text['thanks']);
 }
 
 $name = trim($_POST['name'] ?? '');
@@ -68,7 +93,7 @@ $phone = trim($_POST['phone'] ?? '');
 $message = trim($_POST['message'] ?? '');
 
 if ($name === '' || $message === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    respond(false, 'Vul alle velden correct in.');
+    respond(false, $text['fill_in']);
 }
 
 // Strip any newlines from fields used in headers to prevent header injection.
@@ -90,8 +115,8 @@ $sent = mail($recipient, $subject, $body, implode("\r\n", $headers));
 
 if ($sent) {
     // Send the visitor their own copy so they have confirmation + a record of what they sent.
-    $confirmSubject = 'Je bericht is verstuurd - Zie Ze Zingen';
-    $confirmBody = "Hoi $safeName,\n\nJe bericht is succesvol verstuurd naar Zie Ze Zingen. We nemen zo snel mogelijk contact met je op.\n\nJe bericht:\n$message\n\nMet vriendelijke groet,\nZie Ze Zingen";
+    $confirmSubject = $text['confirm_subject'];
+    $confirmBody = sprintf($text['confirm_body'], $safeName, $message);
     $confirmHeaders = [
         'From: Zie Ze Zingen <info@ziezezingen.be>',
         'Content-Type: text/plain; charset=utf-8',
@@ -101,7 +126,7 @@ if ($sent) {
     if (!empty($_POST['newsletter'])) {
         subscribeToMailchimp($safeEmail, $safeName, $safePhone);
     }
-    respond(true, 'Bedankt! Je bericht is verstuurd. Check je mailbox voor een kopie.');
+    respond(true, $text['sent']);
 } else {
-    respond(false, 'Er ging iets mis bij het versturen. Probeer het later opnieuw of mail naar info@ziezezingen.be.');
+    respond(false, $text['send_failed']);
 }
