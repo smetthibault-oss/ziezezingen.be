@@ -91,8 +91,13 @@ function playSectionReveal(section) {
   const a = document.createElement('a');
   a.href = targetHref;
   a.className = 'lang-switch';
-  a.textContent = isEnglish ? 'NL' : 'EN';
   a.setAttribute('aria-label', isEnglish ? 'Naar de Nederlandse site' : 'Switch to English');
+  const flag = document.createElement('img');
+  // Belgian flag for Dutch (it's a Belgian site, not Dutch/NL), UK flag for English.
+  flag.src = isEnglish ? 'assets/icons/flag-be.svg' : 'assets/icons/flag-gb.svg';
+  flag.alt = '';
+  flag.className = 'lang-switch-flag';
+  a.appendChild(flag);
   group.insertBefore(a, group.firstChild);
 })();
 

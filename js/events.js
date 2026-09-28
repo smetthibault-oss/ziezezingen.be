@@ -1,3 +1,8 @@
+// The "Events bij externe partners" section is built and ready, but stays
+// hidden everywhere (including once this lands on the live site) until this
+// is flipped to true — say the word and it's a one-line change.
+const SHOW_PARTNER_EVENTS = false;
+
 // SEO: tell Google about each dated event (schema.org Event), so they can show
 // up as rich results. Events without a fixed date (e.g. a recurring series)
 // are left out — there's no single startDate to report for those.
@@ -121,7 +126,8 @@ async function renderEvents() {
     const now = new Date();
     const today = [now.getFullYear(), String(now.getMonth() + 1).padStart(2, '0'), String(now.getDate()).padStart(2, '0')].join('-');
     const upcoming = events.filter((ev) => !ev.eventDate || String(ev.eventDate).slice(0, 10) >= today);
-    addEventStructuredData(upcoming);
+    // Don't tell Google about events that aren't actually shown on the page yet.
+    addEventStructuredData(SHOW_PARTNER_EVENTS ? upcoming : upcoming.filter((ev) => (ev.category || 'own') === 'own'));
 
     // "own" is the default category, so older entries without one still work.
     const own = upcoming.filter((ev) => (ev.category || 'own') === 'own');
@@ -139,11 +145,18 @@ async function renderEvents() {
     }
 
     if (partnerGrid) {
-      partner.forEach((ev) => partnerGrid.appendChild(buildEventCard(ev)));
-      // No "empty" message here on purpose: not every period has an external
-      // booking, and the heading above already sets the right expectation.
-      partnerGrid.closest('section')?.querySelectorAll('.events-list-subtitle, .events-list-intro')
-        .forEach((el) => { el.hidden = !partner.length; });
+      const section = partnerGrid.closest('section');
+      if (SHOW_PARTNER_EVENTS) {
+        partner.forEach((ev) => partnerGrid.appendChild(buildEventCard(ev)));
+        // No "empty" message here on purpose: not every period has an
+        // external booking, and the heading above already sets that expectation.
+        section?.querySelectorAll('.events-list-subtitle, .events-list-intro')
+          .forEach((el) => { el.hidden = !partner.length; });
+        partnerGrid.hidden = !partner.length;
+      } else {
+        section?.querySelectorAll('.events-list-subtitle, .events-list-intro').forEach((el) => { el.hidden = true; });
+        partnerGrid.hidden = true;
+      }
     }
   } catch (err) {
     if (ownGrid) ownGrid.innerHTML = `<p>${t('eventsFailed')}</p>`;

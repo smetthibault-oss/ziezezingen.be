@@ -215,22 +215,26 @@ h1, h2, h3, .display {
 }
 
 .lang-switch {
-  color: var(--cream);
-  opacity: 0.7;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-decoration: none;
+  display: flex;
+  align-items: center;
+  opacity: 0.75;
   border: 1px solid rgba(238, 241, 225, 0.35);
   border-radius: 6px;
-  padding: 5px 9px;
+  padding: 4px;
+  line-height: 0;
   transition: opacity 0.2s, border-color 0.2s;
 }
 
 .lang-switch:hover {
   opacity: 1;
   border-color: var(--teal);
-  color: var(--teal);
+}
+
+.lang-switch-flag {
+  display: block;
+  width: 22px;
+  height: auto;
+  border-radius: 2px;
 }
 
 .nav-cta {
