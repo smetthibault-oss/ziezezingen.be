@@ -265,7 +265,10 @@ if (videoModal) {
   const frame = document.getElementById('videoModalFrame');
 
   function openVideoModal(youtubeId) {
-    frame.src = `https://www.youtube-nocookie.com/embed/${youtubeId}?autoplay=1`;
+    // vq nudges YouTube toward its highest available quality; YouTube treats
+    // it as a hint, not a guarantee (they dropped forced-quality support a
+    // few years ago), but it doesn't hurt to ask.
+    frame.src = `https://www.youtube-nocookie.com/embed/${youtubeId}?autoplay=1&vq=hd1080`;
     videoModal.hidden = false;
   }
 
