@@ -43,12 +43,23 @@ const PATH_MAP = {
 let callCount = 0;
 let charCount = 0;
 
+// DeepL translates the brand name inconsistently ("See Them Sing!", "Watch
+// Them Sing!", left as-is, ...) depending on surrounding context. Swap it
+// for a token it will leave alone, then swap the token back afterwards, so
+// "Zie Ze Zingen" reads the same everywhere on the English site too.
+const BRAND_TOKENS = [
+  ['ZIE ZE ZINGEN', 'Zzzbrandallcaps'],
+  ['Zie Ze Zingen', 'Zzzbrandtitlecase'],
+];
+const protectBrand = (s) => BRAND_TOKENS.reduce((acc, [real, token]) => acc.split(real).join(token), s);
+const restoreBrand = (s) => BRAND_TOKENS.reduce((acc, [real, token]) => acc.split(token).join(real), s);
+
 async function deeplBatch(texts, { html = false } = {}) {
   const nonEmpty = texts.map((t, i) => [i, t]).filter(([, t]) => t != null && String(t).trim() !== '');
   if (!nonEmpty.length) return texts.slice();
 
   const body = {
-    text: nonEmpty.map(([, t]) => String(t)),
+    text: nonEmpty.map(([, t]) => protectBrand(String(t))),
     source_lang: 'NL',
     target_lang: 'EN-US',
   };
@@ -72,7 +83,7 @@ async function deeplBatch(texts, { html = false } = {}) {
     throw new Error(`DeepL request failed (${res.status}): ${await res.text()}`);
   }
   const data = await res.json();
-  const translated = data.translations.map((t) => t.text);
+  const translated = data.translations.map((t) => restoreBrand(t.text));
 
   const out = texts.slice();
   nonEmpty.forEach(([i], j) => { out[i] = translated[j]; });

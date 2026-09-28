@@ -105,7 +105,7 @@ async function renderEvents() {
         moreInfo.href = ev.moreInfoUrl;
         moreInfo.target = '_blank';
         moreInfo.rel = 'noopener';
-        moreInfo.textContent = 'Meer info';
+        moreInfo.textContent = t('eventsMoreInfo');
         desc.appendChild(moreInfo);
       }
       article.appendChild(desc);

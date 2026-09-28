@@ -10,6 +10,7 @@ const STRINGS = {
     contactError: 'Er ging iets mis. Mail ons gerust rechtstreeks op info@ziezezingen.be.',
     eventsEmpty: 'Momenteel staan er geen events gepland. Kom snel terug!',
     eventsFailed: 'De events konden niet geladen worden.',
+    eventsMoreInfo: 'Meer info',
     videosFailed: 'De video’s konden niet geladen worden.',
   },
   en: {
@@ -20,6 +21,7 @@ const STRINGS = {
     contactError: 'Something went wrong. Feel free to email us directly at info@ziezezingen.be.',
     eventsEmpty: 'No events are currently planned. Check back soon!',
     eventsFailed: 'The events couldn’t be loaded.',
+    eventsMoreInfo: 'More info',
     videosFailed: 'The videos couldn’t be loaded.',
   },
 };
