@@ -1218,6 +1218,24 @@ h1, h2, h3, .display {
   gap: 50px 60px;
 }
 
+.events-list-subtitle {
+  max-width: 1200px;
+  margin: 96px auto 12px;
+  padding-top: 48px;
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
+  font-size: clamp(28px, 4vw, 44px);
+  color: #000;
+}
+
+.events-list-intro {
+  max-width: 1200px;
+  margin: 0 auto 40px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #000;
+  opacity: 0.75;
+}
+
 @media (max-width: 800px) {
   .events-grid {
     grid-template-columns: 1fr;

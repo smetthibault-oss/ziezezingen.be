@@ -1,6 +1,7 @@
 {
   "events": [
     {
+      "category": "own",
       "moreInfoUrl": "https://fb.me/e/jmqdXajQa",
       "date": "Za 19 sept - 14:00",
       "location": "Onder de Stadshal Gent",
@@ -13,6 +14,7 @@
       "eventDate": "2026-09-19"
     },
     {
+      "category": "own",
       "moreInfoUrl": "",
       "date": "Maandelijks in 2026 - 2027",
       "location": "Stadsbrouwerij Gruut",
@@ -25,6 +27,7 @@
       "eventDate": ""
     },
     {
+      "category": "own",
       "moreInfoUrl": "https://fb.me/e/9J0LXWBZ9",
       "date": "Vrij 9 okt - 19:00",
       "location": "Cultuurzaal Uyttenhove, Zavel 5, Lochristi",
@@ -37,6 +40,7 @@
       "eventDate": "2026-10-09"
     },
     {
+      "category": "own",
       "moreInfoUrl": "https://fb.me/e/4catKsRGr",
       "date": "Za 14 nov - 18:30",
       "location": "CC Belgica, Kerkstraat 24, Dendermonde",
@@ -49,6 +53,7 @@
       "eventDate": "2026-11-14"
     },
     {
+      "category": "own",
       "moreInfoUrl": "https://fb.me/e/8OnCIZt6t",
       "date": "Di 8 dec - 20:00",
       "location": "Balzaal VIERNULVIER",
@@ -59,6 +64,84 @@
       "ctaText": "Ticketlink: links.ziezezingen.be/beatles",
       "ctaUrl": "https://links.ziezezingen.be/beatles",
       "eventDate": "2026-12-08"
+    },
+    {
+      "category": "partner",
+      "moreInfoUrl": "",
+      "date": "Di 17 nov - 14:00",
+      "location": "CC Den Blank, Begijnhof 11, Overijse",
+      "title": "Zie Ze Zingen tijdens de Seniorenweek",
+      "soldOut": false,
+      "image": "/assets/images/events-full-bg.jpg",
+      "description": "In het kader van de Overijsese Seniorenweek zwepen Geertrui en Jasper het publiek op tot een verbluffend koor. Georganiseerd door CC Den Blank.",
+      "ctaText": "Info: CC Den Blank",
+      "ctaUrl": "https://www.overijse.be/denblank",
+      "eventDate": "2026-11-17"
+    },
+    {
+      "category": "partner",
+      "moreInfoUrl": "https://www.willebroek.be/nl/cc-de-ster/agenda/zie-ze-zingen-geertrui-coppens-en-jasper-de-mulder",
+      "date": "Di 24 nov - 20:00",
+      "location": "Huis van de Vrije Tijd - CC De Ster, Stadionlaan 4, Willebroek",
+      "title": "80's Singalong Party (met Tournée Génération)",
+      "soldOut": false,
+      "image": "/assets/images/events-full-bg.jpg",
+      "description": "Een uitbundige singalong avond vol jaren 80-nummers, georganiseerd door CC De Ster in samenwerking met Tournée Génération.",
+      "ctaText": "Ticket kopen",
+      "ctaUrl": "https://webshop.willebroek.be/Tickets/Overview",
+      "eventDate": "2026-11-24"
+    },
+    {
+      "category": "partner",
+      "moreInfoUrl": "https://www.willebroek.be/nl/cc-de-ster/agenda/zie-ze-zingen-geertrui-coppens-en-jasper-de-mulder-0",
+      "date": "Di 26 jan - 20:00",
+      "location": "Huis van de Vrije Tijd - CC De Ster, Stadionlaan 4, Willebroek",
+      "title": "80's Singalong Party (met Tournée Génération)",
+      "soldOut": false,
+      "image": "/assets/images/events-full-bg.jpg",
+      "description": "Een uitbundige singalong avond vol jaren 80-nummers, georganiseerd door CC De Ster in samenwerking met Tournée Génération.",
+      "ctaText": "Ticket kopen",
+      "ctaUrl": "https://webshop.willebroek.be/Tickets/Overview",
+      "eventDate": "2027-01-26"
+    },
+    {
+      "category": "partner",
+      "moreInfoUrl": "https://www.cultuurcentrummol.be/zie-ze-zingen-80s-singalong-for-singles-friends",
+      "date": "Zo 14 feb - 15:00",
+      "location": "Zaal 't Getouw, Molenhoekstraat 2, Mol",
+      "title": "80's Singalong for Singles & Friends",
+      "soldOut": false,
+      "image": "/assets/images/events-full-bg.jpg",
+      "description": "Op zoek naar een moment van verbinding en beleving? Zing samen met andere singles en vrienden mee met de mooiste 80's classics. Georganiseerd door Cultuurcentrum Mol.",
+      "ctaText": "Ticket kopen",
+      "ctaUrl": "https://apps.ticketmatic.com/widgets/getouw/flow/standaard?event=255363815822",
+      "eventDate": "2027-02-14"
+    },
+    {
+      "category": "partner",
+      "moreInfoUrl": "https://casino.houthalen-helchteren.be/activiteiten/detail/6762/zie-ze-zingen-samenzangconcert",
+      "date": "Woe 24 feb - 19:00",
+      "location": "Cultuurhuis Casino, Varenstraat 22a, Houthalen-Helchteren",
+      "title": "Zie Ze Zingen - Samenzangconcert",
+      "soldOut": false,
+      "image": "/assets/images/events-full-bg.jpg",
+      "description": "Een samenzangconcert speciaal voorgesteld aan anderstaligen, georganiseerd door Cultuurhuis Casino Houthalen-Helchteren.",
+      "ctaText": "Ticket kopen",
+      "ctaUrl": "https://tixbe.be/nl/houthalen-helchteren/buyingflow/tickets/37168/70111/",
+      "eventDate": "2027-02-24"
+    },
+    {
+      "category": "partner",
+      "moreInfoUrl": "https://www.willebroek.be/nl/cc-de-ster/agenda/zie-ze-zingen-geertrui-coppens-en-jasper-de-mulder-1",
+      "date": "Di 13 apr - 20:00",
+      "location": "WZC Ten Weldebrough, Westzavelland 42, Willebroek",
+      "title": "Comedy Chantant",
+      "soldOut": false,
+      "image": "/assets/images/events-full-bg.jpg",
+      "description": "Een samenzangconcert doorspekt met warme humor, speciaal voor de bewoners en buurt van WZC Ten Weldebrough. Georganiseerd door CC De Ster.",
+      "ctaText": "Ticket kopen",
+      "ctaUrl": "https://webshop.willebroek.be/Tickets/Overview",
+      "eventDate": "2027-04-13"
     }
   ]
 }

@@ -38,16 +38,83 @@ function addEventStructuredData(upcoming) {
   document.head.appendChild(script);
 }
 
+function buildEventCard(ev) {
+  const article = document.createElement('article');
+  article.className = 'event-card';
+
+  const h2 = document.createElement('h2');
+  h2.textContent = ev.title;
+  article.appendChild(h2);
+
+  if (ev.soldOut) {
+    const wrap = document.createElement('div');
+    wrap.className = 'event-photo-wrap';
+    const img = document.createElement('img');
+    img.src = ev.image;
+    img.alt = ev.title;
+    const stamp = document.createElement('img');
+    stamp.src = 'assets/images/sold-out-stamp.png';
+    stamp.alt = 'Sold out';
+    stamp.className = 'sold-out-stamp';
+    wrap.append(img, stamp);
+    article.appendChild(wrap);
+  } else {
+    const img = document.createElement('img');
+    img.src = ev.image;
+    img.alt = ev.title;
+    article.appendChild(img);
+  }
+
+  const when = document.createElement('p');
+  when.className = 'event-when';
+  when.append(document.createTextNode(ev.date), document.createElement('br'), document.createTextNode(ev.location));
+  article.appendChild(when);
+
+  const desc = document.createElement('p');
+  desc.className = 'event-desc';
+  desc.appendChild(document.createTextNode(ev.description));
+  if (ev.moreInfoUrl) {
+    desc.appendChild(document.createTextNode(' '));
+    const moreInfo = document.createElement('a');
+    moreInfo.href = ev.moreInfoUrl;
+    moreInfo.target = '_blank';
+    moreInfo.rel = 'noopener';
+    moreInfo.textContent = t('eventsMoreInfo');
+    desc.appendChild(moreInfo);
+  }
+  article.appendChild(desc);
+
+  const links = document.createElement('p');
+  links.className = 'event-links';
+  if (ev.ctaUrl) {
+    const a = document.createElement('a');
+    a.href = ev.ctaUrl;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.textContent = ev.ctaText;
+    links.appendChild(a);
+  } else if (ev.ctaText) {
+    const strong = document.createElement('strong');
+    strong.textContent = ev.ctaText;
+    links.appendChild(strong);
+  }
+  article.appendChild(links);
+
+  return article;
+}
+
 async function renderEvents() {
-  const grid = document.querySelector('.events-grid');
-  if (!grid) return;
+  const ownGrid = document.querySelector('.events-grid[data-category="own"]');
+  const partnerGrid = document.querySelector('.events-grid[data-category="partner"]');
+  if (!ownGrid && !partnerGrid) return;
 
   try {
     // English pages (lang="en") get the English event text from en/events.json,
     // generated alongside events.json at deploy time.
     const res = await fetch((LANG === 'en' ? 'en/' : '') + 'events.json', { cache: 'no-store' });
     const { events } = await res.json();
-    grid.innerHTML = '';
+    if (ownGrid) ownGrid.innerHTML = '';
+    if (partnerGrid) partnerGrid.innerHTML = '';
 
     // Archive: an event with an eventDate (YYYY-MM-DD) disappears the day after
     // it took place. No eventDate (e.g. a recurring series) = always shown.
@@ -56,80 +123,30 @@ async function renderEvents() {
     const upcoming = events.filter((ev) => !ev.eventDate || String(ev.eventDate).slice(0, 10) >= today);
     addEventStructuredData(upcoming);
 
-    if (!upcoming.length) {
-      const empty = document.createElement('p');
-      empty.className = 'events-empty';
-      empty.textContent = t('eventsEmpty');
-      grid.appendChild(empty);
-      return;
+    // "own" is the default category, so older entries without one still work.
+    const own = upcoming.filter((ev) => (ev.category || 'own') === 'own');
+    const partner = upcoming.filter((ev) => ev.category === 'partner');
+
+    if (ownGrid) {
+      if (own.length) {
+        own.forEach((ev) => ownGrid.appendChild(buildEventCard(ev)));
+      } else {
+        const empty = document.createElement('p');
+        empty.className = 'events-empty';
+        empty.textContent = t('eventsEmpty');
+        ownGrid.appendChild(empty);
+      }
     }
 
-    upcoming.forEach((ev) => {
-      const article = document.createElement('article');
-      article.className = 'event-card';
-
-      const h2 = document.createElement('h2');
-      h2.textContent = ev.title;
-      article.appendChild(h2);
-
-      if (ev.soldOut) {
-        const wrap = document.createElement('div');
-        wrap.className = 'event-photo-wrap';
-        const img = document.createElement('img');
-        img.src = ev.image;
-        img.alt = ev.title;
-        const stamp = document.createElement('img');
-        stamp.src = 'assets/images/sold-out-stamp.png';
-        stamp.alt = 'Sold out';
-        stamp.className = 'sold-out-stamp';
-        wrap.append(img, stamp);
-        article.appendChild(wrap);
-      } else {
-        const img = document.createElement('img');
-        img.src = ev.image;
-        img.alt = ev.title;
-        article.appendChild(img);
-      }
-
-      const when = document.createElement('p');
-      when.className = 'event-when';
-      when.append(document.createTextNode(ev.date), document.createElement('br'), document.createTextNode(ev.location));
-      article.appendChild(when);
-
-      const desc = document.createElement('p');
-      desc.className = 'event-desc';
-      desc.appendChild(document.createTextNode(ev.description));
-      if (ev.moreInfoUrl) {
-        desc.appendChild(document.createTextNode(' '));
-        const moreInfo = document.createElement('a');
-        moreInfo.href = ev.moreInfoUrl;
-        moreInfo.target = '_blank';
-        moreInfo.rel = 'noopener';
-        moreInfo.textContent = t('eventsMoreInfo');
-        desc.appendChild(moreInfo);
-      }
-      article.appendChild(desc);
-
-      const links = document.createElement('p');
-      links.className = 'event-links';
-      if (ev.ctaUrl) {
-        const a = document.createElement('a');
-        a.href = ev.ctaUrl;
-        a.target = '_blank';
-        a.rel = 'noopener';
-        a.textContent = ev.ctaText;
-        links.appendChild(a);
-      } else if (ev.ctaText) {
-        const strong = document.createElement('strong');
-        strong.textContent = ev.ctaText;
-        links.appendChild(strong);
-      }
-      article.appendChild(links);
-
-      grid.appendChild(article);
-    });
+    if (partnerGrid) {
+      partner.forEach((ev) => partnerGrid.appendChild(buildEventCard(ev)));
+      // No "empty" message here on purpose: not every period has an external
+      // booking, and the heading above already sets the right expectation.
+      partnerGrid.closest('section')?.querySelectorAll('.events-list-subtitle, .events-list-intro')
+        .forEach((el) => { el.hidden = !partner.length; });
+    }
   } catch (err) {
-    grid.innerHTML = `<p>${t('eventsFailed')}</p>`;
+    if (ownGrid) ownGrid.innerHTML = `<p>${t('eventsFailed')}</p>`;
   }
 }
 
