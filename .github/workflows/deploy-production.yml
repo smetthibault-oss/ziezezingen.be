@@ -63,20 +63,31 @@ jobs:
       - name: Stamp today's date into sitemap.xml
         run: sed -i "s/__BUILD_DATE__/$(date -u +%F)/g" sitemap.xml
 
-      - name: Live settings (search engines allowed in, redirects for old pages)
+      - name: Live settings (search engines allowed in)
         run: |
           sed -i '/TEMP while on the staging domain/d; /<meta name="robots" content="noindex, nofollow">/d' *.html
           printf 'User-agent: *\nAllow: /\nSitemap: https://ziezezingen.be/sitemap.xml\n' > robots.txt
-          for p in events:/events.html boekons:/contact.html videos:/video.html troost:/events.html bio:/ zie-ze-zingen:/ sociale-innovatie:/; do
-            dir="${p%%:*}"; target="${p##*:}"
-            mkdir -p "$dir"
-            printf '<!DOCTYPE html><html lang="nl"><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta http-equiv="refresh" content="0; url=%s"><link rel="canonical" href="https://ziezezingen.be%s"><title>Zie Ze Zingen</title></head><body><a href="%s">Ga verder naar Zie Ze Zingen</a></body></html>' "$target" "$target" "$target" > "$dir/index.html"
-          done
 
-      - name: Generate /nieuwsbrief
+      - name: Generate clean-URL pages (no .html needed)
         run: |
-          mkdir -p nieuwsbrief
-          sed 's#<head>#<head><base href="/">#' index.html > nieuwsbrief/index.html
+          gen() { mkdir -p "$1"; sed 's#<head>#<head><base href="/">#' "$2" > "$1/index.html"; }
+          gen nieuwsbrief index.html
+          gen community index.html
+          gen video video.html
+          gen events events.html
+          gen boekons contact.html
+
+      - name: Redirects for the old site's addresses
+        run: |
+          redirect() {
+            mkdir -p "$1"
+            printf '<!DOCTYPE html><html lang="nl"><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta http-equiv="refresh" content="0; url=%s"><link rel="canonical" href="https://ziezezingen.be%s"><title>Zie Ze Zingen</title></head><body><a href="%s">Ga verder naar Zie Ze Zingen</a></body></html>' "$2" "$2" "$2" > "$1/index.html"
+          }
+          redirect videos /video
+          redirect troost /events
+          redirect bio /
+          redirect zie-ze-zingen /
+          redirect sociale-innovatie /
 
       - name: Write Mailchimp config
         run: |
@@ -118,20 +129,31 @@ jobs:
       - name: Stamp today's date into sitemap.xml
         run: sed -i "s/__BUILD_DATE__/$(date -u +%F)/g" sitemap.xml
 
-      - name: Live settings (search engines allowed in, redirects for old pages)
+      - name: Live settings (search engines allowed in)
         run: |
           sed -i '/TEMP while on the staging domain/d; /<meta name="robots" content="noindex, nofollow">/d' *.html
           printf 'User-agent: *\nAllow: /\nSitemap: https://ziezezingen.be/sitemap.xml\n' > robots.txt
-          for p in events:/events.html boekons:/contact.html videos:/video.html troost:/events.html bio:/ zie-ze-zingen:/ sociale-innovatie:/; do
-            dir="${p%%:*}"; target="${p##*:}"
-            mkdir -p "$dir"
-            printf '<!DOCTYPE html><html lang="nl"><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta http-equiv="refresh" content="0; url=%s"><link rel="canonical" href="https://ziezezingen.be%s"><title>Zie Ze Zingen</title></head><body><a href="%s">Ga verder naar Zie Ze Zingen</a></body></html>' "$target" "$target" "$target" > "$dir/index.html"
-          done
 
-      - name: Generate /nieuwsbrief
+      - name: Generate clean-URL pages (no .html needed)
         run: |
-          mkdir -p nieuwsbrief
-          sed 's#<head>#<head><base href="/">#' index.html > nieuwsbrief/index.html
+          gen() { mkdir -p "$1"; sed 's#<head>#<head><base href="/">#' "$2" > "$1/index.html"; }
+          gen nieuwsbrief index.html
+          gen community index.html
+          gen video video.html
+          gen events events.html
+          gen boekons contact.html
+
+      - name: Redirects for the old site's addresses
+        run: |
+          redirect() {
+            mkdir -p "$1"
+            printf '<!DOCTYPE html><html lang="nl"><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta http-equiv="refresh" content="0; url=%s"><link rel="canonical" href="https://ziezezingen.be%s"><title>Zie Ze Zingen</title></head><body><a href="%s">Ga verder naar Zie Ze Zingen</a></body></html>' "$2" "$2" "$2" > "$1/index.html"
+          }
+          redirect videos /video
+          redirect troost /events
+          redirect bio /
+          redirect zie-ze-zingen /
+          redirect sociale-innovatie /
 
       - name: Write Mailchimp config
         run: |
