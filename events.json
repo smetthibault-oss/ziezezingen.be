@@ -41,6 +41,32 @@
     },
     {
       "category": "own",
+      "moreInfoUrl": "",
+      "date": "Za 7 nov - 14:00 - 17:30",
+      "location": "Museum voor Schone Kunsten Gent, Fernand Scribedreef 1",
+      "title": "Pop up Museum-koor",
+      "soldOut": false,
+      "image": "/assets/images/events/event-museum-koor.jpg",
+      "description": "Zie Ze Zingen stelt voor: een pop up koor in het Museum voor Schone Kunsten. Kippenvel garantie!",
+      "ctaText": "Ticketlink: links.ziezezingen.be/POPUP-museum-koor",
+      "ctaUrl": "https://shop.paylogic.com/cad401a69b7647eb842a78bc244645c7",
+      "eventDate": "2026-11-07"
+    },
+    {
+      "category": "own",
+      "moreInfoUrl": "https://www.facebook.com/events/2573174403151792",
+      "date": "Za 7 nov - 20:00 - 21:30",
+      "location": "Stadshal, Gent",
+      "title": "Hallelujah! Tedere singalong avond",
+      "soldOut": false,
+      "image": "/assets/images/events/event-hallelujah.jpg",
+      "description": "Leonard Cohen reisde 10 jaar geleden naar de eeuwige jachtvelden. Samen zingen we Hallelujah en andere pareltjes. We koesteren vanavond iedereen die ons dierbaar is. Songteksten ter plaatse.",
+      "ctaText": "INKOM GRATIS",
+      "ctaUrl": "",
+      "eventDate": "2026-11-07"
+    },
+    {
+      "category": "own",
       "moreInfoUrl": "https://fb.me/e/4catKsRGr",
       "date": "Za 14 nov - 18:30",
       "location": "CC Belgica, Kerkstraat 24, Dendermonde",

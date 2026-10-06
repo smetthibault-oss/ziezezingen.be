@@ -4,11 +4,11 @@ mailchimp-config.php
 # Generated at deploy time (clean-URL copies of the real pages, so links
 # don't need .html: /nieuwsbrief and /community are index.html, the rest
 # are their matching page).
-nieuwsbrief/
-community/
-video/
-events/
-boekons/
+/nieuwsbrief/
+/community/
+/video/
+/events/
+/boekons/
 
 # Generated at deploy time (the English site, via DeepL — see scripts/translate.mjs).
 en/
