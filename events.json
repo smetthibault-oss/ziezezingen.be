@@ -42,6 +42,19 @@
     {
       "category": "own",
       "moreInfoUrl": "",
+      "date": "Di 20 okt - 20:00",
+      "location": "Testlocatie (dit is geen echt event)",
+      "title": "TEST-EVENEMENT",
+      "soldOut": false,
+      "image": "/assets/images/hero-slide-3.jpg",
+      "description": "Dit is een testevenement om de website te controleren. Het bestaat niet echt en verdwijnt weer.",
+      "ctaText": "Enkel een test",
+      "ctaUrl": "",
+      "eventDate": "2026-10-20"
+    },
+    {
+      "category": "own",
+      "moreInfoUrl": "",
       "date": "Za 7 nov - 14:00 - 17:30",
       "location": "Museum voor Schone Kunsten Gent, Fernand Scribedreef 1",
       "title": "Pop up Museum-koor!",
